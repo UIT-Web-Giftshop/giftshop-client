@@ -1,15 +1,19 @@
 <template>
   <v-app>
     <VHeader></VHeader>
+    <ProductPage></ProductPage>
   </v-app>
 </template>
 
 <script>
 import VHeader from './components/common/VHeader';
+import ProductPage from './components/product-detail/ProductPage';
+
 export default {
   name: 'App',
   components: {
     VHeader,
+    ProductPage
   },
   data: () => ({
     //

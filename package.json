@@ -12,7 +12,8 @@
     "sass": "^1.49.9",
     "vue": "^2.6.14",
     "vue-router": "^4.0.14",
-    "vuetify": "^2.6.0"
+    "vuetify": "^2.6.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
