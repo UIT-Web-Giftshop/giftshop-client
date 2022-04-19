@@ -12,7 +12,7 @@
       </div>
       <div class="header-right">
         <v-row justify="space-around">
-          <v-icon color="black"> mdi-message-text </v-icon>
+          <v-icon color="black"> mdi-heart-outline </v-icon>
           <v-icon color="black">mdi-account-outline</v-icon>
           <v-icon color="black">mdi-cart-outline</v-icon>
         </v-row>
