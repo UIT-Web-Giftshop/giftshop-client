@@ -1,15 +1,14 @@
 <template>
-  <hello-world />
+  <v-card> alibaba </v-card>
 </template>
 
-<script>
-import HelloWorld from '../components/HelloWorld';
 
+<script>
 export default {
   name: 'HomeView',
-
-  components: {
-    HelloWorld,
-  },
 };
 </script>
+
+
+<style lang = "scss" scoped>
+</style>

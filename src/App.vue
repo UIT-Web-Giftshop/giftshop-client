@@ -1,23 +1,21 @@
 <template>
-  <v-app>
-    <VHeader></VHeader>
-    <ProductPage></ProductPage>
-  </v-app>
+  <component :is="layout"> </component>
 </template>
 
 <script>
-import VHeader from './components/common/VHeader';
-import ProductPage from './components/product-detail/ProductPage';
-
+const default_layout = 'default';
 export default {
   name: 'App',
-  components: {
-    VHeader,
-    ProductPage
-  },
+  components: {},
   data: () => ({
     //
   }),
+
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || default_layout) + '-layout';
+    },
+  },
 };
 </script>
 <style lang="scss">
@@ -25,6 +23,6 @@ export default {
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 14px;
+  font-size: 100%;
 }
 </style>

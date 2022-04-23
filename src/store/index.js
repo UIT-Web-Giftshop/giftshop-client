@@ -1,13 +1,15 @@
-import getters from './getters'
-import actions from './actions'
-import mutations from './mutations'
-import state from './state'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import categories from './modules/categories'
 
-const storeConfig = {
-    state,
-    getters,
-    mutations,
-    actions,
+Vue.use(Vuex)
+Vue.config.devtools = true
+
+const storeData = {
+  modules: {
+     categories,
+  }
 }
 
-export default storeConfig
+const store = new Vuex.Store(storeData);
+export default store;
