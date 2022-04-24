@@ -11,6 +11,12 @@ export default [
     name: 'profile',
     meta: { layout: "no-navigation" },
     component: () =>
-        import ( /* webpackChunkName: "about" */ '../views/ProfileView.vue')
+      import( /* webpackChunkName: "about" */ '../views/ProfileView.vue')
+  },
+  {
+    path: '/home/list-product',
+    name: 'Home',
+    component: () =>
+        import ( /* webpackChunkName: "about" */ '../views/ListProduct')
   },
 ]
