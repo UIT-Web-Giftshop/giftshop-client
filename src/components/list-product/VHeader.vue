@@ -3,21 +3,17 @@
     <!-- <v-sheet height="400" class="overflow-hidden" style="position: relative"> -->
     <!-- <v-container class="fill-height"> -->
     <!-- <v-row align="center" justify="center"> -->
-    
-      <v-btn
-        color="pink"
-        fixed
-        dark
-        fab
-        right
-        top
-        @click.stop="drawer = !drawer"
+
+    <v-btn color="pink" fixed dark fab right top @click.stop="drawer = !drawer">
+      <v-badge
+        :content="countProductCart"
+        :value="countProductCart"
+        color="black"
+        overlap
       >
-      <v-badge :content="countProductCart" :value="countProductCart" color="black" overlap>
         <v-icon dark>mdi-cart-outline</v-icon>
       </v-badge>
-
-      </v-btn>
+    </v-btn>
     <!-- </v-row> -->
     <!-- </v-container> -->
 
@@ -82,7 +78,6 @@
           style="text-transform: none; font-size: 15px"
           width="150px"
           dark
-          
         >
           Check out
         </v-btn>
@@ -173,28 +168,28 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import VProductMiniCard from "./VProductMiniCard.vue";
+import { mapActions, mapGetters } from 'vuex';
+import VProductMiniCard from './VProductMiniCard.vue';
 export default {
-  name: "VHeader",
+  name: 'VHeader',
   components: {
     VProductMiniCard,
   },
   data() {
     return {
       sheet: false,
-      items: ["Foo", "Bar", "Fizz", "Buzz"],
+      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
       drawer: null,
       items_s: [
-        { title: "Home", icon: "mdi-view-dashboard" },
-        { title: "About", icon: "mdi-forum" },
+        { title: 'Home', icon: 'mdi-view-dashboard' },
+        { title: 'About', icon: 'mdi-forum' },
       ],
     };
   },
   computed: {
     ...mapGetters({
-      getProductCart: "cart/getProductCart",
-      countProductCart: "cart/countProductCart"
+      getProductCart: 'cart/getProductCart',
+      countProductCart: 'cart/countProductCart',
     }),
   },
   methods: {
@@ -204,7 +199,7 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
 </style>
 
 <style lang = "scss" scoped>

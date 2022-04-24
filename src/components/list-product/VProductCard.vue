@@ -30,12 +30,11 @@
         dark
         style="text-transform: none"
         width="100px"
-        
         @click="buyProduct(product_info)"
       >
         Buy
       </v-btn>
-      
+
       <v-btn color="black" text style="text-transform: none; margin-left: 20px">
         More info
       </v-btn>
@@ -44,10 +43,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 // import VProductMiniCard from "./VProductMiniCard.vue";
 export default {
-  name: "VProductCard",
+  name: 'VProductCard',
   data() {
     return {
       sheet: false,
@@ -63,8 +62,8 @@ export default {
   },
   mounted() {
     // console.log(sessionStorage.getItem("cart"));
-    if (sessionStorage.getItem("cart") !== null)
-      this.createProductCart(JSON.parse(sessionStorage.getItem("cart")));
+    if (sessionStorage.getItem('cart') !== null)
+      this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
   },
   watch: {
     loader() {
@@ -80,18 +79,18 @@ export default {
       this.addProduct(product);
     },
     ...mapActions({
-      addProduct: "cart/addProduct",
-      createProductCart: "cart/createProductCart",
+      addProduct: 'cart/addProduct',
+      createProductCart: 'cart/createProductCart',
     }),
   },
   computed: {
     ...mapGetters({
-      getProductCart: "cart/getProductCart",
+      getProductCart: 'cart/getProductCart',
     }),
     toMoney: function () {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
+      return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
       }).format(this.product_info.price);
     },
   },
@@ -100,14 +99,14 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Open+Sans:ital,wght@1,300&family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Roboto+Mono:wght@100;400&family=Tapestry&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Open+Sans:ital,wght@1,300&family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Roboto+Mono:wght@100;400&family=Tapestry&display=swap');
 </style>
 
 <style lang = "scss" scoped>
 .font,
 h1,
 .item-name {
-  font-family: "Roboto Mono", monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 25px;
 }
 .price {
