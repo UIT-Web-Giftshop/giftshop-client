@@ -130,3 +130,190 @@
     }
   ]
 }
+    "categories": [
+        { "categoryId": 1, "title": "New" },
+        { "categoryId": 2, "title": "Lifestyle" },
+        { "categoryId": 3, "title": "Children" },
+        { "categoryId": 4, "title": "Gifts" },
+        { "categoryId": 5, "title": "Mother's day" }
+    ],
+    "products": [
+        {
+            "SKU": "1",
+            "srcs": [
+                "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
+            ],
+            "name": "Make Your Own Motorised Dinosaur",
+            "price": 123,
+            "isInStock": false,
+            "description": "This DIY kit contains everything you need to build a motorised model dinosaur! This clever kit makes use of a battery-powered motor to make the dinosaur walk. Suitable for children aged 8+.\nIncludes instruction booklet, sanding board, glue and relevant components\nPrimarily made of wooden construction  \nRequires 2 × AA batteries (not included) \nCaution! Not suitable for children under 3 years old. Choking hazard due to small parts. Please ensure all instructions and warnings are read carefully before building the model. Some of the metal components might have sharp edges, so adult assistance is required when building and using the model.",
+            "detail": {
+                "material": "Metal, Plastic, Foam, Adhesive, Metal Wire, Plywood",
+                "dimensions": "26 × 10 × 17.5 cm",
+                "product_code": "1235234"
+            },
+            "quantity": 100,
+            "related": [
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                }
+            ]
+        },
+        {
+            "SKU": "2",
+            "srcs": [
+                "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+                "https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
+            ],
+            "name": "Make Your Own Motorised Dinosaur",
+            "price": 123,
+            "isInStock": false,
+            "description": "This DIY kit contains everything you need to build a motorised model dinosaur! This clever kit makes use of a battery-powered motor to make the dinosaur walk. Suitable for children aged 8+.\nIncludes instruction booklet, sanding board, glue and relevant components\nPrimarily made of wooden construction  \nRequires 2 × AA batteries (not included) \nCaution! Not suitable for children under 3 years old. Choking hazard due to small parts. Please ensure all instructions and warnings are read carefully before building the model. Some of the metal components might have sharp edges, so adult assistance is required when building and using the model.",
+            "detail": {
+                "material": "Metal, Plastic, Foam, Adhesive, Metal Wire, Plywood",
+                "dimensions": "26 × 10 × 17.5 cm",
+                "product_code": "1235234"
+            },
+            "quantity": 100,
+            "related": [
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                },
+                {
+                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "name": "Make Your Own Motorised Dinosaur",
+                    "price": 100
+                }
+            ]
+        }
+    ],
+    "users": [
+        {
+            "id":"1235",
+            "info": {},
+            "orders": [
+                {
+                    "id": "#rgcmrosgeo",
+                    "delivery_detail": {
+                        "name": "Minh Thắng",
+                        "address": "Bình Thuận",
+                        "contact_number": "01234677",
+                        "note": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
+                    },
+                    "ordered_list": [
+                        {
+                            "SKU": "1",
+                            "srcs": [
+                                "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                                "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+                                "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+                                "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+                                "https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
+                            ],
+                            "name": "Make Your Own Motorised Dinosaur",
+                            "price": 123,
+                            "isInStock": false,
+                            "description": "This DIY kit contains everything you need to build a motorised model dinosaur! This clever kit makes use of a battery-powered motor to make the dinosaur walk. Suitable for children aged 8+.\nIncludes instruction booklet, sanding board, glue and relevant components\nPrimarily made of wooden construction  \nRequires 2 × AA batteries (not included) \nCaution! Not suitable for children under 3 years old. Choking hazard due to small parts. Please ensure all instructions and warnings are read carefully before building the model. Some of the metal components might have sharp edges, so adult assistance is required when building and using the model.",
+                            "detail": {
+                                "material": "Metal, Plastic, Foam, Adhesive, Metal Wire, Plywood",
+                                "dimensions": "26 × 10 × 17.5 cm",
+                                "product_code": "1235234"
+                            },
+                            "quantity": 100,
+                            "related": [
+                                {
+                                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                                    "name": "Make Your Own Motorised Dinosaur",
+                                    "price": 100
+                                },
+                                {
+                                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                                    "name": "Make Your Own Motorised Dinosaur",
+                                    "price": 100
+                                },
+                                {
+                                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                                    "name": "Make Your Own Motorised Dinosaur",
+                                    "price": 100
+                                },
+                                {
+                                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                                    "name": "Make Your Own Motorised Dinosaur",
+                                    "price": 100
+                                },
+                                {
+                                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                                    "name": "Make Your Own Motorised Dinosaur",
+                                    "price": 100
+                                },
+                                {
+                                    "src": "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                                    "name": "Make Your Own Motorised Dinosaur",
+                                    "price": 100
+                                }
+                            ]
+                        }
+                    ],
+                    "status": "deliveried"
+                }
+            ]
+        }
+    ],
+    "status": ["deliveried","progressing","delivering","canceling"]
+}

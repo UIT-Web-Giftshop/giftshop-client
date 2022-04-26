@@ -7,7 +7,7 @@
                         <v-carousel-item
                             v-for="(src, i) in product.srcs"
                             :key="i"
-                            :src="src.src"
+                            :src="src"
                             reverse-transition="fade-transition"
                             transition="fade-transition"
                         ></v-carousel-item> </v-carousel
@@ -47,7 +47,7 @@
                                                 class="ma-4"
                                                 height="100"
                                                 width="100"
-                                                :src="src.src"
+                                                :src="src"
                                             ></v-img>
                                         </v-scale-transition>
                                     </v-row>
@@ -206,7 +206,7 @@
                         >
                         </v-img>
                         <v-card-subtitle class="text-body-2 text-center">
-                            {{ readMoreHandler( src.name ,5)}}
+                            {{ readMoreHandler(src.name, 5) }}
                         </v-card-subtitle>
                         <v-card-text
                             class="text-body-1 font-weight-bold text-center"
@@ -221,16 +221,17 @@
 </template>
 
 <script>
+import axios from "axios";
 //function
 const sliceFunction = function (data, numberOfWord) {
     var arraySplited = data.split(" ");
-    var result
+    var result;
     if (arraySplited.length > numberOfWord) {
         var arraySliced = arraySplited.slice(0, numberOfWord);
         result = arraySliced.join(" ");
-        result += "..."
-    }  else {
-        result = data
+        result += "...";
+    } else {
+        result = data;
     }
     return result;
 };
@@ -257,92 +258,16 @@ const uppercaseFirstLetter = function (word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
 };
 //
-// data
-var product = {
-    srcs: [
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
-        },
-    ],
-    name: "Make Your Own Motorised Dinosaur",
-    price: 123,
-    isInStock: false,
-    description:
-        "This DIY kit contains everything you need to build a motorised model dinosaur! This clever kit makes use of a battery-powered motor to make the dinosaur walk. Suitable for children aged 8+.\nIncludes instruction booklet, sanding board, glue and relevant components\nPrimarily made of wooden construction  \nRequires 2 × AA batteries (not included) \nCaution! Not suitable for children under 3 years old. Choking hazard due to small parts. Please ensure all instructions and warnings are read carefully before building the model. Some of the metal components might have sharp edges, so adult assistance is required when building and using the model.",
-    detail: {
-        material: "Metal, Plastic, Foam, Adhesive, Metal Wire, Plywood",
-        dimensions: "26 × 10 × 17.5 cm",
-        product_code: "1235234",
-    },
-    quantity: 100,
-    related: [
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },{
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },{
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },{
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },{
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },
-        {
-            src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
-            name: "Make Your Own Motorised Dinosaur",
-            price: 100,
-        },
-    ],
-};
-var user = {
-    isFavorite: true,
-};
-//
 export default {
     name: "ProductPage",
     components: {},
+    data: () => ({
+        carouselModel: 0,
+        isReadMore: true,
+        user: {},
+        product: {},
+        selected: 1,
+    }),
     methods: {
         readMoreHandler(data, numberOfWord) {
             return sliceFunction(data, numberOfWord);
@@ -356,15 +281,23 @@ export default {
         },
         createSelectArray,
         createStructureForDetail,
+        async getProduct() {
+            try {
+                const response = await axios.get(
+                    `http://localhost:5000/products/?SKU=${this.$route.params.sku}`
+                );
+                this.product = response.data[0];
+            } catch (e) {
+                console.log(e)
+            }
+        },
     },
-    data: () => ({
-        carouselModel: 0,
-        isReadMore: true,
-        user,
-        product,
-        selected: 1,
-    }),
-    create() {},
+    created() {
+        this.user = {
+            isFavorite: false,
+        };
+        this.getProduct();
+    },
     props: {},
 };
 </script>
