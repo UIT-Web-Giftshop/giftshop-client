@@ -20,5 +20,10 @@ export default [
     path: '/ordered',
     name: 'Ordered',
     component: () => import ('../views/OrderedView.vue')
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: () => import ('../views/CheckoutView.vue')
   }
 ]
