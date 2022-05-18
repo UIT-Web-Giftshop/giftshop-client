@@ -9,7 +9,7 @@
           src="https://www.rexlondon.com/sites/default/files/styles/product_teaser/public/2022-02/29621_1-baby-first-book-numbers.png?itok=Qn4V6M6f"
         >
           <v-fade-transition>
-            <v-overlay v-if="hover" absolute color="#036358">
+            <v-overlay v-if="hover" absolute co lor="#036358">
               <v-btn color="white" class="black--text">See more info</v-btn>
             </v-overlay>
           </v-fade-transition>
@@ -17,11 +17,11 @@
       </template>
     </v-hover>
 
-    <v-card-title class="font">Áo mưa violet</v-card-title>
+    <v-card-title class="font">{{ product_info.title }}</v-card-title>
 
     <v-card-subtitle class="pb-0 pt-3 font-weight-bold price">
-      £4.95</v-card-subtitle
-    >
+      {{  toMoney }}
+    </v-card-subtitle>
 
     <v-card-actions style="margin-top: 25px">
       <div class="text-center">
@@ -37,6 +37,7 @@
                   width="100px"
                   v-bind="attrs"
                   v-on="on"
+                  @click="buyProduct(product_info)"
                 >
                   Buy
                 </v-btn>
@@ -50,11 +51,19 @@
                 <template>
                   <div style="text-align: left">
                     <h1 class="mb-5">Shopping bag</h1>
-                    <VProductMiniCard></VProductMiniCard>
                   </div>
+                  <v-row
+                    v-for="(product, index) in getProductCart"
+                    :key="index"
+                  >
+                    <VProductMiniCard :product="product" :number="product.number"></VProductMiniCard>
+                  </v-row>
                 </template>
                 <template>
-                  <div class="text-center ma-5" style="display: flex; justify-content:space-around">
+                  <div
+                    class="text-center ma-5"
+                    style="display: flex; justify-content: space-around"
+                  >
                     <v-btn
                       text
                       class="grey_darken_1--text"
@@ -71,7 +80,7 @@
                       width="200px"
                       dark
                     >
-                      Apply
+                      Check out
                     </v-btn>
                   </div>
                 </template>
@@ -79,9 +88,6 @@
             </v-sheet>
           </v-bottom-sheet>
         </template>
-        <!-- <v-btn rounded color="teal_lighten_2" dark style="text-transform: none">
-          Buy now
-        </v-btn> -->
       </div>
       <v-btn color="black" text style="text-transform: none; margin-left: 35%">
         More info
@@ -91,6 +97,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import VProductMiniCard from "./VProductMiniCard.vue";
 export default {
   name: "VProductCard",
@@ -101,6 +108,19 @@ export default {
       loading: false,
     };
   },
+  props: {
+    product_info: {
+      title: String,
+      price: Number,
+    },
+  },
+  mounted() {
+    if (sessionStorage.getItem('cart') !== null)
+      this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
+  },
+  destroyed(){
+    sessionStorage.setItem('cart', JSON.stringify(this.getProductCart()));
+  },
   watch: {
     loader() {
       const l = this.loader;
@@ -108,6 +128,24 @@ export default {
       setTimeout(() => (this[l] = false), 3000);
       this.loader = null;
     },
+  },
+  methods: {
+    buyProduct: function (product) {
+      console.log(product);
+      this.addProduct(product);
+    },
+    ...mapActions({
+      addProduct: "cart/addProduct",
+      createProductCart: "cart/createProductCart"
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      getProductCart: "cart/getProductCart",
+    }),
+    toMoney: function() {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.product_info.price);
+    }
   },
   components: { VProductMiniCard },
 };

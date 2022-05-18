@@ -4,8 +4,6 @@
     <VProductGrid></VProductGrid>
   </div>
 </template> 
-
-
 <script>
 import VHeader from "@/components/list-product/VHeader.vue";
 import VProductGrid from "@/components/list-product/VProductGrid.vue";
