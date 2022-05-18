@@ -89,10 +89,10 @@
               <v-text-field
                 label="Confirm Password"
                 validate-on-blur
-                v-model="user.password"
-                :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="showPass = !showPass"
-                :type="showPass ? 'text' : 'password'"
+                v-model="user.confirmPassword"
+                :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showConfirmPassword = !showConfirmPassword"
+                :type="showConfirmPassword ? 'text' : 'password'"
                 :rules="confirmPasswordRules"
                 outlined
               ></v-text-field>
@@ -145,6 +145,7 @@ export default {
 
   data() {
     return {
+      showConfirmPassword: false,
       showPass: false,
       isLogin: true,
       showDialog: false,
@@ -219,7 +220,7 @@ export default {
         console.log('ok');
         const isSuccess = await this.register(this.user);
         if (isSuccess) {
-          this.close();
+          this.changeType();
         } else this.errorMessages = 'Oops, Something went wrong!';
       }
     },

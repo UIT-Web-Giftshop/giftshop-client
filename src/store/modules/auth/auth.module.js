@@ -6,7 +6,6 @@ const initialState = user
  const AuthModule = {
   namespaced: true,
    state: initialState,
-  
 
 
   actions: {
@@ -28,6 +27,7 @@ const initialState = user
       AuthService.logout();
       commit('LOGOUT');
     },
+    
     register({ commit }, user) {
       return AuthService.register(user).then(
         () => {

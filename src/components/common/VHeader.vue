@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
     <div class="header-top">Free standard UK delivery for orders over £50</div>
     <div class="header-content">
       <div class="header-left">
@@ -15,16 +15,16 @@
           <v-btn icon>
             <v-icon color="black"> mdi-heart-outline </v-icon>
           </v-btn>
-          <v-menu content-class="menu-account" offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" icon>
-                <v-icon color="black">mdi-account-outline</v-icon>
-              </v-btn>
-            </template>
+          <!-- <v-menu content-class="menu-account" offset-y>
+            <template v-slot:activator="{ on, attrs }"> -->
+          <v-btn v-bind="attrs" v-on="on" icon @click="handleClickAccount">
+            <v-icon color="black">mdi-account-outline</v-icon>
+          </v-btn>
+          <!-- </template>
             <v-card width="300px">
               <span>alibaba</span>
             </v-card>
-          </v-menu>
+          </v-menu> -->
           <!-- <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn v-bind="attrs" v-on="on" icon>
@@ -112,10 +112,11 @@ export default {
 
   &-content {
     display: flex;
-    height: 125px;
+    height: 100px;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px 0 20px;
+    /* border-bottom: 1px solid #cccc; */
     /* background-color: red; */
   }
 
