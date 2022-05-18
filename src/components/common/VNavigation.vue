@@ -20,14 +20,13 @@ export default {
       categories: [],
     };
   },
-
   created() {
     this.getCategories();
   },
 
   methods: {
     async getCategories() {
-      const response = await axios.get('api/categories');
+      const response = await axios.get('http://localhost:5000/categories');
       console.log(response.data);
       this.categories = response.data;
     },
