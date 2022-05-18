@@ -15,8 +15,8 @@ export default [
   },
   {
     path: '/home/list-product',
-    name: 'Home',
+    name: 'list-product',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/ListProduct')
-  },
+  }
 ]

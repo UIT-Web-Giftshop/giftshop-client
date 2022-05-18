@@ -30,17 +30,16 @@ export default {
       ],
     };
   },
-
   // created() {
   //   this.getCategories();
   // },
 
   methods: {
-    async getCategories() {
-      // const response = await axios.get('api/categories');
-      // console.log(response.data);
-      // this.categories = response.data;
-    },
+    // async getCategories() {
+    //   const response = await axios.get('http://localhost:5000/categories');
+    //   console.log(response.data);
+    //   this.categories = response.data;
+    // },
   },
 };
 </script>
