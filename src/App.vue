@@ -1,5 +1,7 @@
 <template>
-  <component :is="layout"> </component>
+  <v-app>
+    <component :is="layout"> </component>
+  </v-app>
 </template>
 
 <script>
@@ -19,10 +21,11 @@ export default {
 };
 </script>
 <style lang="scss">
+@import './styles/variables.scss';
+
 #app {
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: 'Nunito Sans', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 100%;
 }
 </style>
