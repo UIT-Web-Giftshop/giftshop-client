@@ -9,7 +9,7 @@
           src="https://www.rexlondon.com/sites/default/files/styles/product_teaser/public/2022-02/29621_1-baby-first-book-numbers.png?itok=Qn4V6M6f"
         >
           <v-fade-transition>
-            <v-overlay v-if="hover" absolute color="#036358">
+            <v-overlay v-if="hover" absolute co lor="#036358">
               <v-btn color="white" class="black--text">See more info</v-btn>
             </v-overlay>
           </v-fade-transition>
