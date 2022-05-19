@@ -1,13 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import categories from './modules/categories'
+import auth from './modules/auth/auth.module'
+import notice from './modules/notice'
 
 Vue.use(Vuex)
 Vue.config.devtools = true
 
 const storeData = {
   modules: {
-     categories,
+    categories,
+    auth,
+    notice
   }
 }
 

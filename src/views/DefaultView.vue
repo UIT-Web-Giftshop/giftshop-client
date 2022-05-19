@@ -9,10 +9,12 @@
         </v-scroll-x-transition>
       </div>
     </v-main>
+    <app-notification />
   </v-app>
 </template>
 
 <script>
+import AppNotification from '../components/common/notification';
 import VHeader from '../components/common/VHeader.vue';
 import VNavigation from '../components/common/VNavigation.vue';
 export default {
@@ -20,6 +22,7 @@ export default {
   components: {
     VHeader,
     VNavigation,
+    AppNotification,
   },
 };
 </script>
