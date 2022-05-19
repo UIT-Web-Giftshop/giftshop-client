@@ -1,15 +1,15 @@
 <template>
-  <v-card class="mx-auto" style="width: 90%" outlined>
+  <v-card class="mx-auto" style="width: 90%; margin-bottom: 12px;" outlined>
     <v-list-item three-line>
       <v-list-item-content>
         <div class="text-overline mb-2 font-weight-bold item-name">
           Just Arrived
         </div>
-        <v-list-item-title class="mb-1" style="font-size: 20px">
+        <div class="title">
           {{product.title}}
-        </v-list-item-title>
+        </div>
         <template>
-          <div style="display: flex; justify-content: space-around">
+          <div style="display: flex; justify-content: space-between;">
             <v-list-item-subtitle> Giá: {{ toMoney(product.price, 1) }}</v-list-item-subtitle>
             <v-list-item-subtitle> SL: {{ number }} </v-list-item-subtitle>
             <v-list-item-subtitle> Tổng: {{ toMoney(product.price, product.number) }} </v-list-item-subtitle>
@@ -17,7 +17,7 @@
         </template>
       </v-list-item-content>
 
-      <v-list-item-avatar tile size="70" color="grey">
+      <v-list-item-avatar tile size="32" color="grey">
         <v-img
           src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
         ></v-img>

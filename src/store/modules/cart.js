@@ -6,18 +6,12 @@ const cart = {
     state() {
         return {
             products_cart: [
-              // {
-              //   id: '',
-              //   title: '',
-              //   price: 0,
-              //   number: 0
-              // }
             ],
         }
     },
     getters: {
-       getProductCart: (state) => state.products_cart
-
+      getProductCart: (state) => state.products_cart,
+      countProductCart: (state) => state.products_cart.length
     },
     mutations: {
         setProductList (state, list_products) {

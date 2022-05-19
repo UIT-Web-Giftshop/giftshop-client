@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin-top: 50px; margin-left: 10px" width="300">
+  <v-card style="margin-top: 50px; margin-left: 2px" width="300px">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-img
@@ -20,11 +20,23 @@
     <v-card-title class="font">{{ product_info.title }}</v-card-title>
 
     <v-card-subtitle class="pb-0 pt-3 font-weight-bold price">
-      {{  toMoney }}
+      {{ toMoney }}
     </v-card-subtitle>
 
     <v-card-actions style="margin-top: 25px">
-      <div class="text-center">
+      <v-btn
+        rounded
+        color="teal_lighten_2"
+        dark
+        style="text-transform: none"
+        width="100px"
+        v-bind="attrs"
+        v-on="on"
+        @click="buyProduct(product_info)"
+      >
+        Buy
+      </v-btn>
+      <!-- <div class="text-center">
         <template>
           <v-bottom-sheet v-model="sheet" inset width="fit-content">
             <template v-slot:activator="{ on, attrs }">
@@ -88,8 +100,8 @@
             </v-sheet>
           </v-bottom-sheet>
         </template>
-      </div>
-      <v-btn color="black" text style="text-transform: none; margin-left: 35%">
+      </div> -->
+      <v-btn color="black" text style="text-transform: none; margin-left: 20px">
         More info
       </v-btn>
     </v-card-actions>
@@ -98,7 +110,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import VProductMiniCard from "./VProductMiniCard.vue";
+// import VProductMiniCard from "./VProductMiniCard.vue";
 export default {
   name: "VProductCard",
   data() {
@@ -115,11 +127,11 @@ export default {
     },
   },
   mounted() {
-    if (sessionStorage.getItem('cart') !== null)
-      this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
+    if (sessionStorage.getItem("cart") !== null)
+      this.createProductCart(JSON.parse(sessionStorage.getItem("cart")));
   },
-  destroyed(){
-    sessionStorage.setItem('cart', JSON.stringify(this.getProductCart()));
+  destroyed() {
+    sessionStorage.setItem("cart", JSON.stringify(this.getProductCart()));
   },
   watch: {
     loader() {
@@ -136,18 +148,21 @@ export default {
     },
     ...mapActions({
       addProduct: "cart/addProduct",
-      createProductCart: "cart/createProductCart"
+      createProductCart: "cart/createProductCart",
     }),
   },
   computed: {
     ...mapGetters({
       getProductCart: "cart/getProductCart",
     }),
-    toMoney: function() {
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.product_info.price);
-    }
+    toMoney: function () {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(this.product_info.price);
+    },
   },
-  components: { VProductMiniCard },
+  // components: { VProductMiniCard },
 };
 </script>
 

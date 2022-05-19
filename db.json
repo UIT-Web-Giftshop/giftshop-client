@@ -12,7 +12,17 @@
     { "id": 3, "title": "Móc khóa abc", "price": 450000},
     { "id": 4, "title": "Khóa thông minh", "price": 450000},
     { "id": 5, "title": "Áo lớp", "price": 450000},
-    { "id": 6, "title": "Áo lớp", "price": 450000}
+    { "id": 6, "title": "Áo lớp", "price": 450000},
+    { "id": 7, "title": "Áo lớp", "price": 450000},
+    { "id": 8, "title": "Áo lớp", "price": 450000},
+    { "id": 9, "title": "Áo lớp", "price": 450000},
+    { "id": 10, "title": "Áo lớp", "price": 450000},
+    { "id": 11, "title": "Áo lớp", "price": 450000},
+    { "id": 12, "title": "Áo lớp", "price": 450000},
+    { "id": 13, "title": "Áo lớp", "price": 450000},
+    { "id": 14, "title": "Áo lớp", "price": 450000},
+    { "id": 15, "title": "Áo lớp", "price": 450000},
+    { "id": 16, "title": "Áo lớp", "price": 450000}
   ],
   "shopping_cart": [
     { "title": "Áo mưa Violet", "price": "£4.95", "number": 18},
