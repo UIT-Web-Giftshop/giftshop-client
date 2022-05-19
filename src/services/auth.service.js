@@ -1,32 +1,34 @@
-import axios from 'axios';
-const API_URL = "https://18.166.73.221/api/auths/";
+
+import { $http } from '../plugins/http-wrapper'
 class AuthService {
   login(user) {
     console.log(user);
-    return axios
-      .post(API_URL + 'signin', {
+    return $http
+      .post('auths/signin', {
         email: user.email,
         password: user.password
       })
       .then(response => {
-        const {data} = response.data
+        console.log(response);
+        const {data} = response
         if (data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(data));
+          $http.setAccessToken(data.accessToken);
         }
-        return data;
+        return response.data;
       });
   }
   logout() {
-    localStorage.removeItem('user');
+    $http.removeAccessToken();
   }
   register(user) {
-    return axios.post(API_URL + 'signup', {
-      comfirmPassword: user.comfirmPassword,
+    console.log(user);
+    return $http.post('auths/signup', {
+      confirmPassword: user.confirmPassword,
       email: user.email,
       password: user.password
     }).then(response => {
    
-      return response.data.success;
+      return response.success;
     })
   }
 }

@@ -15,16 +15,24 @@
           <v-btn icon>
             <v-icon color="black"> mdi-heart-outline </v-icon>
           </v-btn>
-          <!-- <v-menu content-class="menu-account" offset-y>
-            <template v-slot:activator="{ on, attrs }"> -->
-          <v-btn v-bind="attrs" v-on="on" icon @click="handleClickAccount">
-            <v-icon color="black">mdi-account-outline</v-icon>
-          </v-btn>
-          <!-- </template>
-            <v-card width="300px">
-              <span>alibaba</span>
-            </v-card>
-          </v-menu> -->
+          <v-menu
+            :close-on-click="closeModal"
+            :close-on-content-click="closeOnContentClick"
+            offset-y
+            nudge-bottom="6px"
+            nudge-left="3px"
+            left
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" icon @click="handleClickAccount">
+                <v-icon color="black">mdi-account-outline</v-icon>
+              </v-btn>
+            </template>
+            <ModalAccount
+              v-if="showModal"
+              @close="handleModalAccount"
+            ></ModalAccount>
+          </v-menu>
           <!-- <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn v-bind="attrs" v-on="on" icon>
@@ -54,10 +62,12 @@
 <script>
 import { mapState } from 'vuex';
 import Login from './Login.vue';
+import ModalAccount from '../ModalAccount.vue';
 export default {
   name: 'VHeader',
   components: {
     Login,
+    ModalAccount,
   },
 
   computed: {
@@ -66,42 +76,38 @@ export default {
 
   data() {
     return {
+      showModal: false,
       showLogin: false,
+      closeModal: false,
+      closeOnContentClick: false,
     };
   },
 
   methods: {
     handleClickAccount() {
-      // if (!this.isLoggedIn)
-      this.showLogin = true;
+      console.log(this.status.loggedIn);
+      if (!this.status.loggedIn) {
+        this.showLogin = true;
+        this.showModal = false;
+      } else {
+        this.showLogin = false;
+        this.showModal = true;
+        this.handleModalAccount();
+      }
     },
 
     closeLogin() {
       this.showLogin = false;
+    },
+
+    handleModalAccount() {
+      this.closeOnContentClick = !this.closeOnContentClick;
     },
   },
 };
 </script>
 
 <style lang = "scss" scoped>
-.menu-account {
-  margin-top: 10px;
-  contain: initial;
-  overflow: visible;
-}
-.menu-account::before {
-  position: absolute;
-  content: '';
-  top: 0;
-  right: 10px;
-  transform: translateY(-100%);
-  width: 10px;
-  height: 13px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 13px solid #fff;
-}
-
 .header {
   &-top {
     background-color: #f4f4f4;

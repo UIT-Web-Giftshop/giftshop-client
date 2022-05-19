@@ -11,25 +11,31 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
   name: 'VNavigation',
   data() {
     return {
       model: '',
-      categories: [],
+      categories: [
+        { categoryId: 1, title: 'New' },
+        { categoryId: 2, title: 'Lifestyle' },
+        { categoryId: 3, title: 'Children' },
+        { categoryId: 4, title: 'Gifts' },
+        { categoryId: 5, title: "Mother's day" },
+      ],
     };
   },
 
-  created() {
-    this.getCategories();
-  },
+  // created() {
+  //   this.getCategories();
+  // },
 
   methods: {
     async getCategories() {
-      const response = await axios.get('api/categories');
-      console.log(response.data);
-      this.categories = response.data;
+      // const response = await axios.get('api/categories');
+      // console.log(response.data);
+      // this.categories = response.data;
     },
   },
 };
