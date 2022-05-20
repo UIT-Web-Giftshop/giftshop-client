@@ -283,10 +283,12 @@ export default {
         createStructureForDetail,
         async getProduct() {
             try {
+                
                 const response = await axios.get(
-                    `http://localhost:5000/products/?SKU=${this.$route.params.sku}`
+                    `https://18.166.73.221/api/products/sku/${this.$route.params.sku}`
                 );
-                this.product = response.data[0];
+                this.product = response.data;
+                console.log(this.product)
             } catch (e) {
                 console.log(e)
             }
