@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+    <h1 id="header">Shopping Bag</h1>
   </div>
 </template>
 
@@ -39,8 +39,8 @@ export default {
 
 <style lang = "scss" scoped>
 #header {
-  font-family: "Pacifico", cursive;
-  font-size: 70px;
-  font-weight: 200;
+  // font-family: "Pacifico", cursive;
+  font-size: 30px;
+  font-weight: 600;
 }
 </style>
