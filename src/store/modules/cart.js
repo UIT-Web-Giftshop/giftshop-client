@@ -16,7 +16,7 @@ const cart = {
     mutations: {
         setProductList (state, list_products) {
             state.products_cart = list_products;
-            console.log(state.products_cart);
+            // console.log(state.products_cart);
         },
         addProduct(state, product) {
           for (let i = 0; i < state.products_cart.length; i++)
@@ -25,16 +25,18 @@ const cart = {
               {
                 product.number = state.products_cart[i].number + 1;
                 state.products_cart.splice(i, 1, product);
+                sessionStorage.setItem("cart", JSON.stringify(state.products_cart));
                 return;
               }
           }
           product.number = 1;
           state.products_cart.push(product);
+          sessionStorage.setItem("cart", JSON.stringify(state.products_cart));
         }
     },
     actions: {
         createProductCart(context, list_product){
-          console.log("okkkk");
+          // console.log("okkkk");
           context.commit('setProductList', list_product);
         },
         addProduct(context, product){

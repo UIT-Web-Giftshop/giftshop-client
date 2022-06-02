@@ -6,7 +6,6 @@
     
       <v-btn
         color="pink"
-        v-model="fab"
         fixed
         dark
         fab
@@ -73,6 +72,7 @@
           style="text-transform: none; font-size: 15px"
           width="150px"
           dark
+          href="/home/cart-page"
         >
           Edit shopping bag
         </v-btn>
@@ -82,6 +82,7 @@
           style="text-transform: none; font-size: 15px"
           width="150px"
           dark
+          
         >
           Check out
         </v-btn>

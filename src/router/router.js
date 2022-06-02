@@ -18,5 +18,11 @@ export default [
     name: 'list-product',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/ListProduct')
+  },
+  {
+    path: '/home/cart-page',
+    name: 'cart-page',
+    component: () =>
+        import ( /* webpackChunkName: "about" */ '../views/CartPage')
   }
 ]

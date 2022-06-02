@@ -9,7 +9,7 @@
       transition="fade-transition"
     >
       <v-row dense>
-        <v-col :cols="auto" v-for="(product, index) in getProducts" :key="index">
+        <v-col v-for="(product, index) in getProducts" :key="index">
           <VProductCard :product_info="product"></VProductCard>
         </v-col>
       </v-row>

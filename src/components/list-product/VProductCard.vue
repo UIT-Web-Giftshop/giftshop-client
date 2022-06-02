@@ -30,77 +30,12 @@
         dark
         style="text-transform: none"
         width="100px"
-        v-bind="attrs"
-        v-on="on"
+        
         @click="buyProduct(product_info)"
       >
         Buy
       </v-btn>
-      <!-- <div class="text-center">
-        <template>
-          <v-bottom-sheet v-model="sheet" inset width="fit-content">
-            <template v-slot:activator="{ on, attrs }">
-              <div class="text-center">
-                <v-btn
-                  rounded
-                  color="teal_lighten_2"
-                  dark
-                  style="text-transform: none"
-                  width="100px"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click="buyProduct(product_info)"
-                >
-                  Buy
-                </v-btn>
-              </div>
-            </template>
-            <v-sheet class="text-center" height="700px" width="700px">
-              <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
-                close
-              </v-btn>
-              <div class="my-3" style="padding: 10px">
-                <template>
-                  <div style="text-align: left">
-                    <h1 class="mb-5">Shopping bag</h1>
-                  </div>
-                  <v-row
-                    v-for="(product, index) in getProductCart"
-                    :key="index"
-                  >
-                    <VProductMiniCard :product="product" :number="product.number"></VProductMiniCard>
-                  </v-row>
-                </template>
-                <template>
-                  <div
-                    class="text-center ma-5"
-                    style="display: flex; justify-content: space-around"
-                  >
-                    <v-btn
-                      text
-                      class="grey_darken_1--text"
-                      style="text-transform: none; font-size: 18px"
-                      width="200px"
-                      dark
-                    >
-                      Edit shopping bag
-                    </v-btn>
-                    <v-btn
-                      rounded
-                      color="teal_lighten_2"
-                      style="text-transform: none; font-size: 18px"
-                      width="200px"
-                      dark
-                    >
-                      Check out
-                    </v-btn>
-                  </div>
-                </template>
-              </div>
-            </v-sheet>
-          </v-bottom-sheet>
-        </template>
-      </div> -->
+      
       <v-btn color="black" text style="text-transform: none; margin-left: 20px">
         More info
       </v-btn>
@@ -127,11 +62,9 @@ export default {
     },
   },
   mounted() {
+    // console.log(sessionStorage.getItem("cart"));
     if (sessionStorage.getItem("cart") !== null)
       this.createProductCart(JSON.parse(sessionStorage.getItem("cart")));
-  },
-  destroyed() {
-    sessionStorage.setItem("cart", JSON.stringify(this.getProductCart()));
   },
   watch: {
     loader() {
