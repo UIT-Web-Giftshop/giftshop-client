@@ -15,13 +15,16 @@ const list_products = {
     mutations: {
         setProductList (state, list_products) {
             state.products = list_products;
+            console.log("ok");
             console.log(state.products);
         }
     },
     actions: {
         async getProductsFromServer (context) {
-            context.commit('setProductList', await (await axios.get(connect_string_server)).data);
-            return Promise.resolve();
+            const response = await axios.get(connect_string_server)
+            // context.commit('setProductList', await axios.get(connect_string_server).data);
+            context.commit('setProductList', response.data);
+            // return Promise.resolve();
         },
     },
 

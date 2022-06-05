@@ -209,8 +209,8 @@ export default {
 
 <style lang = "scss" scoped>
 #header {
-  font-family: "Pacifico", cursive;
+  // font-family: "Pacifico", cursive;
   font-size: 70px;
-  font-weight: 200;
+  font-weight: 700;
 }
 </style>

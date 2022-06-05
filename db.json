@@ -1,35 +1,142 @@
 {
   "categories": [
-    { "categoryId": 1, "title": "New" },
-    { "categoryId": 2, "title": "Lifestyle" },
-    { "categoryId": 3, "title": "Children" },
-    { "categoryId": 4, "title": "Gifts" },
-    { "categoryId": 5, "title": "Mother's day" }
+    {
+      "categoryId": 1,
+      "title": "New"
+    },
+    {
+      "categoryId": 2,
+      "title": "Lifestyle"
+    },
+    {
+      "categoryId": 3,
+      "title": "Children"
+    },
+    {
+      "categoryId": 4,
+      "title": "Gifts"
+    },
+    {
+      "categoryId": 5,
+      "title": "Mother's day"
+    }
   ],
   "products": [
-    { "id": 1, "title": "Áo mưa Violet", "price": 450000},
-    { "id": 2, "title": "Bút online", "price": 450000},
-    { "id": 3, "title": "Móc khóa abc", "price": 450000},
-    { "id": 4, "title": "Khóa thông minh", "price": 450000},
-    { "id": 5, "title": "Áo lớp", "price": 450000},
-    { "id": 6, "title": "Áo lớp", "price": 450000},
-    { "id": 7, "title": "Áo lớp", "price": 450000},
-    { "id": 8, "title": "Áo lớp", "price": 450000},
-    { "id": 9, "title": "Áo lớp", "price": 450000},
-    { "id": 10, "title": "Áo lớp", "price": 450000},
-    { "id": 11, "title": "Áo lớp", "price": 450000},
-    { "id": 12, "title": "Áo lớp", "price": 450000},
-    { "id": 13, "title": "Áo lớp", "price": 450000},
-    { "id": 14, "title": "Áo lớp", "price": 450000},
-    { "id": 15, "title": "Áo lớp", "price": 450000},
-    { "id": 16, "title": "Áo lớp", "price": 450000}
+    {
+      "id": 1,
+      "title": "Áo mưa Violet",
+      "price": 450000
+    },
+    {
+      "id": 2,
+      "title": "Bút online",
+      "price": 450000
+    },
+    {
+      "id": 3,
+      "title": "Móc khóa abc",
+      "price": 450000
+    },
+    {
+      "id": 4,
+      "title": "Khóa thông minh",
+      "price": 450000
+    },
+    {
+      "id": 5,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 6,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 7,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 8,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 9,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 10,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 11,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 12,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 13,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 14,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 15,
+      "title": "Áo lớp",
+      "price": 450000
+    },
+    {
+      "id": 16,
+      "title": "Áo lớp",
+      "price": 450000
+    }
   ],
   "shopping_cart": [
-    { "title": "Áo mưa Violet", "price": "£4.95", "number": 18},
-    { "title": "Bút online", "price": "£14.95", "number": 18},
-    { "title": "Móc khóa abc", "price": "£15.95", "number": 18},
-    { "title": "Khóa thông minh", "price": "£20.95", "number": 18},
-    { "title": "Áo lớp", "price": "£24.95", "number": 18},
-    { "title": "Áo lớp", "price": "£24.95", "number": 18}
+    {
+      "id": 1,
+      "title": "Áo mưa Violet",
+      "price": 450000,
+      "number": 18
+    },
+    {
+      "id": 2,
+      "title": "Bút online",
+      "price": 450000,
+      "number": 18
+    }
+  ],
+  "wishlist": [
+    {
+      "title": "Áo mưa Violet",
+      "price": "£14.95"
+    },
+    {
+      "title": "Áo mưa Jenny",
+      "price": "£14.95"
+    },
+    {
+      "title": "Áo lạnh Violet",
+      "price": "£14.95"
+    },
+    {
+      "title": "Áo gió Violet",
+      "price": "£14.95"
+    },
+    {
+      "title": "Áo siêu Violet",
+      "price": "£14.95"
+    }
   ]
 }

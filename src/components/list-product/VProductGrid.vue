@@ -19,7 +19,7 @@
 
 <script>
 import VProductCard from "./VProductCard.vue";
-import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
+import {mapGetters, mapActions, mapState } from "vuex";
 // import {GET_PRODUCTS_SERVER, GET_PRODUCTS} from '../../store/mutation-types';
 
 export default {
@@ -36,8 +36,7 @@ export default {
     this.getProductsFromServer();
   },
   methods: {
-    ...mapMutations({}),
-    ...mapActions({
+    ...mapActions ({
       getProductsFromServer: "list_products/getProductsFromServer",
     }),
   },
@@ -56,7 +55,7 @@ export default {
 
 <style lang = "scss" scoped>
 #header {
-  font-family: "Pacifico", cursive;
+  // font-family: "Pacifico", cursive;
   font-size: 70px;
 }
 </style>

@@ -1,6 +1,6 @@
-// import axios from 'axios';
+import axios from 'axios';
 // import { GET_PRODUCTS, GET_PRODUCTS_SERVER, SET_PRODUCTS } from '../mutation-types
-// var connect_string_server = 'http://localhost:5000/products';
+var connect_string_server = 'http://localhost:5000/shopping_cart';
 const cart = {
     namespaced: true,
     state() {
@@ -11,14 +11,23 @@ const cart = {
     },
     getters: {
       getProductCart: (state) => state.products_cart,
-      countProductCart: (state) => state.products_cart.length
+      countProductCart: (state) => state.products_cart.length,
+      computeTotalBill(state) {
+        let price = 0;
+        console.log("---");
+        // console.log(state);
+        state.products_cart.forEach(element => {
+          price += element.number * element.price;
+        });
+        return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+      }
     },
     mutations: {
         setProductList (state, list_products) {
             state.products_cart = list_products;
-            // console.log(state.products_cart);
+            console.log(state.products_cart);
         },
-        addProduct(state, product) {
+        async addProduct(state, product) {
           for (let i = 0; i < state.products_cart.length; i++)
           {
               if (state.products_cart[i].id == product.id)
@@ -32,15 +41,31 @@ const cart = {
           product.number = 1;
           state.products_cart.push(product);
           sessionStorage.setItem("cart", JSON.stringify(state.products_cart));
+        },
+        changeNumber(state, info) {
+            for (let i = 0; i < state.products_cart.length; i++)
+              if (state.products_cart[i].id == info.id)
+              {
+                // console.log(state.products_cart[i].id, ' ', id, ' ', number);
+                state.products_cart[i].number = info.number;
+              }
         }
     },
     actions: {
         createProductCart(context, list_product){
-          // console.log("okkkk");
           context.commit('setProductList', list_product);
         },
         addProduct(context, product){
           context.commit('addProduct', product);
+        },
+        async getProductsFromCartServer (context) {
+          const response = await axios.get(connect_string_server);
+          context.commit('setProductList', response.data);
+          return Promise.resolve();
+        },
+        changeNumberOfProduct(context, info) {
+          console.log(info.number);
+          context.commit("changeNumber", info);
         }
     },
 
