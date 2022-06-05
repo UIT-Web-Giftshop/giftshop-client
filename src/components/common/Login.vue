@@ -158,11 +158,11 @@ export default {
       user: {},
       errorMessages: '',
       emailRules: [
-        (v) => !!v || 'E-mail is required',
+        (v) => !!v || 'E-mail không được để trống',
         (v) =>
           /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
             v
-          ) || 'E-mail must be valid',
+          ) || 'E-mail có định dạng không đúng',
       ],
 
       passwordRules: [
@@ -231,6 +231,7 @@ export default {
         if (isSuccess) {
           this.$notify.success('Đăng ký thành công');
           this.changeType();
+          this.$refs.formLogin.resetValidation();
         } else this.errorMessages = 'Oops, Something went wrong!';
       }
       this.isLoading = false;

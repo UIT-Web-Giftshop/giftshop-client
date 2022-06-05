@@ -21,7 +21,7 @@
       </div>
     </div>
     <v-divider class="my-3"></v-divider>
-    <v-btn class="btn" x-large depressed block color="white">
+    <v-btn class="btn" large depressed block color="white">
       <v-icon color="#6ad9e2" left size="28">
         mdi-account-circle-outline
       </v-icon>
@@ -39,8 +39,10 @@
       <v-spacer></v-spacer>
       <v-icon right size="24"> mdi-chevron-right</v-icon>
     </v-btn>
-    <v-btn class="btn" x-large depressed block color="white">
-      <v-icon color="blue darken-1" left size="28">mdi-map-marker </v-icon>
+    <v-btn class="btn mt-1" large depressed block color="white">
+      <v-icon color="blue darken-1" left size="28"
+        >mdi-map-marker-outline
+      </v-icon>
 
       <div
         class="
@@ -56,7 +58,7 @@
       <v-icon right size="24"> mdi-chevron-right</v-icon>
     </v-btn>
 
-    <v-btn class="btn" x-large depressed block color="white">
+    <v-btn class="btn mt-1" large depressed block color="white">
       <v-icon color="blue darken-1 " left size="28"> mdi-cart-outline </v-icon>
 
       <div
@@ -75,7 +77,7 @@
     <v-divider class="my-3"></v-divider>
     <v-btn
       class="btn"
-      x-large
+      large
       depressed
       block
       color="white"
@@ -114,7 +116,7 @@ export default {
 
 <style lang="scss" scoped>
 .btn {
-  border-radius: 16px;
+  border-radius: 8px;
   text-transform: unset !important;
 }
 
