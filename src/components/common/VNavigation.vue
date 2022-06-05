@@ -4,7 +4,7 @@
       <v-tab
         v-for="category in categories"
         :key="category.id"
-        :to="`/${category.title}`"
+        :to="`/${category.link}`"
         class="text-body-1 font-weight-medium"
       >
         {{ category.title }}
@@ -21,6 +21,7 @@ export default {
     return {
       model: '',
       categories: [
+        { categoryId: 0, title: 'Trang chủ', link: 'trang-chu' },
         { categoryId: 1, title: 'New' },
         { categoryId: 2, title: 'Lifestyle' },
         { categoryId: 3, title: 'Children' },

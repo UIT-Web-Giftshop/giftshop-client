@@ -1,7 +1,7 @@
 
 export default [
   {
-    path: '/home',
+    path: '/trang-chu',
     name: 'Home',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/HomeView.vue')
