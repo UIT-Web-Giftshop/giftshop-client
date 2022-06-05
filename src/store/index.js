@@ -6,6 +6,7 @@ import auth from './modules/auth/auth.module'
 import notice from './modules/notice'
 
 import list_products from './modules/list_product'
+import wishlist from './modules/wishlist'
 Vue.use(Vuex)
 Vue.config.devtools = true
 
@@ -15,7 +16,8 @@ const storeData = {
     auth,
     notice,
     list_products,
-    cart
+    cart,
+    wishlist
   }
 }
 

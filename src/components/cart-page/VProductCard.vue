@@ -58,7 +58,7 @@ import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      select: 1
+      select: this.product_info.number
     }
   },
   computed: {

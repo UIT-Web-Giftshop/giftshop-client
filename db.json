@@ -119,24 +119,14 @@
   ],
   "wishlist": [
     {
+      "id": 1,
       "title": "Áo mưa Violet",
-      "price": "£14.95"
+      "price": 45000
     },
     {
-      "title": "Áo mưa Jenny",
-      "price": "£14.95"
-    },
-    {
-      "title": "Áo lạnh Violet",
-      "price": "£14.95"
-    },
-    {
-      "title": "Áo gió Violet",
-      "price": "£14.95"
-    },
-    {
-      "title": "Áo siêu Violet",
-      "price": "£14.95"
+      "id": 2,
+      "title": "Bút online",
+      "price": 450000
     }
   ]
 }

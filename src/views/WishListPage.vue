@@ -1,21 +1,18 @@
 <template>
   <div id="frame">
     <VHeader/>
-    <VGridCard />
-    <VBottomPay/>
+    <VGridCard/>
   </div>
 </template> 
 <script>
-import VHeader from "@/components/cart-page/VHeader.vue";
-import VGridCard from "@/components/cart-page/VGridCard.vue";
-import VBottomPay from "@/components/cart-page/VBottomPay.vue";
+import VHeader from "@/components/wishlist-page/VHeader.vue";
+import VGridCard from "@/components/wishlist-page/VGridCard.vue";
 // import VProductGrid from "@/components/list-product/VProductGrid.vue";
 export default {
-  name: "CartPage",
+  name: "WishlistPage",
   components: {
     VHeader,
-    VGridCard,
-    VBottomPay
+    VGridCard
 },
 };
 </script>
