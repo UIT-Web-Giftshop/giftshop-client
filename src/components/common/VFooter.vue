@@ -1,12 +1,12 @@
 <template>
   <div class="d-flex justify-center pa-10">
     <div style="min-width: 300px">
-      <div class="text-h6">THE GIFT SHOP</div>
+      <div class="text-h6">THE GIFT STORE</div>
       <div class="text-subtitle-2" style="max-width: 400px">
         Địa chỉ: Trường đại học Công Nghệ Thông Tin
       </div>
       <div class="text-subtitle-2">Hotline: 08989-089-89</div>
-      <div class="text-subtitle-2">Email: thegiftshop@uit.edu.vn</div>
+      <div class="text-subtitle-2">Email: thegiftstore@uit.edu.vn</div>
       <div class="my-2">
         <v-icon>mdi-facebook</v-icon>
         <v-icon class="mx-4">mdi-instagram</v-icon>

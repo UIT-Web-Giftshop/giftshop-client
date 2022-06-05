@@ -1,14 +1,23 @@
 <template>
   <div class="header">
-    <div class="header-top">Free standard UK delivery for orders over £50</div>
+    <div class="header-top">
+      <!-- Khuyến mãi bộ quà tặng khi đơn hàng lớn hơn 300k -->
+    </div>
     <div class="header-content">
       <div class="header-left">
-        <v-icon color="black">mdi-magnify</v-icon>
-        Search
+        <v-text-field
+          prepend-inner-icon="mdi-magnify"
+          placeholder="Tìm kiếm"
+        ></v-text-field>
       </div>
 
       <div class="header-middle">
-        <img src="" alt="" />
+        <v-img
+          width="400"
+          height="40"
+          contains
+          src="https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/logo.png?1638096620754"
+        ></v-img>
       </div>
       <div class="header-right">
         <v-row justify="space-around">
@@ -112,14 +121,14 @@ export default {
   &-top {
     background-color: #f4f4f4;
     height: 40px;
-    text-align: center;
+
     line-height: 40px;
   }
 
   &-content {
     display: flex;
     height: 100px;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 0 20px 0 20px;
     /* border-bottom: 1px solid #cccc; */
@@ -130,6 +139,11 @@ export default {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+  }
+
+  &-middle {
+    width: 400px;
+    height: 30px;
   }
 
   &-right {
