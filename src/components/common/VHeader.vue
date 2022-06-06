@@ -12,12 +12,17 @@
       </div>
 
       <div class="header-middle">
-        <v-img
-          width="400"
-          height="40"
-          contains
-          src="https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/logo.png?1638096620754"
-        ></v-img>
+        <a
+          href="
+        /trang-chu"
+        >
+          <v-img
+            width="400"
+            height="40"
+            contains
+            src="https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/logo.png?1638096620754"
+          ></v-img
+        ></a>
       </div>
       <div class="header-right">
         <v-row justify="space-around">
