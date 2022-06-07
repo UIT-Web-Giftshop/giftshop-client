@@ -1,5 +1,89 @@
 <template>
   <div>
+    <!-- <v-sheet height="400" class="overflow-hidden" style="position: relative"> -->
+    <!-- <v-container class="fill-height"> -->
+    <!-- <v-row align="center" justify="center"> -->
+
+    <v-btn color="pink" fixed dark fab right top @click.stop="drawer = !drawer">
+      <v-badge
+        :content="countProductCart"
+        :value="countProductCart"
+        color="black"
+        overlap
+      >
+        <v-icon dark>mdi-cart-outline</v-icon>
+      </v-badge>
+    </v-btn>
+    <!-- </v-row> -->
+    <!-- </v-container> -->
+
+    <v-navigation-drawer
+      v-model="drawer"
+      fixed
+      temporary
+      right
+      width="400px"
+      style="scrollbar-width: none"
+    >
+      <v-list-item>
+        <v-list-item-avatar>
+          <v-img src="https://tinyurl.com/26drtexw"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>JShopping Cart</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-content>
+          <v-btn
+            text
+            class="grey_darken_1--text"
+            style="text-transform: none; font-size: 15px"
+            width="150px"
+            dark
+            @click="drawer = !drawer"
+          >
+            Close
+          </v-btn>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense over>
+        <v-row v-for="(product, index) in getProductCart" :key="index">
+          <VProductMiniCard
+            :product="product"
+            :number="product.number"
+          ></VProductMiniCard>
+        </v-row>
+      </v-list>
+
+      <v-list
+        style="display: flex; justify-content: space-around"
+        v-if="getProductCart != 0"
+      >
+        <v-btn
+          text
+          class="grey_darken_1--text"
+          style="text-transform: none; font-size: 15px"
+          width="150px"
+          dark
+          href="/home/cart-page"
+        >
+          Edit shopping bag
+        </v-btn>
+        <v-btn
+          rounded
+          color="teal_lighten_2"
+          style="text-transform: none; font-size: 15px"
+          width="150px"
+          dark
+        >
+          Check out
+        </v-btn>
+      </v-list>
+    </v-navigation-drawer>
+    <!-- </v-sheet> -->
     <h1 id="header">Just Arrived</h1>
     <p>
       Look what's just arrived here at Rex London! Share the thrill of receiving
@@ -84,23 +168,44 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import VProductMiniCard from './VProductMiniCard.vue';
 export default {
-  name: "VHeader",
-  data: () => ({
-    sheet: false,
-    items: ["Foo", "Bar", "Fizz", "Buzz"],
-  }),
+  name: 'VHeader',
+  components: {
+    VProductMiniCard,
+  },
+  data() {
+    return {
+      sheet: false,
+      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+      drawer: null,
+      items_s: [
+        { title: 'Home', icon: 'mdi-view-dashboard' },
+        { title: 'About', icon: 'mdi-forum' },
+      ],
+    };
+  },
+  computed: {
+    ...mapGetters({
+      getProductCart: 'cart/getProductCart',
+      countProductCart: 'cart/countProductCart',
+    }),
+  },
+  methods: {
+    ...mapActions({}),
+  },
 };
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
 </style>
 
 <style lang = "scss" scoped>
 #header {
-  font-family: "Pacifico", cursive;
+  // font-family: "Pacifico", cursive;
   font-size: 70px;
-  font-weight: 200;
+  font-weight: 700;
 }
 </style>

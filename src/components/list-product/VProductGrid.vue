@@ -9,7 +9,14 @@
       transition="fade-transition"
     >
       <v-row dense>
-        <v-col v-for="(product, index) in getProducts" :key="index">
+        <v-col
+          xl="3"
+          lg="3"
+          md="4"
+          sm="4"
+          v-for="(product, index) in getProducts"
+          :key="index"
+        >
           <VProductCard :product_info="product"></VProductCard>
         </v-col>
       </v-row>
@@ -18,12 +25,12 @@
 </template>
 
 <script>
-import VProductCard from "./VProductCard.vue";
-import { mapMutations, mapGetters, mapActions, mapState } from "vuex";
+import VProductCard from './VProductCard.vue';
+import { mapGetters, mapActions, mapState } from 'vuex';
 // import {GET_PRODUCTS_SERVER, GET_PRODUCTS} from '../../store/mutation-types';
 
 export default {
-  name: "VProductGrid",
+  name: 'VProductGrid',
   data: () => {
     return {
       isActive: false,
@@ -36,27 +43,26 @@ export default {
     this.getProductsFromServer();
   },
   methods: {
-    ...mapMutations({}),
     ...mapActions({
-      getProductsFromServer: "list_products/getProductsFromServer",
+      getProductsFromServer: 'list_products/getProductsFromServer',
     }),
   },
   computed: {
     ...mapGetters({
-      getProducts: "list_products/getProducts",
+      getProducts: 'list_products/getProducts',
     }),
-    ...mapState(["list_products/products"]),
+    ...mapState(['list_products/products']),
   },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
 </style>
 
 <style lang = "scss" scoped>
 #header {
-  font-family: "Pacifico", cursive;
+  // font-family: "Pacifico", cursive;
   font-size: 70px;
 }
 </style>

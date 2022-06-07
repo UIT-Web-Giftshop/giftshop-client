@@ -4,13 +4,13 @@
       <v-card class="d-flex overflow-y-hidden" v-if="isLogin">
         <div class="content">
           <div class="d-flex align-center">
-            <v-card-title class="text-h5">Login</v-card-title>
+            <v-card-title class="text-h5">Đăng nhập</v-card-title>
             <v-spacer></v-spacer>
             <v-btn icon @click="close">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </div>
-          <v-card-title class="title text-h6">Giftshop Hi!</v-card-title>
+          <v-card-title class="title text-h6">Giftshop xin chào!</v-card-title>
           <div class="px-4">
             <v-form ref="formLogin" lazy-validation>
               <v-text-field
@@ -23,7 +23,7 @@
               ></v-text-field>
               <v-text-field
                 validate-on-blur
-                label="Password"
+                label="Mật khẩu"
                 v-model="user.password"
                 :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="showPass = !showPass"
@@ -36,6 +36,7 @@
           </div>
           <div class="px-4">
             <v-btn
+              :loading="isLoading"
               bottom
               width="100%"
               height="48px"
@@ -43,14 +44,14 @@
               color="#81ccb7"
               @click="handleLogin"
             >
-              <div class="text">Login</div>
+              <div class="text">Đăng nhập</div>
             </v-btn>
           </div>
           <v-divider class="my-8"></v-divider>
           <div class="mb-8 d-flex justify-center">
-            <div class="text-bottom">New to giftshop?</div>
+            <div class="text-bottom">Bạn chưa có tài khoản ?</div>
             <div class="ml-2">
-              <a class="text-bottom--highlight" @click="changeType">Register</a>
+              <a class="text-bottom--highlight" @click="changeType">Đăng ký</a>
             </div>
           </div>
         </div>
@@ -59,13 +60,13 @@
       <v-card class="d-flex overflow-y-hidden" v-else>
         <div class="content">
           <div class="d-flex align-center">
-            <v-card-title class="text-h5">Register</v-card-title>
+            <v-card-title class="text-h5">Đăng ký</v-card-title>
             <v-spacer></v-spacer>
             <v-btn icon @click="close">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </div>
-          <v-card-title class="title text-h6">Giftshop Hi!</v-card-title>
+          <v-card-title class="title text-h6">Giftshop xin chào!</v-card-title>
           <div class="px-4">
             <v-form ref="formRegister" lazy-validation>
               <v-text-field
@@ -78,7 +79,7 @@
               ></v-text-field>
               <v-text-field
                 validate-on-blur
-                label="Password"
+                label="Mật khẩu"
                 v-model="user.password"
                 :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="showPass = !showPass"
@@ -87,7 +88,7 @@
                 outlined
               ></v-text-field>
               <v-text-field
-                label="Confirm Password"
+                label="Nhập lại mật khẩu"
                 validate-on-blur
                 v-model="user.confirmPassword"
                 :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -100,20 +101,24 @@
           </div>
           <div class="px-4">
             <v-btn
+              :isLoading="isLoading"
               bottom
               width="100%"
               height="48px"
               class="mx-auto"
               color="#81ccb7"
+              @click="handleRegister"
             >
-              <div class="text">Register</div>
+              <div class="text">Đăng ký</div>
             </v-btn>
           </div>
           <v-divider class="my-8"></v-divider>
           <div class="mb-8 d-flex justify-center">
-            <div class="text-bottom">Already have account?</div>
+            <div class="text-bottom">Bạn đã có tài khoản rồi ?</div>
             <div class="ml-2">
-              <a class="text-bottom--highlight" @click="changeType">Login</a>
+              <a class="text-bottom--highlight" @click="changeType"
+                >Đăng nhập</a
+              >
             </div>
           </div>
         </div>
@@ -145,6 +150,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       showConfirmPassword: false,
       showPass: false,
       isLogin: true,
@@ -152,37 +158,36 @@ export default {
       user: {},
       errorMessages: '',
       emailRules: [
-        (v) => !!v || 'E-mail is required',
+        (v) => !!v || 'E-mail không được để trống',
         (v) =>
           /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
             v
-          ) || 'E-mail must be valid',
+          ) || 'E-mail có định dạng không đúng',
       ],
 
       passwordRules: [
-        (value) => !!value || 'Please type password.',
+        (value) => !!value || 'Mật khẩu không được để trống.',
         (value) =>
           (value && value.length >= 6) ||
           'Password must be at least 6 characters',
       ],
 
       confirmPasswordRules: [
-        (value) => !!value || 'Please type confirm password',
-        (value) =>
-          value === this.user.password ||
-          'The password confirmation does not match.',
+        (value) => !!value || 'Nhập lại mật khẩu không đƯợc để trống',
+        (value) => value === this.user.password || 'Mật khẩu không trùng nhau',
       ],
     };
   },
 
   methods: {
-    ...mapActions('auth', ['login']),
+    ...mapActions('auth', ['login', 'register']),
 
     close() {
       if (this.isLogin) this.$refs.formLogin.resetValidation();
       else this.$refs.formRegister.resetValidation();
       this.user = {};
       this.isLogin = true;
+      this.isLoading = false;
       this.errorMessages = '';
       this.$emit('closeLogin');
     },
@@ -203,26 +208,33 @@ export default {
       if (!this.$refs.formLogin.validate()) {
         return;
       }
+      this.isLoading = true;
       if (this.user.email && this.user.password) {
         const isSuccess = await this.login(this.user);
         if (isSuccess) {
+          this.$notify.success('Đăng nhập thành công');
           this.close();
-        } else
-          this.errorMessages = 'The email or password you entered is incorrect';
+        } else this.errorMessages = 'Email hoặc mật khẩu bạn nhập không đúng';
       }
+      this.isLoading = false;
     },
 
     async handleRegister() {
       if (!this.$refs.formRegister.validate()) {
         return;
       }
+
+      this.isLoading = true;
       if (this.user.email && this.user.password && this.user.confirmPassword) {
         console.log('ok');
         const isSuccess = await this.register(this.user);
         if (isSuccess) {
+          this.$notify.success('Đăng ký thành công');
           this.changeType();
+          this.$refs.formLogin.resetValidation();
         } else this.errorMessages = 'Oops, Something went wrong!';
       }
+      this.isLoading = false;
     },
   },
 };

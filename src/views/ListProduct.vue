@@ -5,18 +5,18 @@
   </div>
 </template> 
 <script>
-import VHeader from "@/components/list-product/VHeader.vue";
-import VProductGrid from "@/components/list-product/VProductGrid.vue";
+import VHeader from '@/components/list-product/VHeader.vue';
+import VProductGrid from '@/components/list-product/VProductGrid.vue';
 export default {
-  name: "ListProduct",
+  name: 'ListProduct',
   components: {
     VHeader,
-    VProductGrid
-},
+    VProductGrid,
+  },
 };
 </script>
 <style lang = "scss" scoped>
-#frame{
-    margin: 100px
+#frame {
+  margin: 100px;
 }
 </style>

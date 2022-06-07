@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin-top: 50px; margin-left: 10px" width="300">
+  <v-card style="margin-top: 50px; margin-left: 2px" width="300px">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-img
@@ -20,76 +20,22 @@
     <v-card-title class="font">{{ product_info.title }}</v-card-title>
 
     <v-card-subtitle class="pb-0 pt-3 font-weight-bold price">
-      {{  toMoney }}
+      {{ toMoney }}
     </v-card-subtitle>
 
     <v-card-actions style="margin-top: 25px">
-      <div class="text-center">
-        <template>
-          <v-bottom-sheet v-model="sheet" inset width="fit-content">
-            <template v-slot:activator="{ on, attrs }">
-              <div class="text-center">
-                <v-btn
-                  rounded
-                  color="teal_lighten_2"
-                  dark
-                  style="text-transform: none"
-                  width="100px"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click="buyProduct(product_info)"
-                >
-                  Buy
-                </v-btn>
-              </div>
-            </template>
-            <v-sheet class="text-center" height="700px" width="700px">
-              <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
-                close
-              </v-btn>
-              <div class="my-3" style="padding: 10px">
-                <template>
-                  <div style="text-align: left">
-                    <h1 class="mb-5">Shopping bag</h1>
-                  </div>
-                  <v-row
-                    v-for="(product, index) in getProductCart"
-                    :key="index"
-                  >
-                    <VProductMiniCard :product="product" :number="product.number"></VProductMiniCard>
-                  </v-row>
-                </template>
-                <template>
-                  <div
-                    class="text-center ma-5"
-                    style="display: flex; justify-content: space-around"
-                  >
-                    <v-btn
-                      text
-                      class="grey_darken_1--text"
-                      style="text-transform: none; font-size: 18px"
-                      width="200px"
-                      dark
-                    >
-                      Edit shopping bag
-                    </v-btn>
-                    <v-btn
-                      rounded
-                      color="teal_lighten_2"
-                      style="text-transform: none; font-size: 18px"
-                      width="200px"
-                      dark
-                    >
-                      Check out
-                    </v-btn>
-                  </div>
-                </template>
-              </div>
-            </v-sheet>
-          </v-bottom-sheet>
-        </template>
-      </div>
-      <v-btn color="black" text style="text-transform: none; margin-left: 35%">
+      <v-btn
+        rounded
+        color="teal_lighten_2"
+        dark
+        style="text-transform: none"
+        width="100px"
+        @click="buyProduct(product_info)"
+      >
+        Buy
+      </v-btn>
+
+      <v-btn color="black" text style="text-transform: none; margin-left: 20px">
         More info
       </v-btn>
     </v-card-actions>
@@ -97,10 +43,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import VProductMiniCard from "./VProductMiniCard.vue";
+import { mapActions, mapGetters } from 'vuex';
+// import VProductMiniCard from "./VProductMiniCard.vue";
 export default {
-  name: "VProductCard",
+  name: 'VProductCard',
   data() {
     return {
       sheet: false,
@@ -115,11 +61,9 @@ export default {
     },
   },
   mounted() {
+    // console.log(sessionStorage.getItem("cart"));
     if (sessionStorage.getItem('cart') !== null)
       this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
-  },
-  destroyed(){
-    sessionStorage.setItem('cart', JSON.stringify(this.getProductCart()));
   },
   watch: {
     loader() {
@@ -135,31 +79,34 @@ export default {
       this.addProduct(product);
     },
     ...mapActions({
-      addProduct: "cart/addProduct",
-      createProductCart: "cart/createProductCart"
+      addProduct: 'cart/addProduct',
+      createProductCart: 'cart/createProductCart',
     }),
   },
   computed: {
     ...mapGetters({
-      getProductCart: "cart/getProductCart",
+      getProductCart: 'cart/getProductCart',
     }),
-    toMoney: function() {
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(this.product_info.price);
-    }
+    toMoney: function () {
+      return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+      }).format(this.product_info.price);
+    },
   },
-  components: { VProductMiniCard },
+  // components: { VProductMiniCard },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Open+Sans:ital,wght@1,300&family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Roboto+Mono:wght@100;400&family=Tapestry&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Open+Sans:ital,wght@1,300&family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Roboto+Mono:wght@100;400&family=Tapestry&display=swap');
 </style>
 
 <style lang = "scss" scoped>
 .font,
 h1,
 .item-name {
-  font-family: "Roboto Mono", monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 25px;
 }
 .price {
