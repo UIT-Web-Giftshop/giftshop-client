@@ -1,11 +1,11 @@
 <template>
-    <v-layout column>
+    <v-layout v-if="product" column>
         <v-layout row wrap ma-6>
             <v-flex xs12 md5 class="pa-2">
                 <v-layout column>
                     <v-carousel v-model="carouselModel">
                         <v-carousel-item
-                            v-for="(src, i) in product.srcs"
+                            v-for="(src, i) in product.imageUrl"
                             :key="i"
                             :src="src"
                             reverse-transition="fade-transition"
@@ -19,7 +19,7 @@
                             show-arrows
                         >
                             <v-slide-item
-                                v-for="(src, i) in product.srcs"
+                                v-for="(src, i) in product.imageUrl"
                                 :key="i"
                                 v-slot="{ active, toggle }"
                             >
@@ -70,10 +70,10 @@
                         :class="[
                             'text-h6',
                             'font-weight-bold',
-                            `${product.isInStock ? 'green' : 'red'}--text`,
+                            `${product.isActive ? 'green' : 'red'}--text`,
                         ]"
                     >
-                        {{ product.isInStock ? "In stock" : "Out of stock" }}
+                        {{ product.isActive ? "In stock" : "Out of stock" }}
                     </div>
                     <div
                         row
@@ -103,7 +103,7 @@
                         <v-flex xs3 md2 align-self-center>
                             <v-col class="d-flex">
                                 <v-select
-                                    :items="createSelectArray(product.quantity)"
+                                    :items="createSelectArray(product.stock)"
                                     v-model="selected"
                                     label="Outlined style"
                                     outlined
@@ -154,7 +154,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout row wrap ma-6 justify-space-between>
+        <v-layout v-if="product" row wrap ma-6 justify-space-between>
             <v-flex xs12 md5>
                 <v-layout column>
                     <div class="text-h4 font-weight-bold py-4">Description</div>
@@ -165,7 +165,7 @@
             </v-flex>
 
             <v-flex xs12 md5>
-                <v-layout column>
+                <v-layout column v-if="product.detail">
                     <div class="text-h4 font-weight-bold py-4">Details</div>
                     <div
                         class="text-h6 font-weight-light py-2"
@@ -181,8 +181,8 @@
                 </v-layout>
             </v-flex>
         </v-layout>
-
-        <v-layout column ma-6>
+        <!-- related -->
+        <!-- <v-layout v-if="product" column ma-6>
             <div class="text-h4 font-weight-bold py-4">Related</div>
 
             <v-slide-group show-arrows>
@@ -216,14 +216,15 @@
                     </v-card>
                 </v-slide-item>
             </v-slide-group>
-        </v-layout>
+        </v-layout> -->
     </v-layout>
 </template>
 
 <script>
-import axios from "axios";
+const domain = "https://16.163.241.13/api";
 //function
 const sliceFunction = function (data, numberOfWord) {
+    if (!data) return data;
     var arraySplited = data.split(" ");
     var result;
     if (arraySplited.length > numberOfWord) {
@@ -238,7 +239,7 @@ const sliceFunction = function (data, numberOfWord) {
 const createSelectArray = function (quantity) {
     var result = [];
     for (var i = 0; i < quantity; i++) {
-        result.push(i);
+        result.push(i + 1);
     }
     return result;
 };
@@ -274,7 +275,7 @@ export default {
         },
         favoriteHandler() {
             if (this.user == null) {
-                console.log("ádf");
+                console.log("user is null");
             } else {
                 this.user.isFavorite = !this.user.isFavorite;
             }
@@ -283,14 +284,19 @@ export default {
         createStructureForDetail,
         async getProduct() {
             try {
-                
-                const response = await axios.get(
-                    `https://18.166.73.221/api/products/sku/${this.$route.params.sku}`
+                const responseProduct = await this.$http.get(
+                    `${domain}/products/sku/${this.$route.params.sku}`
                 );
-                this.product = response.data;
-                console.log(this.product)
+                this.product = responseProduct.data;
+                this.product.imageUrl = [
+                    "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+                    "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+                    "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+                    "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+                    "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+                ];
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         },
     },
