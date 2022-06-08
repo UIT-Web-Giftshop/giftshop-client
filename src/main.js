@@ -14,6 +14,13 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = $http;
 Vue.prototype.$notify = notify;
 
+const token = store.getters['auth/token']
+if (token) {
+  $http.setAccessToken(token)
+}
+
+
+
 new Vue({
   vuetify,
   router,
