@@ -32,8 +32,8 @@ export default [
       import( /* webpackChunkName: "about" */ '../views/WishListPage')
   },
   {
-    path: '/product/:sku',
-    name: "Product",
+    path: '/products/sku/:sku',
+    name: "Products",
     component: () => import ('../views/ProductView.vue')
   },
   {
