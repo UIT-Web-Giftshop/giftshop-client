@@ -30,7 +30,6 @@
             <v-icon color="black"> mdi-heart-outline </v-icon>
           </v-btn>
           <v-menu
-            :close-on-click="closeModal"
             :close-on-content-click="closeOnContentClick"
             offset-y
             nudge-bottom="6px"
@@ -74,7 +73,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import Login from './Login.vue';
 import ModalAccount from '../ModalAccount.vue';
 export default {
@@ -85,7 +84,7 @@ export default {
   },
 
   computed: {
-    ...mapState('auth', ['isAuthendicated']),
+    ...mapGetters('auth', ['isAuthendicated']),
   },
 
   data() {

@@ -1,13 +1,17 @@
 
 export default [
   {
+    path: '/',
+    redirect: "/trang-chu",
+  },
+  {
     path: '/trang-chu',
     name: 'Home',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/HomeView.vue')
   },
   {
-    path: '/profile',
+    path: '/tai-khoan/:url',
     name: 'profile',
     meta: { layout: "no-navigation" },
     component: () =>
@@ -50,5 +54,10 @@ export default [
     path: '/checkout',
     name: 'Checkout',
     component: () => import ('../views/CheckoutView.vue')
+  },
+  {
+    name: 'ErrorPage',
+    path: '/:pathMatch(.*)*',
+    component: () => import ('../views/static-page/ErrorPage.vue')
   }
 ]

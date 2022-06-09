@@ -21,7 +21,14 @@
       </div>
     </div>
     <v-divider class="my-3"></v-divider>
-    <v-btn class="btn" large depressed block color="white">
+    <v-btn
+      class="btn"
+      large
+      depressed
+      block
+      color="white"
+      to="/tai-khoan/thong-tin-tai-khoan"
+    >
       <v-icon color="#6ad9e2" left size="28">
         mdi-account-circle-outline
       </v-icon>
@@ -39,7 +46,14 @@
       <v-spacer></v-spacer>
       <v-icon right size="24"> mdi-chevron-right</v-icon>
     </v-btn>
-    <v-btn class="btn mt-1" large depressed block color="white">
+    <v-btn
+      class="btn mt-1"
+      large
+      depressed
+      block
+      color="white"
+      to="/tai-khoan/thong-tin-lien-he"
+    >
       <v-icon color="blue darken-1" left size="28"
         >mdi-map-marker-outline
       </v-icon>
@@ -58,7 +72,14 @@
       <v-icon right size="24"> mdi-chevron-right</v-icon>
     </v-btn>
 
-    <v-btn class="btn mt-1" large depressed block color="white">
+    <v-btn
+      class="btn mt-1"
+      large
+      depressed
+      block
+      color="white"
+      to="/tai-khoan/lich-su-mua-hang"
+    >
       <v-icon color="blue darken-1 " left size="28"> mdi-cart-outline </v-icon>
 
       <div
