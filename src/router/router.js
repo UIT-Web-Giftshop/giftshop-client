@@ -56,8 +56,21 @@ export default [
     component: () => import ('../views/CheckoutView.vue')
   },
   {
+    path: '/quen-mat-khau',
+    name: 'ForgotPassword',
+    meta: { layout: "no-navigation" },
+    component: () => import ('../views/ForgotPassword.vue')
+  },
+  {
+    path: '/xac-nhan-email',
+    name: 'MailConfirmation',
+    meta: { layout: "no-navigation" },
+    component: () => import ('../views/MailConfirmation.vue')
+  },
+  {
     name: 'ErrorPage',
     path: '/:pathMatch(.*)*',
+    meta: { layout: "no-navigation" },
     component: () => import ('../views/static-page/ErrorPage.vue')
-  }
+  },
 ]
