@@ -8,6 +8,7 @@
           <router-view />
         </v-scroll-x-transition>
       </div>
+      <VFooter />
     </v-main>
     <app-notification />
   </v-app>
@@ -16,12 +17,14 @@
 <script>
 import AppNotification from '../components/common/notification';
 import VHeader from '../components/common/VHeader.vue';
+import VFooter from '../components/common/VFooter.vue';
 import VNavigation from '../components/common/VNavigation.vue';
 export default {
   name: 'DefaulView',
   components: {
     VHeader,
     VNavigation,
+    VFooter,
     AppNotification,
   },
 };

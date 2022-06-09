@@ -16,7 +16,7 @@
                   text--darken-3
                 "
               >
-                Khang Pham
+                {{ profile.lastName }}
               </div>
               <div
                 class="
@@ -37,7 +37,7 @@
             large
             depressed
             block
-            @click="changeTab(1)"
+            @click="redirectPage(page.info)"
             :outlined="tabInfo"
             :color="tabInfo ? `primary` : `rgba(248, 250, 252)`"
           >
@@ -65,7 +65,7 @@
             large
             depressed
             block
-            @click="changeTab(2)"
+            @click="redirectPage(page.address)"
             :outlined="tabAddress"
             :color="tabAddress ? `primary` : `rgba(248, 250, 252)`"
           >
@@ -93,7 +93,7 @@
             large
             depressed
             block
-            @click="changeTab(3)"
+            @click="redirectPage(page.order)"
             :outlined="tabOrder"
             :color="tabOrder ? `primary` : `rgba(248, 250, 252)`"
           >
@@ -148,6 +148,7 @@
                   height="48"
                   outlined
                   dense
+                  v-model="user.email"
                 ></v-text-field>
               </v-col>
               <v-col class="py-0" cols="6">
@@ -327,9 +328,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
+      page: {
+        info: 'thong-tin-tai-khoan',
+        address: 'thong-tin-lien-he',
+        order: 'lich-su-mua-hang',
+      },
+      url: '',
+      user: '',
       tabInfo: false,
       tabAddress: false,
       tabOrder: false,
@@ -345,22 +354,43 @@ export default {
     };
   },
 
-  methods: {
-    changeTab(tab) {
+  created() {
+    this.url = this.$route.params.url;
+    this.user = this.profile;
+  },
+
+  watch: {
+    $route(value) {
+      this.url = value.params.url;
+    },
+
+    url(value) {
       this.tabInfo = false;
       this.tabAddress = false;
       this.tabOrder = false;
-      switch (tab) {
-        case 1:
+      switch (value) {
+        case this.page.info:
           this.tabInfo = true;
           break;
-        case 2:
+        case this.page.address:
           this.tabAddress = true;
           break;
-        case 3:
+        case this.page.order:
           this.tabOrder = true;
           break;
+        default:
+          break;
       }
+    },
+  },
+
+  computed: {
+    ...mapGetters('auth', ['profile']),
+  },
+
+  methods: {
+    redirectPage(url) {
+      this.$router.push(url);
     },
   },
 };
