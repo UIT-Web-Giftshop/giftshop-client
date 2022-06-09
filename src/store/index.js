@@ -4,7 +4,6 @@ import cart from './modules/cart';
 import categories from './modules/categories'
 import auth from './modules/auth'
 import notice from './modules/notice'
-
 import list_products from './modules/list_product'
 import wishlist from './modules/wishlist'
 import createPersistedState from "vuex-persistedstate"
