@@ -5,15 +5,16 @@ export const login = async ({commit}, params) => {
   try {
     const { email, password } = params;
     const response = await $http.post('/auths/signin', {password, email});
-    if(response.success){
+    if (response.success) {
       const { data } = response;
+      localStorage.setItem('auth', JSON.stringify(data))
       $http.setAccessToken(data.accessToken);
       // const profile = await $http.get('/profile/me');
       // const user = profile.content;
 
       const token = {
         token: data.accessToken,
-        // user: user,
+        profile: data.profile
       }
       commit(type.LOGIN_SUCCESS, token);
       
@@ -27,8 +28,9 @@ export const login = async ({commit}, params) => {
   }
 };
 
-export const logout = async ({commit}) => {
+export const logout = async ({ commit }) => {
   $http.removeAccessToken()
+  localStorage.removeItem('auth')
   commit(type.LOGOUT)
 };
 
