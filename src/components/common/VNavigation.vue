@@ -22,7 +22,7 @@ export default {
       model: '',
       categories: [
         { categoryId: 0, title: 'Trang chủ', link: 'trang-chu' },
-        { categoryId: 1, title: 'New' },
+        { categoryId: 1, title: 'New', link: 'trang-chu/danh-muc-san-pham'},
         { categoryId: 2, title: 'Lifestyle' },
         { categoryId: 3, title: 'Children' },
         { categoryId: 4, title: 'Gifts' },

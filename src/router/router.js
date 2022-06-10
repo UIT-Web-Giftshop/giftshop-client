@@ -18,19 +18,19 @@ export default [
       import( /* webpackChunkName: "about" */ '../views/ProfileView.vue')
   },
   {
-    path: '/home/list-product',
+    path: '/trang-chu/danh-muc-san-pham',
     name: 'list-product',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/ListProduct')
   },
   {
-    path: '/home/cart-page',
+    path: '/trang-chu/danh-muc-mua-sam',
     name: 'cart-page',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/CartPage')
   },
   {
-    path: '/home/wishlist-page',
+    path: '/trang-chu/danh-muc-yeu-thich',
     name: 'wishlist-page',
     component: () =>
       import( /* webpackChunkName: "about" */ '../views/WishListPage')

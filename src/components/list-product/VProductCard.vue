@@ -4,13 +4,12 @@
       <template v-slot:default="{ hover }">
         <v-img
           class="white--text align-end"
-          style=""
           height="300px"
           :src="product_info.imageUrl"
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute co lor="#036358">
-              <v-btn color="white" class="black--text" :href="urlDetailProduct">See more info</v-btn>
+              <v-btn color="white" class="black--text" :to="urlDetailProduct">xem chi tiết</v-btn>
             </v-overlay>
           </v-fade-transition>
         </v-img>
@@ -32,11 +31,11 @@
         width="100px"
         @click="buyProduct(product_info)"
       >
-        Buy
+        Mua
       </v-btn>
 
       <v-btn color="black" text style="text-transform: none; margin-left: 20px">
-        More info
+        xem chi tiết
       </v-btn>
     </v-card-actions>
   </v-card>
