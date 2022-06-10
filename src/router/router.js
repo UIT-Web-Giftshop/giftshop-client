@@ -59,13 +59,13 @@ export default [
     path: '/quen-mat-khau',
     name: 'ForgotPassword',
     meta: { layout: "no-navigation" },
-    component: () => import ('../views/ForgotPassword.vue')
+    component: () => import ('../views/auth-page/ForgotPassword.vue')
   },
   {
     path: '/xac-nhan-email',
     name: 'MailConfirmation',
     meta: { layout: "no-navigation" },
-    component: () => import ('../views/MailConfirmation.vue')
+    component: () => import ('../views/auth-page/MailConfirmation.vue')
   },
   {
     name: 'ErrorPage',
