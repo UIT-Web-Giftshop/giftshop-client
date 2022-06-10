@@ -9,26 +9,32 @@ const list_products = {
         }
     },
     getters: {
-       getProducts: (state) => state.products
+        getProducts: (state) => state.products,
+        // getConnectionString: (state) => state.connectString
 
     },
     mutations: {
-        setProductList (state, list_products) {
+        setProductList(state, list_products) {
             state.products = list_products;
             // console.log("ok");   
             // console.log(state.products);
         },
-        setConnectString (state, str) {
+        setConnectString(state, str) {
             state.connectString = str;
-        } 
+        },
     },
     actions: {
-        async getProductsFromServer (context, state) {
-            let response = await axios.get(state.connect_string_server)
-            // context.commit('setProductList', await axios.get(connect_string_server).data);
-            response = response.data.data.items;
-            console.log(response);
-            context.commit('setProductList', response);
+        async getProductsFromServer(context) {
+            try {
+                let connection = context.state.connect_string_server;
+                let response = await axios.get(connection);
+                response = response.data.data.items;
+                console.log(response);
+                context.commit('setProductList', response);
+            } catch (error) {
+                console.log(error);
+            }
+
             // return Promise.resolve();
         },
         setConnectString: (context, connectString) => {
