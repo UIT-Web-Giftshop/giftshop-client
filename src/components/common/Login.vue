@@ -10,7 +10,9 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </div>
-          <v-card-title class="title text-h6">Giftshop xin chào!</v-card-title>
+          <v-card-title class="title text-h6"
+            >Gift Store xin chào!</v-card-title
+          >
           <div class="px-4">
             <v-form ref="formLogin" lazy-validation>
               <v-text-field
@@ -24,6 +26,7 @@
               <v-text-field
                 validate-on-blur
                 label="Mật khẩu"
+                hide-details
                 v-model="user.password"
                 :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="showPass = !showPass"
@@ -35,6 +38,13 @@
             </v-form>
           </div>
           <div class="px-4">
+            <div class="my-2 d-flex justify-end">
+              <a
+                class="text-subtitle-2 teal--text teal-lighten-4"
+                @click="showForgotPassword"
+                >Quên mật khẩu?</a
+              >
+            </div>
             <v-btn
               :loading="isLoading"
               bottom
@@ -47,7 +57,8 @@
               <div class="text">Đăng nhập</div>
             </v-btn>
           </div>
-          <v-divider class="my-8"></v-divider>
+          <v-divider class="my-4"></v-divider>
+
           <div class="mb-8 d-flex justify-center">
             <div class="text-bottom">Bạn chưa có tài khoản ?</div>
             <div class="ml-2">
@@ -66,7 +77,9 @@
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </div>
-          <v-card-title class="title text-h6">Giftshop xin chào!</v-card-title>
+          <v-card-title class="title text-h6"
+            >Gift Store xin chào!</v-card-title
+          >
           <div class="px-4">
             <v-form ref="formRegister" lazy-validation>
               <v-text-field
@@ -101,7 +114,7 @@
           </div>
           <div class="px-4">
             <v-btn
-              :isLoading="isLoading"
+              :loading="isLoading"
               bottom
               width="100%"
               height="48px"
@@ -125,13 +138,23 @@
         <div class="check"></div>
       </v-card>
     </v-dialog>
+    <SendMail
+      :isShowSendMail="isShowSendMail"
+      @closeSendMail="closeSendMail"
+      @changeType="showLogin"
+    ></SendMail>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import SendMail from '../SendMail.vue';
 export default {
   name: 'Login',
+
+  components: {
+    SendMail,
+  },
 
   props: {
     show: {
@@ -156,6 +179,7 @@ export default {
       isLogin: true,
       showDialog: false,
       user: {},
+      isShowSendMail: false,
       errorMessages: '',
       emailRules: [
         (v) => !!v || 'E-mail không được để trống',
@@ -189,6 +213,7 @@ export default {
       this.isLogin = true;
       this.isLoading = false;
       this.errorMessages = '';
+      this.isShowSendMail = false;
       this.$emit('closeLogin');
     },
 
@@ -229,11 +254,28 @@ export default {
         const response = await this.register(this.user);
         if (response.success) {
           this.$notify.success('Đăng ký thành công');
-          this.changeType();
-          this.$refs.formRegister.resetValidation();
+          const data = {
+            isShow: true,
+            email: this.user.email,
+          };
+          this.$emit('showConfirmMail', data);
+          this.close();
         } else this.errorMessages = 'Đăng ký không thành công';
       }
       this.isLoading = false;
+    },
+
+    showForgotPassword() {
+      this.isShowSendMail = true;
+      this.showDialog = false;
+    },
+
+    closeSendMail() {
+      this.close();
+    },
+
+    showLogin() {
+      this.showDialog = true;
     },
   },
 };
