@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import { GET_PRODUCTS, GET_PRODUCTS_SERVER, SET_PRODUCTS } from '../mutation-types
-var connect_string_server = 'http://localhost:5000/products';
+var connect_string_server = 'https://44.193.93.193/api/Products?PageIndex=1&PageSize=20&SortBy=price&IsDesc=true';
 const list_products = {
     namespaced: true,
     state() {
@@ -15,15 +15,17 @@ const list_products = {
     mutations: {
         setProductList (state, list_products) {
             state.products = list_products;
-            console.log("ok");
-            console.log(state.products);
+            // console.log("ok");   
+            // console.log(state.products);
         }
     },
     actions: {
         async getProductsFromServer (context) {
-            const response = await axios.get(connect_string_server)
+            let response = await axios.get(connect_string_server)
             // context.commit('setProductList', await axios.get(connect_string_server).data);
-            context.commit('setProductList', response.data);
+            response = response.data.data.items;
+            console.log(response);
+            context.commit('setProductList', response);
             // return Promise.resolve();
         },
     },

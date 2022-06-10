@@ -6,7 +6,7 @@
           class="white--text align-end"
           style=""
           height="300px"
-          src="https://www.rexlondon.com/sites/default/files/styles/product_teaser/public/2022-02/29621_1-baby-first-book-numbers.png?itok=Qn4V6M6f"
+          :src="product_info.imageUrl"
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute co lor="#036358">
@@ -17,7 +17,7 @@
       </template>
     </v-hover>
 
-    <v-card-title class="font">{{ product_info.title }}</v-card-title>
+    <v-card-title class="font">{{ product_info.name }}</v-card-title>
 
     <v-card-subtitle class="pb-0 pt-3 font-weight-bold price">
       {{ toMoney }}
@@ -55,10 +55,7 @@ export default {
     };
   },
   props: {
-    product_info: {
-      title: String,
-      price: Number,
-    },
+    product_info: Object
   },
   mounted() {
     // console.log(sessionStorage.getItem("cart"));
