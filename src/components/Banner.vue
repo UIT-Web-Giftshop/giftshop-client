@@ -14,7 +14,7 @@
       ></v-carousel-item>
     </v-carousel>
     <div>
-      <VConslider></VConslider>
+      <VProductGridVue/>
     </div>
     <div class="d-flex justify-center my-6">
       <div class="pa-6">
@@ -62,7 +62,7 @@
 
 
 <script>
-import VConslider from "./VConslider.vue";
+import VProductGridVue from './list-product/VProductGrid.vue';
 export default {
   name: "Banner",
   data() {
@@ -81,7 +81,7 @@ export default {
     };
   },
   components: {
-    VConslider,
+    VProductGridVue,
   },
 };
 </script>
