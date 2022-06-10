@@ -96,7 +96,9 @@ export default {
       this.order = { ...item };
     },
 
-    close() {
+    async close(isCanceled) {
+      if (isCanceled) await this.getOrders();
+
       this.isShow = false;
     },
   },

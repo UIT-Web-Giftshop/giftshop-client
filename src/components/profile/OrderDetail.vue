@@ -5,7 +5,7 @@
         <v-card-title class="text-h5">Chi tiết đơn hàng</v-card-title>
         <v-spacer></v-spacer>
         <div class="mr-2">
-          <v-btn icon @click="$emit('closeOrderDetail')">
+          <v-btn icon @click="close()">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </div>
@@ -27,11 +27,12 @@
         </div>
         <v-btn
           :loading="isLoading"
+          v-if="order.status == 'Pending' || order.status == 'Deliveried'"
           depressed
           height="36"
           class="mr-4"
           color="rgba(254, 52, 100)"
-          @click="save"
+          @click="cancelOrder"
         >
           <div class="text-body-2 font-weight-bold white--text">Huỷ đơn</div>
         </v-btn>
@@ -63,6 +64,7 @@
 export default {
   data() {
     return {
+      isLoading: false,
       showDialog: true,
       headers: [
         {
@@ -77,6 +79,8 @@ export default {
         { text: 'Số lượng', value: 'quantity' },
         { text: 'Thành tiền', value: 'total' },
       ],
+
+      isCanceled: false,
     };
   },
 
@@ -86,6 +90,30 @@ export default {
       default: () => {
         return {};
       },
+    },
+  },
+
+  methods: {
+    async cancelOrder() {
+      try {
+        this.isLoading = true;
+        const response = await this.$http.put(
+          `/orders/${this.order.id}/status/cancel`
+        );
+        if (response.success) {
+          this.$notify.success('Huỷ đơn hàng thành công');
+          this.isCanceled = true;
+          this.close();
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    close() {
+      this.$emit('closeOrderDetail', this.isCanceled);
     },
   },
 };

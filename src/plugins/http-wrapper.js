@@ -59,6 +59,10 @@ export class HttpWrapper  {
     async post(url, requestParams = {}, options = DEFAULT_REQ_OPTS) {
         return await this.sendRequest(url, REQUEST_METHODS.POST, options, requestParams);
     }
+
+    async put(url, requestParams = {}, options = DEFAULT_REQ_OPTS) {
+        return await this.sendRequest(url, REQUEST_METHODS.PUT, options, requestParams);
+    }
 	
 	async delete(url, requestParams = {}, options = DEFAULT_REQ_OPTS) {
         return await this.sendRequest(url, REQUEST_METHODS.DELETE, options, requestParams);
