@@ -68,7 +68,16 @@
         </v-row>
       </div>
     </div>
-    <Login :show="showLogin" @closeLogin="closeLogin"></Login>
+    <Login
+      :show="showLogin"
+      @closeLogin="closeLogin"
+      @showConfirmMail="showConfirmMail"
+    ></Login>
+    <ConfirmMail
+      v-if="isShowConfirmMail"
+      :email="email"
+      @showConfirmMail="showConfirmMail"
+    ></ConfirmMail>
   </div>
 </template>
 
@@ -76,11 +85,13 @@
 import { mapGetters } from 'vuex';
 import Login from './Login.vue';
 import ModalAccount from '../ModalAccount.vue';
+import ConfirmMail from '../ConfirmMail.vue';
 export default {
   name: 'VHeader',
   components: {
     Login,
     ModalAccount,
+    ConfirmMail,
   },
 
   computed: {
@@ -91,8 +102,10 @@ export default {
     return {
       showModal: false,
       showLogin: false,
+      isShowConfirmMail: false,
       closeModal: false,
       closeOnContentClick: false,
+      email: '',
     };
   },
 
@@ -110,6 +123,13 @@ export default {
 
     closeLogin() {
       this.showLogin = false;
+    },
+
+    showConfirmMail(data) {
+      console.log(data);
+      const { email, isShow } = data;
+      this.isShowConfirmMail = isShow;
+      this.email = email;
     },
 
     handleModalAccount() {

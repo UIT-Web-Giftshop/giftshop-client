@@ -115,7 +115,7 @@
             <v-icon right size="24"> mdi-chevron-right</v-icon>
           </v-btn>
         </v-col>
-        <v-col class="ml-4" cols="7">
+        <v-col cols="8">
           <v-card class="rounded-lg pa-6 pb-10" v-show="tabInfo">
             <div class="text-h5 mb-6 font-weight-medium">
               Thông tin tài khoản
@@ -320,6 +320,7 @@
           </v-card>
           <v-card v-show="tabOrder" class="rounded-lg pa-6 pb-10">
             <div class="text-h5 mb-6 font-weight-medium">Lịch sử mua hàng</div>
+            <OrderTable></OrderTable>
           </v-card>
         </v-col>
       </v-row>
@@ -329,7 +330,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import OrderTable from '../components/profile/OrderTable.vue';
 export default {
+  components: {
+    OrderTable,
+  },
+
   data() {
     return {
       page: {
