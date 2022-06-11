@@ -15,8 +15,13 @@ Vue.prototype.$http = $http;
 Vue.prototype.$notify = notify;
 
 const token = store.getters['auth/token']
+const profile = store.getters['auth/profile']
 if (token) {
   $http.setAccessToken(token)
+}
+
+if (profile) {
+  $http.setDefaultData(profile.cartId, profile.wishlistId)
 }
 
 

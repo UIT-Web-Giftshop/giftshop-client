@@ -11,6 +11,7 @@ export const login = async ({commit}, params) => {
       $http.setAccessToken(data.accessToken);
       $http.setDefaultData(data.profile.cartId, data.profile.wishlistId)
 
+
       const token = {
         token: data.accessToken,
         profile: data.profile

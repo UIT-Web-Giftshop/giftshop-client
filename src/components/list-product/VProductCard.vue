@@ -9,7 +9,9 @@
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute co lor="#036358">
-              <v-btn color="white" class="black--text" :to="urlDetailProduct">xem chi tiết</v-btn>
+              <v-btn color="white" class="black--text" :to="urlDetailProduct"
+                >xem chi tiết</v-btn
+              >
             </v-overlay>
           </v-fade-transition>
         </v-img>
@@ -51,19 +53,18 @@ export default {
       sheet: false,
       loader: null,
       loading: false,
-      products: []
+      products: [],
     };
   },
   props: {
-    product_info: Object
+    product_info: Object,
   },
   created() {
     // console.log(sessionStorage.getItem("cart"));
     // if (sessionStorage.getItem('cart') !== null)
     //   this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
     // this.getProductsFromCartServer();
-    this.getProduct();
-    
+    this.getProducts();
   },
   // watch: {
   //   loader() {
@@ -74,14 +75,18 @@ export default {
   //   },
   // },
   methods: {
-    buyProduct: function (product) {
-      // console.log(product);
-      this.addProduct(product);
+    // buyProduct: function (product) {
+    //   // console.log(product);
+    //   this.addProduct(product);
+    // },
+    async getProducts() {
+      try {
+        const response = await this.$http.get('Carts');
+        this.products = response.data;
+      } catch (err) {
+        console.log(err);
+      }
     },
-    async getProduct (){
-      const response = await this.$http.get('Carts');
-      this.products = response.data;
-    }
     // ...mapActions({
     //   addProduct: 'cart/addProduct',
     //   createProductCart: 'cart/createProductCart',
@@ -100,7 +105,7 @@ export default {
     },
     urlDetailProduct: function () {
       return '/products/sku/' + this.product_info.sku;
-    }
+    },
   },
   // components: { VProductMiniCard },
 };
