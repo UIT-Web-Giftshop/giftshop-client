@@ -53,6 +53,12 @@ export class HttpWrapper  {
         this.$axios.defaults.headers.common['Authorization'] = `${type}${token}`;
     }
 
+    setDefaultData= (cartId, wishlistId) => {
+        this.$axios.defaults.headers.common['cartId'] = cartId;
+        this.$axios.defaults.headers.common['wishlistId'] = wishlistId;
+    }
+
+
     async get(url, requestParams = {}, options = DEFAULT_REQ_OPTS) {
         return await this.sendRequest(url, REQUEST_METHODS.GET, options, requestParams);
     }
