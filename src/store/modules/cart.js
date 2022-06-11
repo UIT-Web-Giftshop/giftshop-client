@@ -1,6 +1,8 @@
-import axios from 'axios';
+// import axios from 'axios';
 // import { GET_PRODUCTS, GET_PRODUCTS_SERVER, SET_PRODUCTS } from '../mutation-types
-var connect_string_server = 'http://localhost:5000/shopping_cart';
+import { $http } from '../../plugins/http-wrapper';
+// var defaultConnectString = 'https://44.193.93.193';
+
 const cart = {
     namespaced: true,
     state() {
@@ -38,7 +40,7 @@ const cart = {
                 return;
               }
           }
-          product.number = 1;
+          product.number = 1;   
           state.products_cart.push(product);
           sessionStorage.setItem("cart", JSON.stringify(state.products_cart));
         },
@@ -58,15 +60,16 @@ const cart = {
         addProduct(context, product){
           context.commit('addProduct', product);
         },
-        async getProductsFromCartServer (context) {
-          const response = await axios.get(connect_string_server);
-          context.commit('setProductList', response.data);
-          return Promise.resolve();
+        async getProductsFromCartServer () {
+          const response = await $http.get('Carts');
+          console.log(response);
+          // context.commit('setProductList', response.data);
+          // return Promise.resolve();
         },
         changeNumberOfProduct(context, info) {
           console.log(info.number);
           context.commit("changeNumber", info);
-        }
+        },
     },
 
 };

@@ -5,7 +5,7 @@
       <div style="height: 100%; display: flex; justify-content: space-between">
         <v-list-item-avatar tile size="60" color="grey">
           <v-img
-            src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+            :src="product_info.image"
           ></v-img>
         </v-list-item-avatar>
         <div style="width: 100%; height: 100%; margin: auto">
