@@ -5,12 +5,12 @@
       <div style="height: 100%; display: flex; justify-content: space-between">
         <v-list-item-avatar tile size="60" color="grey">
           <v-img
-            :src="product_info.image"
+            :src="product_info.imageUrl"
           ></v-img>
         </v-list-item-avatar>
         <div style="width: 100%; height: 100%; margin: auto">
-          <div class="text-subtitle-1 font-weight-bold"> {{ product_info.title }} </div>
-          <div>Product code: {{product_info.id}} </div>
+          <div class="text-subtitle-1 font-weight-bold"> {{ product_info.name }} </div>
+          <div>Product code: {{product_info.sku}} </div>
         </div>
       </div>
     </v-col>
@@ -26,11 +26,11 @@
         "
       >
         <div>
-          <v-btn color="teal_lighten_2" rounded style="text-transform: none; margin-right: 20px">
+          <v-btn color="teal_lighten_2" rounded style="text-transform: none; margin-right: 20px" @click="addProduct(product_info)">
             <!-- <v-icon left> mdi-close</v-icon> -->
             Add to bag
           </v-btn>
-          <v-btn text style="text-transform: none">
+          <v-btn text style="text-transform: none" @click="removeProduct(product_info)">
             <v-icon left> mdi-close</v-icon>
             Remove
           </v-btn>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -53,7 +54,10 @@ export default {
     product_info: Object,
   },
   methods: {
-   
+    ...mapActions({
+      addProduct: 'cart/addProduct',
+      removeProduct: 'wishlist/removeProduct'
+    })
   },
  
 };

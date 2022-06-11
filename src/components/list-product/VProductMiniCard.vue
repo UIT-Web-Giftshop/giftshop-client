@@ -6,16 +6,16 @@
           Just Arrived
         </div>
         <div class="title">
-          {{ product.title }}
+          {{ product_info.name }}
         </div>
         <template>
           <div style="display: flex; justify-content: space-between">
             <v-list-item-subtitle>
-              Giá: {{ toMoney(product.price, 1) }}</v-list-item-subtitle
+              Giá: {{ toMoney(product_info.price, 1) }}</v-list-item-subtitle
             >
-            <v-list-item-subtitle> SL: {{ number }} </v-list-item-subtitle>
+            <v-list-item-subtitle> SL: {{ product_info.quantity }} </v-list-item-subtitle>
             <v-list-item-subtitle>
-              Tổng: {{ toMoney(product.price, product.number) }}
+              Tổng: {{ toMoney(product_info.price, product_info.quantity) }}
             </v-list-item-subtitle>
           </div>
         </template>
@@ -34,9 +34,7 @@
 export default {
   name: 'VProductMiniCard',
   props: {
-    typeProduct: String,
-    number: Number,
-    product: {},
+    product_info: Object
   },
   methods: {
     toMoney(price, number) {

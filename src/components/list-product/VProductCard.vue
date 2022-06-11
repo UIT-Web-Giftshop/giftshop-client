@@ -44,7 +44,7 @@
 </template>
 
 <script>
-// import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 // import VProductMiniCard from "./VProductMiniCard.vue";
 export default {
   name: 'VProductCard',
@@ -64,21 +64,21 @@ export default {
     // if (sessionStorage.getItem('cart') !== null)
     //   this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
     // this.getProductsFromCartServer();
-    this.getProducts();
+    // this.getProducts();
   },
-  // watch: {
-  //   loader() {
-  //     const l = this.loader;
-  //     this[l] = !this[l];
-  //     setTimeout(() => (this[l] = false), 3000);
-  //     this.loader = null;
-  //   },
-  // },
+  watch: {
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
+      setTimeout(() => (this[l] = false), 3000);
+      this.loader = null;
+    },
+  },
   methods: {
-    // buyProduct: function (product) {
-    //   // console.log(product);
-    //   this.addProduct(product);
-    // },
+    buyProduct: function (product) {
+      // console.log('ok', ' ', product);
+      this.addProduct(product);
+    },
     async getProducts() {
       try {
         const response = await this.$http.get('Carts');
@@ -87,16 +87,16 @@ export default {
         console.log(err);
       }
     },
-    // ...mapActions({
-    //   addProduct: 'cart/addProduct',
-    //   createProductCart: 'cart/createProductCart',
-    //   getProductsFromCartServer: 'cart/getProductsFromCartServer'
-    // }),
+    ...mapActions({
+      addProduct: 'cart/addProduct',
+      createProductCart: 'cart/createProductCart',
+      getProductsFromCartServer: 'cart/getProductsFromCartServer'
+    }),
   },
   computed: {
-    // ...mapGetters({
-    //   getProductCart: 'cart/getProductCart',
-    // }),
+    ...mapGetters({
+      getProductCart: 'cart/getProductCart',
+    }),
     toMoney: function () {
       return new Intl.NumberFormat('vi-VN', {
         style: 'currency',

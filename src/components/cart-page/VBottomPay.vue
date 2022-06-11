@@ -38,7 +38,7 @@
         <v-card-actions>
           <v-row>
             <v-col>
-              <v-btn rounded text style="text-transform: none" :href="'/home/list-product'"> Continue shopping </v-btn>
+              <v-btn rounded text style="text-transform: none" to="danh-muc-san-pham"> Continue shopping </v-btn>
             </v-col>
             <v-col>
               <v-btn
@@ -47,9 +47,7 @@
                 dark
                 class="font-weight-bold"
                 style="text-transform: none"
-                width="100%"
-                @click="buyProduct(product_info)"
-              >
+                width="100%">
                 Checkout
               </v-btn>
             </v-col>

@@ -52,8 +52,7 @@
       <v-list dense over>
         <v-row v-for="(product, index) in getProductCart" :key="index">
           <VProductMiniCard
-            :product="product"
-            :number="product.number"
+            :product_info="product"
           ></VProductMiniCard>
         </v-row>
       </v-list>
@@ -68,7 +67,7 @@
           style="text-transform: none; font-size: 15px"
           width="150px"
           dark
-          href="/home/cart-page"
+          to="/trang-chu/danh-muc-mua-sam"
         >
           Edit shopping bag
         </v-btn>
@@ -167,40 +166,45 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import VProductMiniCard from './VProductMiniCard.vue';
+import { mapActions, mapGetters } from "vuex";
+import VProductMiniCard from "./VProductMiniCard.vue";
 // import VProgress from './VProgress.vue';
 export default {
-  name: 'VHeader',
+  name: "VHeader",
   components: {
     VProductMiniCard,
     // VProgress
-},
+  },
+  created () {
+    this.getProductsFromCartServer();
+  },
   data() {
     return {
       sheet: false,
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+      items: ["Foo", "Bar", "Fizz", "Buzz"],
       drawer: null,
       items_s: [
-        { title: 'Home', icon: 'mdi-view-dashboard' },
-        { title: 'About', icon: 'mdi-forum' },
+        { title: "Home", icon: "mdi-view-dashboard" },
+        { title: "About", icon: "mdi-forum" },
       ],
     };
   },
   computed: {
     ...mapGetters({
-      getProductCart: 'cart/getProductCart',
-      countProductCart: 'cart/countProductCart',
+      getProductCart: "cart/getProductCart",
+      countProductCart: "cart/countProductCart",
     }),
   },
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      getProductsFromCartServer: 'cart/getProductsFromCartServer'
+    }),
   },
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap");
 </style>
 
 <style lang = "scss" scoped>
