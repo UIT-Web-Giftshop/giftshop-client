@@ -86,12 +86,28 @@
     {
       "id": 1,
       "title": "Áo mưa Violet",
+      "image": "https://www.tugo.com.vn/wp-content/uploads/dai-loan-con-rat-noi-tieng-voi-nhieu-mat-hang-truyen-thong-dac-trung-va-dep-mat-810x459.png",
       "price": 450000,
       "number": 18
     },
     {
       "id": 2,
       "title": "Bút online",
+      "image": "https://tinyurl.com/5amxemjz",
+      "price": 450000,
+      "number": 18
+    },
+    {
+      "id": 3,
+      "title": "Sách Harry Potter",
+      "image": "https://tinyurl.com/5amxemjz",
+      "price": 450000,
+      "number": 18
+    },
+    {
+      "id": 4,
+      "title": "Áo thanh trắng",
+      "image": "https://vietnamembassy-thailand.org/wp-content/uploads/2019/05/nhung-mon-qua-luu-niem-khi-di-thai-lan-1.png",
       "price": 450000,
       "number": 18
     }
@@ -100,11 +116,25 @@
     {
       "id": 1,
       "title": "Áo mưa Violet",
+      "image": "https://www.tugo.com.vn/wp-content/uploads/dai-loan-con-rat-noi-tieng-voi-nhieu-mat-hang-truyen-thong-dac-trung-va-dep-mat-810x459.png",
       "price": 45000
     },
     {
       "id": 2,
       "title": "Bút online",
+      "image": "https://tinyurl.com/5amxemjz",
+      "price": 450000
+    },
+    {
+      "id": 3,
+      "title": "Sách Harry Potter",
+      "image": "https://tinyurl.com/5amxemjz",
+      "price": 450000
+    },
+    {
+      "id": 4,
+      "title": "Áo thanh trắng",
+      "image": "https://vietnamembassy-thailand.org/wp-content/uploads/2019/05/nhung-mon-qua-luu-niem-khi-di-thai-lan-1.png",
       "price": 450000
     }
   ],
