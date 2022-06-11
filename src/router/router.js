@@ -13,7 +13,7 @@ export default [
   {
     path: '/tai-khoan/:url',
     name: 'profile',
-    meta: { layout: "no-navigation" },
+    meta: { layout: "no-navigation" , requireAuth: true},
     component: () =>
       import( /* webpackChunkName: "about" */ '../views/ProfileView.vue')
   },
@@ -67,6 +67,13 @@ export default [
     meta: { layout: "no-navigation" },
     component: () => import ('../views/auth-page/MailConfirmation.vue')
   },
+  {
+    path: '/401',
+    name: 'UnAuthorizedPage',
+    meta: { layout: "no-navigation" },
+    component: () => import ('../views/static-page/UnAuthorizedPage.vue')
+  },
+
   {
     name: 'ErrorPage',
     path: '/:pathMatch(.*)*',

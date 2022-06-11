@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const DEFAULT_HEADERS = {
     'Content-Type': 'application/json'
 };
@@ -111,14 +112,19 @@ export class HttpWrapper  {
 
     #parseResponse = async (requester) => {
         try {
-          const resp = await Promise.resolve(requester);
+            const resp = await Promise.resolve(requester);
+     
           const { data, isAxiosError } = resp;
+
           if (isAxiosError) {
             const { status } = resp.toJSON();
             return { status, success: false, message: this.#errorMessages[status] };
-          }
+            }
           return { status: resp.status, ...data };
         } catch (error) {
+            if (error.toString().includes("401")) {
+                return { status: 401, success: false, message: this.#errorMessages[401] };       
+           }
           return { status: 500, success: false, message: this.#errorMessages[500] };
         }
     }

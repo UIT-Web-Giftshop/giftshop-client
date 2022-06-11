@@ -20,7 +20,6 @@ if (token) {
 }
 
 
-
 new Vue({
   vuetify,
   router,
