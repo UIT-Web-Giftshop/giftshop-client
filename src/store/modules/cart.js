@@ -1,6 +1,8 @@
 // import axios from 'axios';
 // import { GET_PRODUCTS, GET_PRODUCTS_SERVER, SET_PRODUCTS } from '../mutation-types
-var defaultConnectString = 'https://44.193.93.193';
+import { $http } from '../../plugins/http-wrapper';
+// var defaultConnectString = 'https://44.193.93.193';
+
 const cart = {
     namespaced: true,
     state() {
@@ -58,10 +60,10 @@ const cart = {
         addProduct(context, product){
           context.commit('addProduct', product);
         },
-        async getProductsFromCartServer (context) {
-          const response = await this.$http.get(defaultConnectString + '/api/Carts');
-          console.log(response.data);
-          context.commit('setProductList', response.data);
+        async getProductsFromCartServer () {
+          const response = await $http.get('Carts');
+          console.log(response);
+          // context.commit('setProductList', response.data);
           // return Promise.resolve();
         },
         changeNumberOfProduct(context, info) {
