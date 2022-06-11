@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+// import { mapActions, mapGetters } from 'vuex';
 // import VProductMiniCard from "./VProductMiniCard.vue";
 export default {
   name: 'VProductCard',
@@ -51,41 +51,47 @@ export default {
       sheet: false,
       loader: null,
       loading: false,
+      products: []
     };
   },
   props: {
     product_info: Object
   },
-  mounted() {
+  created() {
     // console.log(sessionStorage.getItem("cart"));
     // if (sessionStorage.getItem('cart') !== null)
     //   this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
-    this.getProductsFromCartServer();
+    // this.getProductsFromCartServer();
+    this.getProduct();
     
   },
-  watch: {
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-      setTimeout(() => (this[l] = false), 3000);
-      this.loader = null;
-    },
-  },
+  // watch: {
+  //   loader() {
+  //     const l = this.loader;
+  //     this[l] = !this[l];
+  //     setTimeout(() => (this[l] = false), 3000);
+  //     this.loader = null;
+  //   },
+  // },
   methods: {
     buyProduct: function (product) {
       // console.log(product);
       this.addProduct(product);
     },
-    ...mapActions({
-      addProduct: 'cart/addProduct',
-      createProductCart: 'cart/createProductCart',
-      getProductsFromCartServer: 'cart/getProductsFromCartServer'
-    }),
+    async getProduct (){
+      const response = await this.$http.get('Carts');
+      this.products = response.data;
+    }
+    // ...mapActions({
+    //   addProduct: 'cart/addProduct',
+    //   createProductCart: 'cart/createProductCart',
+    //   getProductsFromCartServer: 'cart/getProductsFromCartServer'
+    // }),
   },
   computed: {
-    ...mapGetters({
-      getProductCart: 'cart/getProductCart',
-    }),
+    // ...mapGetters({
+    //   getProductCart: 'cart/getProductCart',
+    // }),
     toMoney: function () {
       return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
