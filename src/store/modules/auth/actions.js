@@ -9,8 +9,7 @@ export const login = async ({commit}, params) => {
       const { data } = response;
       localStorage.setItem('auth', JSON.stringify(data))
       $http.setAccessToken(data.accessToken);
-      // const profile = await $http.get('/profile/me');
-      // const user = profile.content;
+      $http.setDefaultData(data.profile.cartId, data.profile.wishlistId)
 
       const token = {
         token: data.accessToken,
