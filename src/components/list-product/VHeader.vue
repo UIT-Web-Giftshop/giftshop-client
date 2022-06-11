@@ -92,7 +92,6 @@
     </p>
     <div style="display: flex; flex: content; justify-content: space-between">
       <p>Showing <b>120</b> of <b>128</b> Products</p>
-
       <div class="text-center">
         <v-bottom-sheet v-model="sheet" inset width="fit-content">
           <template v-slot:activator="{ on, attrs }">
@@ -170,11 +169,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import VProductMiniCard from './VProductMiniCard.vue';
+// import VProgress from './VProgress.vue';
 export default {
   name: 'VHeader',
   components: {
     VProductMiniCard,
-  },
+    // VProgress
+},
   data() {
     return {
       sheet: false,
