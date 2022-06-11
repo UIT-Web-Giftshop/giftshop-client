@@ -19,6 +19,7 @@ export default [
   },
   {
     path: '/trang-chu/danh-muc-san-pham',
+    meta: { layout: "no-navigation", requireAuth: true},
     name: 'list-product',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/ListProduct')
@@ -26,6 +27,7 @@ export default [
   {
     path: '/trang-chu/danh-muc-mua-sam',
     name: 'cart-page',
+    meta: { layout: "no-navigation", requireAuth: true},
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/CartPage')
   },
