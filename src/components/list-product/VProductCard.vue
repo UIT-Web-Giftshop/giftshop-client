@@ -58,8 +58,10 @@ export default {
   },
   mounted() {
     // console.log(sessionStorage.getItem("cart"));
-    if (sessionStorage.getItem('cart') !== null)
-      this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
+    // if (sessionStorage.getItem('cart') !== null)
+    //   this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
+    this.getProductsFromCartServer();
+    
   },
   watch: {
     loader() {
@@ -71,12 +73,13 @@ export default {
   },
   methods: {
     buyProduct: function (product) {
-      console.log(product);
+      // console.log(product);
       this.addProduct(product);
     },
     ...mapActions({
       addProduct: 'cart/addProduct',
       createProductCart: 'cart/createProductCart',
+      getProductsFromCartServer: 'cart/getProductsFromCartServer'
     }),
   },
   computed: {

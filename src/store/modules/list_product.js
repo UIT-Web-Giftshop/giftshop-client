@@ -41,7 +41,7 @@ const list_products = {
                 let connection = context.state.connect_string_server;
                 let response = await axios.get(defaultConnectString + connection);
                 response = response.data.data;
-                console.log(response);
+                // console.log(response);
                 context.commit('setProductList', response.items);
                 context.commit('setToTalCountProduct', response.allTotalCount);
                 context.commit('setItemsCount', response.itemsCount);
