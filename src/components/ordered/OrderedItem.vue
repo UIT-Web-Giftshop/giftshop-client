@@ -1,7 +1,8 @@
 <template>
     <v-expansion-panel>
         <v-expansion-panel-header disable-icon-rotate>
-            <h3>{{ orderedItem.id }}</h3>
+            <!-- <h3>{{ orderedItem.id }}</h3> -->
+            <h3>Đang hủy</h3>
             <template v-slot:actions>
                 <h4 class="text-capitalize">
                     {{ orderedItem.status }}
@@ -14,7 +15,7 @@
         <v-expansion-panel-content>
             <v-layout column>
                 <v-layout column ma-0 ml-2 mb-2
-                    ><span class="text-h6 text-uppercase">Ordered list</span>
+                    ><span class="text-h6 text-uppercase">Danh sách đơn hàng</span>
                     <v-layout
                         row
                         wrap
@@ -43,15 +44,15 @@
                                 ><span>{{ product.SKU }}</span></v-layout
                             >
                             <v-layout my-1 justify-space-between align-center
-                                ><span>Price</span
+                                ><span>Giá</span
                                 ><span>{{ product.price }}</span></v-layout
                             >
                             <v-layout my-1 justify-space-between align-center
-                                ><span>Quantity</span
+                                ><span>Số lượng</span
                                 ><span>{{ product.quantity }}</span></v-layout
                             >
                             <v-layout my-1 justify-space-between align-center
-                                ><span class="font-weight-bold">Total</span
+                                ><span class="font-weight-bold">Tổng tiền</span
                                 ><span>{{
                                     product.total
                                 }} $</span>
@@ -62,22 +63,22 @@
                 <v-divider />
                 <v-layout column ma-0 ml-2 my-4
                     ><span class="text-h6 text-uppercase"
-                        >Delivery details</span
+                        >Thông tin đơn hàng</span
                     >
                     <v-layout column my-4 ml-8 mr-0>
                         <v-layout my-1 justify-space-between align-center
-                            ><span>Name</span><span>{{orderedItem.delivery_info.name}}</span></v-layout
+                            ><span>Tên</span><span>{{orderedItem.delivery_info.name}}</span></v-layout
                         >
                         <v-layout my-1 justify-space-between align-center
-                            ><span>Address</span
+                            ><span>Địa chỉ</span
                             ><span>{{orderedItem.delivery_info.address}}</span></v-layout
                         >
                         <v-layout my-1 justify-space-between align-center
-                            ><span>Contact number</span
+                            ><span>Số điện thoại liên lạc</span
                             ><span>{{orderedItem.delivery_info.contact_number}}</span></v-layout
                         >
                         <v-layout my-1 justify-space-between align-start
-                            ><span>Note</span
+                            ><span>Ghi chú</span
                             ><v-flex md8 sm10 xs10
                                 ><p
                                     class="text-right"
@@ -101,7 +102,7 @@
                         <v-col md="4" sm="12"
                             ><v-layout justify-space-between align-center
                                 ><span class="text-h5 font-weight-bold"
-                                    >Total</span
+                                    >Tổng tiền</span
                                 ><span class="text-h5 font-weight-bold"
                                     >{{orderedItem.total}} $</span
                                 ></v-layout
@@ -109,12 +110,12 @@
                         >
                         <v-col v-if="orderedItem.status === 'canceling'" md="2" sm="5"
                             ><v-btn width="100%" class="warning"
-                                >Keep</v-btn
+                                >Giữ</v-btn
                             ></v-col
                         >
                         <v-col v-if="orderedItem.status === 'progressing'" md="2" sm="5"
                             ><v-btn width="100%" class="error"
-                                >Cancel</v-btn
+                                >Hủy</v-btn
                             ></v-col
                         ></v-row
                     >
