@@ -21,7 +21,7 @@ export default {
     };
   },
   created(){
-    this.pagination.pages = parseInt((this.getTotalCount / this.getPagesCount)) + 2;
+    this.pagination.pages = parseInt((this.getTotalCount / this.getPagesCount)) + 1;
     console.log(this.getPagesCount);
   },
   computed: {
