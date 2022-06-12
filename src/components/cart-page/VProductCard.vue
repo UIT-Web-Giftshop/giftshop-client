@@ -6,7 +6,7 @@
         <v-list-item-avatar tile size="60" color="grey">
           <v-img :src="product_info.imageUrl"></v-img>
         </v-list-item-avatar>
-        <div style="width: 100%; height: 100%; margin: auto">
+        <div style="width: 200px; height: 100%; margin: auto">
           <div class="text-subtitle-1 font-weight-bold">
             {{ product_info.name }}
           </div>
@@ -25,14 +25,14 @@
           align-items: center;
         "
       > -->
-      <div class="text-subtitle-1 font-weight-black" style="width: 130px;margin: auto">
+      <div class="text-subtitle-1 font-weight-black" style="width: 100%; height: 100%;text-align: center;display: flex; align-items: center; justify-content: center;">
         {{ toMoney(product_info.price, 1) }}
       </div>
 
       <div v-if="notify"></div>
       <!-- </div> -->
     </v-col>
-    <v-col>
+    <v-col style="display: flex; align-items: center; justify-content: center;">
       <div style="margin-top: 20px">
         <v-select
           rounded
@@ -48,7 +48,7 @@
       </div>
     </v-col>
     <v-col >
-      <div>
+      <div style="width: 100%; height: 100%;text-align: center;display: flex; align-items: center; justify-content: center;">
         <v-btn
           text
           style="text-transform: none"
@@ -60,7 +60,7 @@
       </div>
     </v-col>
     <v-col>
-      <div class="text-subtitle-1 font-weight-black" style="width: 130px">
+      <div class="text-subtitle-1 font-weight-black" style="width: 100%; height: 100%;text-align: center;display: flex; align-items: center; justify-content: center;">
         {{ toMoney(product_info.price, product_info.quantity) }}
       </div>
     </v-col>
