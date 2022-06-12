@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin-top: 50px; margin-left: 2px" width="300px">
+  <v-card style="margin-top: 50px; margin-left: 2px" width="300px" height="480px">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-img
