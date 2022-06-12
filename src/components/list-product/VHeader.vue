@@ -156,14 +156,18 @@ export default {
     this.getProductsFromCartServer();
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    if (urlParams.get("trait") != null)
+    console.log('"',urlParams.get('trait'),'"');
+    if (urlParams.get("trait") != null && urlParams.get('trait') !== '' )
     {
       this.setItemFilter(urlParams.get("trait"));
       this.header = urlParams.get("trait");
     }
     else
-      this.header = "Tất cả";
-    if (urlParams.get("search") != null)
+    {
+      this.header = "Sản phẩm";
+      this.setItemFilter('');
+    }
+    if (urlParams.get("search") != null && urlParams.get('search') !== '')
       this.setSearch(urlParams.get("search"));
     else
       this.setSearch('');
