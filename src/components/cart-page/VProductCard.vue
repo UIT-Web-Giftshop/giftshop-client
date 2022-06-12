@@ -1,7 +1,7 @@
 <template>
   <!-- <v-card class="mx-auto" outlined> -->
   <v-row>
-    <v-col :cols="4">
+    <v-col xl="4">
       <div style="height: 100%; display: flex; justify-content: space-between">
         <v-list-item-avatar tile size="60" color="grey">
           <v-img :src="product_info.imageUrl"></v-img>
@@ -15,8 +15,8 @@
       </div>
     </v-col>
 
-    <v-col :cols="8">
-      <div
+    <v-col>
+      <!-- <div
         style="
           width: 100%;
           height: 100%;
@@ -24,37 +24,44 @@
           justify-content: space-around;
           align-items: center;
         "
-      >
-        <div class="text-subtitle-1 font-weight-black" style="width: 130px">
-          {{ toMoney(product_info.price, 1) }}
-        </div>
-        <div style="margin-top: 20px">
-          <v-select
-            rounded
-            elevation="2"
-            x-small
-            style="width: 120px"
-            v-model="select"
-            :items="items"
-            return-object
-            solo
-            @change="changeNumberSelect(product_info.sku)"
-          ></v-select>
-        </div>
-        <div>
-          <v-btn
-            text
-            style="text-transform: none"
-            @click="removeProduct(product_info)"
-          >
-            <v-icon left> mdi-close</v-icon>
-            Remove
-          </v-btn>
-        </div>
-        <div class="text-subtitle-1 font-weight-black" style="width: 130px">
-          {{ toMoney(product_info.price, product_info.quantity) }}
-        </div>
-        <div v-if="notify"></div>
+      > -->
+      <div class="text-subtitle-1 font-weight-black" style="width: 130px;margin: auto">
+        {{ toMoney(product_info.price, 1) }}
+      </div>
+
+      <div v-if="notify"></div>
+      <!-- </div> -->
+    </v-col>
+    <v-col>
+      <div style="margin-top: 20px">
+        <v-select
+          rounded
+          elevation="2"
+          x-small
+          style="width: 120px"
+          v-model="select"
+          :items="items"
+          return-object
+          solo
+          @change="changeNumberSelect(product_info.sku)"
+        ></v-select>
+      </div>
+    </v-col>
+    <v-col >
+      <div>
+        <v-btn
+          text
+          style="text-transform: none"
+          @click="removeProduct(product_info)"
+        >
+          <v-icon left> mdi-close</v-icon>
+          Remove
+        </v-btn>
+      </div>
+    </v-col>
+    <v-col>
+      <div class="text-subtitle-1 font-weight-black" style="width: 130px">
+        {{ toMoney(product_info.price, product_info.quantity) }}
       </div>
     </v-col>
   </v-row>
