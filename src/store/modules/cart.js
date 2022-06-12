@@ -47,14 +47,14 @@ const cart = {
     },
     addProduct(state, product) {
       for (let i = 0; i < state.products_cart.length; i++) {
-        if (state.products_cart[i].id == product.id) {
-          product.number = state.products_cart[i].number + 1;
+        if (state.products_cart[i].sku == product.sku) {
+          product.quantity = state.products_cart[i].quantity + 1;
           state.products_cart.splice(i, 1, product);
           state.response = true;
           return;
         }
       }
-      product.number = 1;
+      product.quantity = 1;
       state.products_cart.push(product);
       state.response = true;
     },
@@ -62,6 +62,7 @@ const cart = {
       for (let i = 0; i < state.products_cart.length; i++)
         if (state.products_cart[i].sku == info.sku) {
           let value = state.products_cart[i].quantity - info.quantity;
+          console.log('value: ', info);
           if (value > 0) {
             const response = await $http.put('Carts/remove', {
               sku: info.sku,
@@ -71,6 +72,7 @@ const cart = {
               state.products_cart[i].quantity = info.quantity;
               state.response = true;
               state.message = "Cập nhật thành công";
+              state.skuResponse = info.sku;
               if (info.quantity == 0)
                 state.products_cart.splice(i, 1);
             }
@@ -98,6 +100,7 @@ const cart = {
                 console.log("thất bại");
                 state.response = false;
                 state.message = "Sản phẩm trong kho không đủ";
+                console.log(info.sku,'**');
                 state.skuResponse = info.sku;
               }
             }

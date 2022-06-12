@@ -81,13 +81,20 @@ export default {
       return arr;
     },
     notify: function () {
+      console.log("info-2: ", this.product_info, ', res', this.getResponse);
       if (this.getResponse == true) {
         console.log(this.getResponse);
         $notify.success(this.getMessage);
         this.setOldSelect(this.select);
+        this.setResponse(null);
       } else if (this.getResponse == false) {
-        $notify.warning(this.getMessage);
-        this.setSelect(this.oldSelect);
+        if (this.getSkuResponse === this.product_info.sku) {
+          console.log(this.getSkuResponse, " ^^ ", this.product_info.sku);
+          console.log(this.getSkuResponse);
+          $notify.warning(this.getMessage);
+          this.setSelect(this.oldSelect);
+          this.setResponse(null);
+        }
       }
       this.setResponse(null);
       return this.getResponse;
@@ -95,6 +102,7 @@ export default {
     ...mapGetters({
       getResponse: "cart/getResponse",
       getMessage: "cart/getMessage",
+      getSkuResponse: "cart/getSkuResponse",
     }),
   },
   props: {
@@ -122,6 +130,7 @@ export default {
       });
     },
     changeNumberSelect: function (sku) {
+      console.log("info: ", this.product_info);
       this.changeNumberOfProduct({
         sku: sku,
         quantity: this.select,
@@ -132,8 +141,8 @@ export default {
       getProductsFromCartServer: "cart/getProductsFromCartServer",
     }),
     ...mapMutations({
-      setResponse: "cart/setResponse"
-    })
+      setResponse: "cart/setResponse",
+    }),
   },
 };
 </script>
