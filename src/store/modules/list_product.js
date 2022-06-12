@@ -51,6 +51,7 @@ const list_products = {
             state.isDesc = value;
         },
         setSearch (state, value) {
+            console.log('Đã vào');
             state.search = value;
         }
     },
@@ -58,7 +59,8 @@ const list_products = {
         async getProductsFromServer(context) {
             try {
                 context.commit('setItemsCount', 0);
-                let connection = '/api/Products?trait=' + context.state.itemFilter + '&PageIndex=' + context.state.pageIndex + '&PageSize=5&SortBy=' + context.state.itemSort + '&IsDesc=' + context.state.isDesc;
+                let connection = '/api/Products?trait=' + context.state.itemFilter + '&search=' + context.state.search +'&PageIndex=' + context.state.pageIndex + '&PageSize=5&SortBy=' + context.state.itemSort + '&IsDesc=' + context.state.isDesc;
+                console.log(connection);
                 let response = await axios.get(defaultConnectString + connection);
                 console.log(response);
                 response = response.data.data;

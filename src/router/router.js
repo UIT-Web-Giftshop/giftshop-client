@@ -38,6 +38,12 @@ export default [
       import( /* webpackChunkName: "about" */ '../views/WishListPage')
   },
   {
+    path: '/trang-chu/tim-kiem',
+    name: 'search-page',
+    component: () =>
+      import( /* webpackChunkName: "about" */ '../views/SearchPage')
+  },
+  {
     path: '/products/sku/:sku',
     name: "Products",
     component: () => import ('../views/ProductView.vue')

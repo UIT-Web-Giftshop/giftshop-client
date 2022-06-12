@@ -81,16 +81,15 @@
       </v-list>
     </v-navigation-drawer>
     <!-- </v-sheet> -->
-    <h1 id="header">Just Arrived</h1>
-    <p>
-      Look what's just arrived here at Rex London! Share the thrill of receiving
-      beautiful, on-trend and unique gifts by spontaneously giving these fresh
-      and affordable treats to your friends and family.
+    <h1 id="header"> {{header}} </h1>
+    <p >
+      The Gift shop là một trang bán hàng lưu niệm uy tín. Sản phảm của chúng tôi được nhập khẩu từ trong và ngoài nước
+       và có giấy kiểm định an toàn về chất liệu, nguồn gốc xuất sứ rõ ràng.
     </p>
     <div style="display: flex; flex: content; justify-content: space-between">
-      <p>Showing <b>120</b> of <b>128</b> Products</p>
-      <div class="text-center">
-        <v-bottom-sheet v-model="sheet" inset width="fit-content">
+      <p style="visibility: hidden">Showing <b>120</b> of <b>128</b> Products</p>
+      <div class="text-center" >
+        <v-dialog v-model="sheet" inset width="400px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               rounded
@@ -101,37 +100,14 @@
               v-bind="attrs"
               v-on="on"
             >
-              Sắp xếp/Lọc
+              Sắp xếp
             </v-btn>
           </template>
-          <v-sheet class="text-center" height="300px" width="400px">
+          <v-sheet class="text-center" height="250px"  width="400px" outlined>
             <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
-              close
+              Đóng
             </v-btn>
             <div class="my-3" style="padding: 10px">
-              <!-- <template>
-                <div style="text-align: left">
-                  <h4>Refine</h4>
-                  <v-select
-                    :items="items"
-                    label="Solo field"
-                    dense
-                    solo
-                  ></v-select>
-                </div>
-              </template> -->
-              <!-- <template>
-                <div style="text-align: left">
-                  <h4>Thể loại</h4>
-                  <v-select
-                    v-model="filter"
-                    :items="items_filter"
-                    label="Solo field"
-                    dense
-                    solo
-                  ></v-select>
-                </div>
-              </template> -->
               <template>
                 <div style="text-align: left">
                   <h4>Sắp xếp theo</h4>
@@ -154,13 +130,13 @@
                     dark
                     @click="sortFiler"
                   >
-                    Apply
+                    Áp dụng
                   </v-btn>
                 </div>
               </template>
             </div>
           </v-sheet>
-        </v-bottom-sheet>
+        </v-dialog>
       </div>
     </div>
   </div>
@@ -180,8 +156,17 @@ export default {
     this.getProductsFromCartServer();
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    this.setItemFilter(urlParams.get('trait'));
-    // this.setSearch(urlParams.get('search'));
+    if (urlParams.get("trait") != null)
+    {
+      this.setItemFilter(urlParams.get("trait"));
+      this.header = urlParams.get("trait");
+    }
+    else
+      this.header = "Tất cả";
+    if (urlParams.get("search") != null)
+      this.setSearch(urlParams.get("search"));
+    else
+      this.setSearch('');
   },
   data() {
     return {
@@ -195,6 +180,7 @@ export default {
       ],
       sort: "Giá giảm dần",
       filter: "Tất cả",
+      header: ''
     };
   },
   computed: {
