@@ -157,19 +157,19 @@ export default {
   },
   created() {
     this.getProductsFromCartServer();
-    // const queryString = window.location.search;
-    // const urlParams = new URLSearchParams(queryString);
-    // console.log('"', urlParams.get("trait"), '"');
-    // if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
-    //   this.setItemFilter(urlParams.get("trait"));
-    //   this.header = urlParams.get("trait");
-    // } else {
-    //   this.header = "Sản phẩm";
-    //   this.setItemFilter("");
-    // }
-    // if (urlParams.get("search") != null && urlParams.get("search") !== "")
-    //   this.setSearch(urlParams.get("search"));
-    // else this.setSearch("");
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    console.log('"', urlParams.get("trait"), '"');
+    if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
+      this.setItemFilter(urlParams.get("trait"));
+      this.header = urlParams.get("trait");
+    } else {
+      this.header = "Sản phẩm";
+      this.setItemFilter("");
+    }
+    if (urlParams.get("search") != null && urlParams.get("search") !== "")
+      this.setSearch(urlParams.get("search"));
+    else this.setSearch("");
   },
   data() {
     return {

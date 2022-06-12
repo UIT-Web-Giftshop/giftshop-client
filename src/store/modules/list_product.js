@@ -61,7 +61,7 @@ const list_products = {
             try {
                 context.commit('setItemsCount', 0);
                 let connection = 'Products?trait=' + context.state.itemFilter + '&search=' + context.state.search + '&PageIndex=' + context.state.pageIndex + '&PageSize=20&SortBy=' + context.state.itemSort + '&IsDesc=' + context.state.isDesc;
-                console.log(connection);
+                console.log("URL: ", connection);
                 let response = await $http.get(connection);
                 console.log('data: ', response);
                 response = response.data;
