@@ -4,7 +4,7 @@
       <v-tab
         v-for="category in categories"
         :key="category.id"
-        :to="`/${category.link}`"
+        :to="`/${category.link}?trait=${category.title}`"
         class="text-body-1 font-weight-medium"
       >
         {{ category.title }}
@@ -22,11 +22,14 @@ export default {
       model: '',
       categories: [
         { categoryId: 0, title: 'Trang chủ', link: 'trang-chu' },
-        { categoryId: 1, title: 'New', link: 'trang-chu/danh-muc-san-pham'},
-        { categoryId: 2, title: 'Lifestyle' },
-        { categoryId: 3, title: 'Children' },
-        { categoryId: 4, title: 'Gifts' },
-        { categoryId: 5, title: "Mother's day" },
+        {
+          categoryId: 1,
+          title: 'Gia đình',
+          link: 'trang-chu/danh-muc-san-pham',
+        },
+        { categoryId: 2, title: 'Bạn bè' },
+        { categoryId: 3, title: 'Lưu niệm' },
+        { categoryId: 4, title: 'Tình yêu' },
       ],
     };
   },

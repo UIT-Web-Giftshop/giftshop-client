@@ -6,6 +6,8 @@
     <div class="header-content">
       <div class="header-left">
         <v-text-field
+          @keydown.enter="searchProduct"
+          v-model="search"
           prepend-inner-icon="mdi-magnify"
           placeholder="Tìm kiếm"
         ></v-text-field>
@@ -106,6 +108,7 @@ export default {
       closeModal: false,
       closeOnContentClick: false,
       email: '',
+      search: '',
     };
   },
 
@@ -134,6 +137,10 @@ export default {
 
     handleModalAccount() {
       this.closeOnContentClick = !this.closeOnContentClick;
+    },
+
+    searchProduct() {
+      this.$router.push(`/trang-chu/tim-kiem?search=${this.search}`);
     },
   },
 };
