@@ -1,22 +1,22 @@
 <template>
   <!-- <v-card class="mx-auto" outlined> -->
   <v-row>
-    <v-col :cols="4">
+    <v-col xl="4">
       <div style="height: 100%; display: flex; justify-content: space-between">
         <v-list-item-avatar tile size="60" color="grey">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-          ></v-img>
+          <v-img :src="product_info.imageUrl"></v-img>
         </v-list-item-avatar>
         <div style="width: 100%; height: 100%; margin: auto">
-          <div class="text-subtitle-1 font-weight-bold"> {{ product_info.title }} </div>
-          <div>Product code: {{product_info.id}} </div>
+          <div class="text-subtitle-1 font-weight-bold">
+            {{ product_info.name }}
+          </div>
+          <div>Product code: {{ product_info.sku }}</div>
         </div>
       </div>
     </v-col>
 
-    <v-col :cols="8">
-      <div
+    <v-col>
+      <!-- <div
         style="
           width: 100%;
           height: 100%;
@@ -24,42 +24,59 @@
           justify-content: space-around;
           align-items: center;
         "
-      >
-        <div class="text-subtitle-1 font-weight-black">
-        {{toMoney(product_info.price, 1)}}
-        </div>
-        <div style="margin-top: 20px">
-          <v-select
-            rounded
-            elevation="2"
-            x-small
-            style="width: 120px"
-            v-model="select"
-            :items="items"
-            return-object 
-            solo
-            @change="changeNumberSelect(product_info.id)"
-          ></v-select>
-        </div>
-        <div>
-          <v-btn text style="text-transform: none">
-            <v-icon left> mdi-close</v-icon>
-            Remove
-          </v-btn>
-        </div>
-        <div class="text-subtitle-1 font-weight-black"> {{toMoney(product_info.price, product_info.number)}} </div>
+      > -->
+      <div class="text-subtitle-1 font-weight-black" style="width: 130px;margin: auto">
+        {{ toMoney(product_info.price, 1) }}
+      </div>
+
+      <div v-if="notify"></div>
+      <!-- </div> -->
+    </v-col>
+    <v-col>
+      <div style="margin-top: 20px">
+        <v-select
+          rounded
+          elevation="2"
+          x-small
+          style="width: 120px"
+          v-model="select"
+          :items="items"
+          return-object
+          solo
+          @change="changeNumberSelect(product_info.sku)"
+        ></v-select>
+      </div>
+    </v-col>
+    <v-col >
+      <div>
+        <v-btn
+          text
+          style="text-transform: none"
+          @click="removeProduct(product_info)"
+        >
+          <v-icon left> mdi-close</v-icon>
+          Remove
+        </v-btn>
+      </div>
+    </v-col>
+    <v-col>
+      <div class="text-subtitle-1 font-weight-black" style="width: 130px">
+        {{ toMoney(product_info.price, product_info.quantity) }}
       </div>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+// import notify from '@/plugins/notify';
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import $notify from "../../plugins/notify";
 export default {
   data() {
     return {
-      select: this.product_info.number
-    }
+      oldSelect: this.product_info.quantity,
+      select: this.product_info.quantity,
+    };
   },
   computed: {
     items: () => {
@@ -70,26 +87,68 @@ export default {
       }
       return arr;
     },
+    notify: function () {
+      if (this.getSkuResponse === this.product_info.sku) {
+        console.log("info-2: ", this.product_info, ", res", this.getResponse);
+        if (this.getResponse == true) {
+          console.log(this.getResponse);
+          $notify.success(this.getMessage);
+          this.setOldSelect(this.select);
+        } else if (this.getResponse == false) {
+          console.log(this.getSkuResponse, " ^^ ", this.product_info.sku);
+          console.log(this.getSkuResponse);
+          $notify.warning(this.getMessage);
+          this.setSelect(this.oldSelect);
+        }
+        this.setResponse(null);
+      }
+
+      return this.getResponse;
+    },
+    ...mapGetters({
+      getResponse: "cart/getResponse",
+      getMessage: "cart/getMessage",
+      getSkuResponse: "cart/getSkuResponse",
+    }),
   },
   props: {
     product_info: Object,
     // select: Number
   },
   methods: {
-    toMoney (price, number){
-      return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price*number);
+    setSelect(select) {
+      this.select = select;
     },
-    changeNumberSelect: function (id){  
-      // console.log(this.select);
+    setOldSelect(select) {
+      this.oldSelect = select;
+    },
+    toMoney(price, number) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(price * number);
+    },
+    removeProduct: function (product) {
+      console.log(product);
       this.changeNumberOfProduct({
-        id: id,
-        number: this.select
+        sku: product.sku,
+        quantity: 0,
       });
     },
-     ...mapActions({
-    changeNumberOfProduct: "cart/changeNumberOfProduct"
-  })
+    changeNumberSelect: function (sku) {
+      console.log("info: ", this.product_info);
+      this.changeNumberOfProduct({
+        sku: sku,
+        quantity: this.select,
+      });
+    },
+    ...mapActions({
+      changeNumberOfProduct: "cart/changeNumberOfProduct",
+      getProductsFromCartServer: "cart/getProductsFromCartServer",
+    }),
+    ...mapMutations({
+      setResponse: "cart/setResponse",
+    }),
   },
- 
 };
 </script>

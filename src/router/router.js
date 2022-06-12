@@ -13,12 +13,13 @@ export default [
   {
     path: '/tai-khoan/:url',
     name: 'profile',
-    meta: { layout: "no-navigation" },
+    meta: { layout: "no-navigation" , requireAuth: true},
     component: () =>
       import( /* webpackChunkName: "about" */ '../views/ProfileView.vue')
   },
   {
     path: '/trang-chu/danh-muc-san-pham',
+
     name: 'list-product',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/ListProduct')
@@ -26,14 +27,22 @@ export default [
   {
     path: '/trang-chu/danh-muc-mua-sam',
     name: 'cart-page',
+    meta: { requireAuth: true},
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/CartPage')
   },
   {
     path: '/trang-chu/danh-muc-yeu-thich',
     name: 'wishlist-page',
+    meta: { requireAuth: true},
     component: () =>
       import( /* webpackChunkName: "about" */ '../views/WishListPage')
+  },
+  {
+    path: '/trang-chu/tim-kiem',
+    name: 'search-page',
+    component: () =>
+      import( /* webpackChunkName: "about" */ '../views/SearchPage')
   },
   {
     path: '/products/sku/:sku',
@@ -67,6 +76,13 @@ export default [
     meta: { layout: "no-navigation" },
     component: () => import ('../views/auth-page/MailConfirmation.vue')
   },
+  {
+    path: '/401',
+    name: 'UnAuthorizedPage',
+    meta: { layout: "no-navigation" },
+    component: () => import ('../views/static-page/UnAuthorizedPage.vue')
+  },
+
   {
     name: 'ErrorPage',
     path: '/:pathMatch(.*)*',

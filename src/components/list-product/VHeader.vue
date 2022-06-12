@@ -51,10 +51,7 @@
 
       <v-list dense over>
         <v-row v-for="(product, index) in getProductCart" :key="index">
-          <VProductMiniCard
-            :product="product"
-            :number="product.number"
-          ></VProductMiniCard>
+          <VProductMiniCard :product_info="product"></VProductMiniCard>
         </v-row>
       </v-list>
 
@@ -68,7 +65,7 @@
           style="text-transform: none; font-size: 15px"
           width="150px"
           dark
-          href="/home/cart-page"
+          to="/trang-chu/danh-muc-mua-sam"
         >
           Edit shopping bag
         </v-btn>
@@ -84,17 +81,18 @@
       </v-list>
     </v-navigation-drawer>
     <!-- </v-sheet> -->
-    <h1 id="header">Just Arrived</h1>
+    <h1 id="header">{{ header }}</h1>
     <p>
-      Look what's just arrived here at Rex London! Share the thrill of receiving
-      beautiful, on-trend and unique gifts by spontaneously giving these fresh
-      and affordable treats to your friends and family.
+      The Gift shop là một trang bán hàng lưu niệm uy tín. Sản phảm của chúng
+      tôi được nhập khẩu từ trong và ngoài nước và có giấy kiểm định an toàn về
+      chất liệu, nguồn gốc xuất sứ rõ ràng.
     </p>
     <div style="display: flex; flex: content; justify-content: space-between">
-      <p>Showing <b>120</b> of <b>128</b> Products</p>
-
+      <p style="visibility: hidden">
+        Showing <b>120</b> of <b>128</b> Products
+      </p>
       <div class="text-center">
-        <v-bottom-sheet v-model="sheet" inset width="fit-content">
+        <v-dialog v-model="sheet" inset width="400px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               rounded
@@ -105,41 +103,20 @@
               v-bind="attrs"
               v-on="on"
             >
-              Sort/Filter
+              Sắp xếp
             </v-btn>
           </template>
-          <v-sheet class="text-center" height="500px" width="500px">
+          <v-sheet class="text-center" height="250px" width="400px" outlined>
             <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
-              close
+              Đóng
             </v-btn>
             <div class="my-3" style="padding: 10px">
               <template>
                 <div style="text-align: left">
-                  <h4>Refine</h4>
+                  <h4>Sắp xếp theo</h4>
                   <v-select
-                    :items="items"
-                    label="Solo field"
-                    dense
-                    solo
-                  ></v-select>
-                </div>
-              </template>
-              <template>
-                <div style="text-align: left">
-                  <h4>Design</h4>
-                  <v-select
-                    :items="items"
-                    label="Solo field"
-                    dense
-                    solo
-                  ></v-select>
-                </div>
-              </template>
-              <template>
-                <div style="text-align: left">
-                  <h4>Sort by</h4>
-                  <v-select
-                    :items="items"
+                    v-model="sort"
+                    :items="items_sort"
                     label="Solo field"
                     dense
                     solo
@@ -154,52 +131,139 @@
                     style="text-transform: none; font-size: 18px"
                     width="200px"
                     dark
+                    @click="sortFiler"
                   >
-                    Apply
+                    Áp dụng
                   </v-btn>
                 </div>
               </template>
             </div>
           </v-sheet>
-        </v-bottom-sheet>
+        </v-dialog>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import VProductMiniCard from './VProductMiniCard.vue';
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import VProductMiniCard from "./VProductMiniCard.vue";
+// import VProgress from './VProgress.vue';
 export default {
-  name: 'VHeader',
+  name: "VHeader",
   components: {
     VProductMiniCard,
+    // VProgress
+  },
+  created() {
+    this.getProductsFromCartServer();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    console.log('"', urlParams.get("trait"), '"');
+    if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
+      this.setItemFilter(urlParams.get("trait"));
+      this.header = urlParams.get("trait");
+    } else {
+      this.header = "Sản phẩm";
+      this.setItemFilter("");
+    }
+    if (urlParams.get("search") != null && urlParams.get("search") !== "")
+      this.setSearch(urlParams.get("search"));
+    else this.setSearch("");
   },
   data() {
     return {
       sheet: false,
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+      items_filter: ["Tất cả", "Sinh nhật", "Gia đình", "Lưu niệm"],
+      items_sort: ["Giá tăng dần", "Giá giảm dần", "Tên sản phẩm"],
       drawer: null,
       items_s: [
-        { title: 'Home', icon: 'mdi-view-dashboard' },
-        { title: 'About', icon: 'mdi-forum' },
+        { title: "Home", icon: "mdi-view-dashboard" },
+        { title: "About", icon: "mdi-forum" },
       ],
+      sort: "Giá giảm dần",
+      filter: "Tất cả",
+      header: "",
+      urlParams: "",
     };
+  },
+  watch: {
+    $route(value) {
+      console.log('xx', value);
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
+        this.setItemFilter(urlParams.get("trait"));
+        this.header = urlParams.get("trait");
+      } else {
+        this.header = "Sản phẩm";
+        this.setItemFilter("");
+      }
+      if (urlParams.get("search") != null && urlParams.get("search") !== "")
+        this.setSearch(urlParams.get("search"));
+      else this.setSearch("");
+      this.getProductsFromServer();
+    },
   },
   computed: {
     ...mapGetters({
-      getProductCart: 'cart/getProductCart',
-      countProductCart: 'cart/countProductCart',
+      getProductCart: "cart/getProductCart",
+      countProductCart: "cart/countProductCart",
     }),
   },
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      getProductsFromCartServer: "cart/getProductsFromCartServer",
+      getProductsFromServer: "list_products/getProductsFromServer",
+    }),
+    ...mapMutations({
+      setItemFilter: "list_products/setItemFilter",
+      setItemSort: "list_products/setItemSort",
+      setIsDesc: "list_products/setIsDesc",
+      setSearch: "list_products/setSearch",
+    }),
+    sortFiler() {
+      this.sheet = !this.sheet;
+      switch (this.sort) {
+        case "Giá tăng dần":
+          this.setItemSort("price");
+          this.setIsDesc("false");
+          break;
+        case "Giá giảm dần":
+          this.setItemSort("price");
+          this.setIsDesc("true");
+          break;
+        case "Tên sản phẩm":
+          this.setItemSort("name");
+          this.setIsDesc("false");
+          break;
+        default:
+          break;
+      }
+      // switch (this.filter) {
+      //   case "Tất cả":
+      //     this.setItemFilter("");
+      //     break;
+      //   case "Sinh nhật":
+      //     this.setItemFilter("/trait/birthday");
+      //     break;
+      //   case "Gia đình":
+      //     this.setItemFilter("/trait/family");
+      //     break;
+      //   case "Lưu niệm":
+      //     this.setItemFilter("/trait/memory");
+      //     break;
+      //   default:
+      //     break;
+      // }
+      this.getProductsFromServer();
+    },
   },
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap");
 </style>
 
 <style lang = "scss" scoped>

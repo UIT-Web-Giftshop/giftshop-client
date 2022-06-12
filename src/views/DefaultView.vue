@@ -8,8 +8,8 @@
           <router-view />
         </v-scroll-x-transition>
       </div>
-      <VFooter />
     </v-main>
+    <VFooter />
     <app-notification />
   </v-app>
 </template>

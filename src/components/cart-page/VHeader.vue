@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 id="header">Shopping Bag</h1>
+    <h1 id="header">Giỏ hàng của bạn</h1>
   </div>
 </template>
 

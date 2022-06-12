@@ -12,8 +12,8 @@
         <v-col
           xl="3"
           lg="3"
-          md="4"
-          sm="4"
+          md="6"
+          sm="6"
           v-for="(product, index) in getProducts"
           :key="index"
         >
@@ -45,6 +45,7 @@ export default {
   methods: {
     ...mapActions({
       getProductsFromServer: 'list_products/getProductsFromServer',
+      
     }),
   },
   computed: {

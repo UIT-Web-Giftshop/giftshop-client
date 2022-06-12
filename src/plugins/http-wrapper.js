@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const DEFAULT_HEADERS = {
     'Content-Type': 'application/json'
 };
@@ -51,6 +52,12 @@ export class HttpWrapper  {
     setAccessToken = (token, type = 'Bearer ') => {
         this.$axios.defaults.headers.common['Authorization'] = `${type}${token}`;
     }
+
+    setDefaultData= (cartId, wishlistId) => {
+        this.$axios.defaults.headers.common['cartId'] = cartId;
+        this.$axios.defaults.headers.common['wishlistId'] = wishlistId;
+    }
+
 
     async get(url, requestParams = {}, options = DEFAULT_REQ_OPTS) {
         return await this.sendRequest(url, REQUEST_METHODS.GET, options, requestParams);
@@ -111,14 +118,23 @@ export class HttpWrapper  {
 
     #parseResponse = async (requester) => {
         try {
-          const resp = await Promise.resolve(requester);
+            const resp = await Promise.resolve(requester);
+     
           const { data, isAxiosError } = resp;
+
           if (isAxiosError) {
             const { status } = resp.toJSON();
             return { status, success: false, message: this.#errorMessages[status] };
-          }
+            }
           return { status: resp.status, ...data };
         } catch (error) {
+            if (error.toString().includes("401")) {
+                return { status: 401, success: false, message: this.#errorMessages[401] };       
+            }
+            
+            if (error.toString().includes("400")) {
+                return { status: 400, success: false, message: this.#errorMessages[400] };       
+           }
           return { status: 500, success: false, message: this.#errorMessages[500] };
         }
     }

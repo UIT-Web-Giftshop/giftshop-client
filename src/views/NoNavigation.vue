@@ -7,8 +7,8 @@
           <router-view />
         </v-scroll-x-transition>
       </div>
-      <VFooter></VFooter>
     </v-main>
+    <VFooter />
     <app-notification />
   </v-app>
 </template>

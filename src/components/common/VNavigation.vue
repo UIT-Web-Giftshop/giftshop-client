@@ -4,7 +4,7 @@
       <v-tab
         v-for="category in categories"
         :key="category.id"
-        :to="`/${category.link}`"
+        @click="redirectPage(category)"
         class="text-body-1 font-weight-medium"
       >
         {{ category.title }}
@@ -22,11 +22,36 @@ export default {
       model: '',
       categories: [
         { categoryId: 0, title: 'Trang chủ', link: 'trang-chu' },
-        { categoryId: 1, title: 'New', link: 'trang-chu/danh-muc-san-pham'},
-        { categoryId: 2, title: 'Lifestyle' },
-        { categoryId: 3, title: 'Children' },
-        { categoryId: 4, title: 'Gifts' },
-        { categoryId: 5, title: "Mother's day" },
+        {
+          categoryId: 1,
+          title: 'Gia đình',
+
+          trait: '?trait=Gia đình',
+        },
+        {
+          categoryId: 2,
+          title: 'Bạn bè',
+
+          trait: '?trait=Bạn bè',
+        },
+        {
+          categoryId: 3,
+          title: 'Lưu niệm',
+
+          trait: '?trait=Lưu niệm',
+        },
+        {
+          categoryId: 4,
+          title: 'Tình yêu',
+
+          trait: '?trait=Tình yêu',
+        },
+        {
+          categoryId: 5,
+          title: 'Sinh nhật',
+
+          trait: '?trait=Sinh nhật',
+        },
       ],
     };
   },
@@ -35,6 +60,16 @@ export default {
   // },
 
   methods: {
+    redirectPage(category) {
+      if (category.trait)
+        this.$router.push({
+          path: `/trang-chu/danh-muc-san-pham${category.trait}`,
+          replace: true,
+        });
+      else {
+        this.$router.push('/trang-chu');
+      }
+    },
     // async getCategories() {
     //   const response = await axios.get('http://localhost:5000/categories');
     //   console.log(response.data);

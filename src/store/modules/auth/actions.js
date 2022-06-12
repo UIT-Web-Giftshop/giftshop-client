@@ -9,8 +9,8 @@ export const login = async ({commit}, params) => {
       const { data } = response;
       localStorage.setItem('auth', JSON.stringify(data))
       $http.setAccessToken(data.accessToken);
-      // const profile = await $http.get('/profile/me');
-      // const user = profile.content;
+      $http.setDefaultData(data.profile.cartId, data.profile.wishlistId)
+
 
       const token = {
         token: data.accessToken,
@@ -50,5 +50,18 @@ export const register = async ({commit},params) => {
     return { success: false, message: 'Oops, Somethings went wrong!' };
   }
 
-
 }
+
+export const getProfile = async ({ commit }) => {
+  try {
+    const response = await $http.get('/profile');
+    if (response.success) {
+      const { data } = response;
+  
+      commit(type.UPDATE_PROFILE, data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+    
+};

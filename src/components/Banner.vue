@@ -13,9 +13,6 @@
         :src="item.src"
       ></v-carousel-item>
     </v-carousel>
-    <div>
-      <VProductGridVue/>
-    </div>
     <div class="d-flex justify-center my-6">
       <div class="pa-6">
         <v-img
@@ -62,26 +59,22 @@
 
 
 <script>
-import VProductGridVue from './list-product/VProductGrid.vue';
 export default {
-  name: "Banner",
+  name: 'Banner',
   data() {
     return {
       items: [
         {
-          src: "https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/slider_1.png?1638096620754",
+          src: 'https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/slider_1.png?1638096620754',
         },
         {
-          src: "https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/slider_2.png?1638096620754",
+          src: 'https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/slider_2.png?1638096620754',
         },
         {
-          src: "https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/slider_3.png?1638096620754",
+          src: 'https://bizweb.dktcdn.net/100/357/842/themes/723819/assets/slider_3.png?1638096620754',
         },
       ],
     };
-  },
-  components: {
-    VProductGridVue,
   },
 };
 </script>

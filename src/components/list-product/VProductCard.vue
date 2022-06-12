@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin-top: 50px; margin-left: 2px" width="300px">
+  <v-card style="margin-top: 50px; margin-left: 2px; min-width: 242px;" width="300px" height="480px">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-img
@@ -9,14 +9,16 @@
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute co lor="#036358">
-              <v-btn color="white" class="black--text" :to="urlDetailProduct">xem chi tiết</v-btn>
+              <v-btn color="white" class="black--text" :to="urlDetailProduct"
+                >xem chi tiết</v-btn
+              >
             </v-overlay>
           </v-fade-transition>
         </v-img>
       </template>
     </v-hover>
 
-    <v-card-title class="font">{{ product_info.name }}</v-card-title>
+    <v-card-title class="font d-block" style="text-overflow:ellipsis;  overflow: hidden; white-space: nowrap;">{{ product_info.name }}</v-card-title>
 
     <v-card-subtitle class="pb-0 pt-3 font-weight-bold price">
       {{ toMoney }}
@@ -34,7 +36,7 @@
         Mua
       </v-btn>
 
-      <v-btn color="black" text style="text-transform: none; margin-left: 20px">
+      <v-btn color="black" text style="text-transform: none; margin-left: 20px" to="/products/sku/GIFT05">
         xem chi tiết
       </v-btn>
     </v-card-actions>
@@ -51,15 +53,18 @@ export default {
       sheet: false,
       loader: null,
       loading: false,
+      products: [],
     };
   },
   props: {
-    product_info: Object
+    product_info: Object,
   },
-  mounted() {
+  created() {
     // console.log(sessionStorage.getItem("cart"));
-    if (sessionStorage.getItem('cart') !== null)
-      this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
+    // if (sessionStorage.getItem('cart') !== null)
+    //   this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
+    // this.getProductsFromCartServer();
+    // this.getProducts();
   },
   watch: {
     loader() {
@@ -71,12 +76,21 @@ export default {
   },
   methods: {
     buyProduct: function (product) {
-      console.log(product);
+      // console.log('ok', ' ', product);
       this.addProduct(product);
+    },
+    async getProducts() {
+      try {
+        const response = await this.$http.get('Carts');
+        this.products = response.data;
+      } catch (err) {
+        console.log(err);
+      }
     },
     ...mapActions({
       addProduct: 'cart/addProduct',
       createProductCart: 'cart/createProductCart',
+      getProductsFromCartServer: 'cart/getProductsFromCartServer'
     }),
   },
   computed: {
@@ -91,7 +105,7 @@ export default {
     },
     urlDetailProduct: function () {
       return '/products/sku/' + this.product_info.sku;
-    }
+    },
   },
   // components: { VProductMiniCard },
 };
