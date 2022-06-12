@@ -81,14 +81,17 @@
       </v-list>
     </v-navigation-drawer>
     <!-- </v-sheet> -->
-    <h1 id="header"> {{header}} </h1>
-    <p >
-      The Gift shop là một trang bán hàng lưu niệm uy tín. Sản phảm của chúng tôi được nhập khẩu từ trong và ngoài nước
-       và có giấy kiểm định an toàn về chất liệu, nguồn gốc xuất sứ rõ ràng.
+    <h1 id="header">{{ header }}</h1>
+    <p>
+      The Gift shop là một trang bán hàng lưu niệm uy tín. Sản phảm của chúng
+      tôi được nhập khẩu từ trong và ngoài nước và có giấy kiểm định an toàn về
+      chất liệu, nguồn gốc xuất sứ rõ ràng.
     </p>
     <div style="display: flex; flex: content; justify-content: space-between">
-      <p style="visibility: hidden">Showing <b>120</b> of <b>128</b> Products</p>
-      <div class="text-center" >
+      <p style="visibility: hidden">
+        Showing <b>120</b> of <b>128</b> Products
+      </p>
+      <div class="text-center">
         <v-dialog v-model="sheet" inset width="400px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -103,7 +106,7 @@
               Sắp xếp
             </v-btn>
           </template>
-          <v-sheet class="text-center" height="250px"  width="400px" outlined>
+          <v-sheet class="text-center" height="250px" width="400px" outlined>
             <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
               Đóng
             </v-btn>
@@ -154,23 +157,19 @@ export default {
   },
   created() {
     this.getProductsFromCartServer();
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    console.log('"',urlParams.get('trait'),'"');
-    if (urlParams.get("trait") != null && urlParams.get('trait') !== '' )
-    {
-      this.setItemFilter(urlParams.get("trait"));
-      this.header = urlParams.get("trait");
-    }
-    else
-    {
-      this.header = "Sản phẩm";
-      this.setItemFilter('');
-    }
-    if (urlParams.get("search") != null && urlParams.get('search') !== '')
-      this.setSearch(urlParams.get("search"));
-    else
-      this.setSearch('');
+    // const queryString = window.location.search;
+    // const urlParams = new URLSearchParams(queryString);
+    // console.log('"', urlParams.get("trait"), '"');
+    // if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
+    //   this.setItemFilter(urlParams.get("trait"));
+    //   this.header = urlParams.get("trait");
+    // } else {
+    //   this.header = "Sản phẩm";
+    //   this.setItemFilter("");
+    // }
+    // if (urlParams.get("search") != null && urlParams.get("search") !== "")
+    //   this.setSearch(urlParams.get("search"));
+    // else this.setSearch("");
   },
   data() {
     return {
@@ -184,8 +183,27 @@ export default {
       ],
       sort: "Giá giảm dần",
       filter: "Tất cả",
-      header: ''
+      header: "",
+      urlParams: "",
     };
+  },
+  watch: {
+    $route(value) {
+      console.log('xx', value);
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
+        this.setItemFilter(urlParams.get("trait"));
+        this.header = urlParams.get("trait");
+      } else {
+        this.header = "Sản phẩm";
+        this.setItemFilter("");
+      }
+      if (urlParams.get("search") != null && urlParams.get("search") !== "")
+        this.setSearch(urlParams.get("search"));
+      else this.setSearch("");
+      this.getProductsFromServer();
+    },
   },
   computed: {
     ...mapGetters({

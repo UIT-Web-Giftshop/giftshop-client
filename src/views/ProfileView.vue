@@ -63,7 +63,7 @@
                 {{
                   profile.phoneNumber
                     ? profile.phoneNumber
-                    : 'Chưa cập nhật số điện thoại'
+                    : "Chưa cập nhật số điện thoại"
                 }}
               </div>
             </div>
@@ -393,9 +393,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import OrderTable from '../components/profile/OrderTable.vue';
-import axios from 'axios';
+import { mapGetters, mapActions } from "vuex";
+import OrderTable from "../components/profile/OrderTable.vue";
+import axios from "axios";
 export default {
   components: {
     OrderTable,
@@ -404,16 +404,16 @@ export default {
   data() {
     return {
       page: {
-        info: 'thong-tin-tai-khoan',
-        address: 'doi-mat-khau',
-        order: 'lich-su-mua-hang',
+        info: "thong-tin-tai-khoan",
+        address: "doi-mat-khau",
+        order: "lich-su-mua-hang",
       },
       isLoading: false,
       isSelecting: false,
-      usrAva: '',
-      radioGroup: '',
-      url: '',
-      user: '',
+      usrAva: "",
+      radioGroup: "",
+      url: "",
+      user: "",
       tabInfo: false,
       tabAddress: false,
       tabOrder: false,
@@ -422,9 +422,9 @@ export default {
       showNewPass: false,
       showPass: false,
       passwordRules: [
-        (value) => !!value || 'Mật khẩu không được để trống.',
+        (value) => !!value || "Mật khẩu không được để trống.",
         (value) =>
-          (value && value.length >= 6) || 'Mật khẩu phải có ít nhất 6 ký tự',
+          (value && value.length >= 6) || "Mật khẩu phải có ít nhất 6 ký tự",
       ],
 
       oldPassword: null,
@@ -445,7 +445,7 @@ export default {
     this.user = { ...this.profile };
     this.user.dateOfBirth = this.user.dateOfBirth.slice(
       0,
-      this.user.dateOfBirth.indexOf('T')
+      this.user.dateOfBirth.indexOf("T")
     );
     await this.getProfile();
     await this.getProvince();
@@ -487,24 +487,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters('auth', ['profile']),
+    ...mapGetters("auth", ["profile"]),
 
     // computedDateFormatted() {
     //   return this.formatDate(this.date);
     // },
 
     sliceEmail() {
-      return this.profile.email.slice(0, this.profile.email.indexOf('@'));
+      return this.profile.email.slice(0, this.profile.email.indexOf("@"));
     },
   },
 
   methods: {
-    ...mapActions('auth', ['getProfile']),
+    ...mapActions("auth", ["getProfile"]),
 
     formatDate(date) {
       if (!date) return null;
 
-      const [year, month, day] = date.split('-');
+      const [year, month, day] = date.split("-");
       return `${day}-${month}-${year}`;
     },
 
@@ -514,27 +514,27 @@ export default {
       //   address.indexOf('|')
       // );
 
-      const addressDetail = address.split('|');
+      const addressDetail = address.split("|");
       addressDetail.forEach((item) => {
-        if (item.includes('Province')) {
+        if (item.includes("Province")) {
           const name = item.substr(9, item.length);
           this.currentProvince = this.provincesAPI.find(
             (item) => item.name === name
           );
         }
-        if (item.includes('District')) {
+        if (item.includes("District")) {
           const name = item.substr(9, item.length);
           this.currentDistrict = this.currentProvince.districts.find(
             (item) => item.name === name
           );
         }
-        if (item.includes('Ward')) {
+        if (item.includes("Ward")) {
           const name = item.substr(5, item.length);
           this.currentWard = this.currentDistrict.wards.find(
             (item) => item.name === name
           );
         }
-        if (item.includes('Address')) {
+        if (item.includes("Address")) {
           this.currentStreet = item.substr(8, item.length);
         }
       });
@@ -552,12 +552,12 @@ export default {
     getFormatAddress() {
       const province = this.currentProvince
         ? `Province ${this.currentProvince.name}|`
-        : '';
+        : "";
       const district = this.currentDistrict
         ? `District ${this.currentDistrict.name}|`
-        : '';
-      const ward = this.currentWard ? `Ward ${this.currentWard.name}|` : '';
-      const street = this.currentStreet ? `Address ${this.currentStreet}|` : '';
+        : "";
+      const ward = this.currentWard ? `Ward ${this.currentWard.name}|` : "";
+      const street = this.currentStreet ? `Address ${this.currentStreet}|` : "";
 
       return province + district + ward + street;
     },
@@ -580,7 +580,7 @@ export default {
     async changePassword() {
       try {
         this.isLoading = true;
-        const response = await this.$http.post('profile/change-password', {
+        const response = await this.$http.post("profile/change-password", {
           oldPassword: this.oldPassword,
           newPassword: this.newPassword,
           confirmPassword: this.newPassword,
@@ -589,13 +589,13 @@ export default {
         const { status } = response;
 
         if (status === 200)
-          this.$notify.success('Thay đổi mật khẩu thành công');
+          this.$notify.success("Thay đổi mật khẩu thành công");
         else if (status === 400) {
-          this.$notify.error('Mật khẩu cũ không chính xác');
-        } else this.$notify.error('Hệ thống đang xảy ra sự cố');
+          this.$notify.error("Mật khẩu cũ không chính xác");
+        } else this.$notify.error("Hệ thống đang xảy ra sự cố");
       } catch (error) {
         console.log(error);
-        this.$notify.error('Hệ thống đang xảy ra sự cố');
+        this.$notify.error("Hệ thống đang xảy ra sự cố");
       } finally {
         this.isLoading = false;
       }
@@ -605,7 +605,7 @@ export default {
       const address = this.getFormatAddress();
       try {
         this.isLoading = true;
-        const repsonse = await this.$http.put('profile', {
+        const repsonse = await this.$http.put("profile", {
           firstName: this.user.firstName,
           dateOfBirth: this.user.dateOfBirth,
           phoneNumber: this.user.phoneNumber,
@@ -613,13 +613,13 @@ export default {
         });
 
         if (repsonse.success) {
-          this.$notify.success('Cập nhật thông tin thành công');
+          this.$notify.success("Cập nhật thông tin thành công");
           await this.getProfile();
         } else {
-          this.$notify.error('Hệ thống xảy ra sự cố');
+          this.$notify.error("Hệ thống xảy ra sự cố");
         }
       } catch (error) {
-        this.$notify.error('Hệ thống xảy ra sự cố');
+        this.$notify.error("Hệ thống xảy ra sự cố");
         console.log(error);
       } finally {
         this.isLoading = false;
@@ -629,9 +629,9 @@ export default {
     async uploadAva(files) {
       this.isSelecting = true;
       const form = new FormData();
-      files.forEach((file) => form.append('file', file));
+      files.forEach((file) => form.append("file", file));
 
-      const { data } = await this.$http.upload('images/upload/avatar', form);
+      const { data } = await this.$http.upload("images/upload/avatar", form);
       this.isSelecting = false;
       return data[0];
     },
