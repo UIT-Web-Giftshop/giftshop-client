@@ -46,6 +46,12 @@ export default {
 
           trait: '?trait=Tình yêu',
         },
+        {
+          categoryId: 5,
+          title: 'Sinh nhật',
+
+          trait: '?trait=Sinh nhật',
+        },
       ],
     };
   },
