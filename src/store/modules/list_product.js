@@ -1,6 +1,7 @@
-import axios from 'axios';
+// import axios from 'axios';
 // import { GET_PRODUCTS, GET_PRODUCTS_SERVER, SET_PRODUCTS } from '../mutation-types
-var defaultConnectString = 'https://44.193.93.193';
+// var defaultConnectString = 'https://44.193.93.193';
+import { $http } from '../../plugins/http-wrapper';
 const list_products = {
     namespaced: true,
     state() {
@@ -61,7 +62,7 @@ const list_products = {
                 context.commit('setItemsCount', 0);
                 let connection = '/api/Products?trait=' + context.state.itemFilter + '&search=' + context.state.search +'&PageIndex=' + context.state.pageIndex + '&PageSize=20&SortBy=' + context.state.itemSort + '&IsDesc=' + context.state.isDesc;
                 console.log(connection);
-                let response = await axios.get(defaultConnectString + connection);
+                let response = await $http.get(connection);
                 console.log(response);
                 response = response.data.data;
                 // console.log(response);
@@ -76,7 +77,6 @@ const list_products = {
             context.commit('setConnectString', connectString);
         }
     },
-
 };
 
 export default list_products;
