@@ -21,6 +21,10 @@ const mutations = {
   [type.REGISTER_SUCCESS]: state => {
     state.isAuthendicated = false;
   },
+
+  [type.UPDATE_PROFILE]: (state,profile) => {
+    state.profile = profile;
+  },
 }
 
 export default {

@@ -130,6 +130,10 @@ export class HttpWrapper  {
         } catch (error) {
             if (error.toString().includes("401")) {
                 return { status: 401, success: false, message: this.#errorMessages[401] };       
+            }
+            
+            if (error.toString().includes("400")) {
+                return { status: 400, success: false, message: this.#errorMessages[400] };       
            }
           return { status: 500, success: false, message: this.#errorMessages[500] };
         }

@@ -50,5 +50,18 @@ export const register = async ({commit},params) => {
     return { success: false, message: 'Oops, Somethings went wrong!' };
   }
 
-
 }
+
+export const getProfile = async ({ commit }) => {
+  try {
+    const response = await $http.get('/profile');
+    if (response.success) {
+      const { data } = response;
+  
+      commit(type.UPDATE_PROFILE, data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+    
+};
