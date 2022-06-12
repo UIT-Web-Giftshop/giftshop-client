@@ -607,7 +607,6 @@ export default {
         this.isLoading = true;
         const repsonse = await this.$http.put('profile', {
           firstName: this.user.firstName,
-          lastName: 'Ok',
           dateOfBirth: this.user.dateOfBirth,
           phoneNumber: this.user.phoneNumber,
           address: address,
