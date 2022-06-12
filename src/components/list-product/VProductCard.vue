@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin-top: 50px; margin-left: 2px" width="300px" height="480px">
+  <v-card style="margin-top: 50px; margin-left: 2px; min-width: 242px;" width="300px" height="480px">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-img
@@ -18,7 +18,7 @@
       </template>
     </v-hover>
 
-    <v-card-title class="font">{{ product_info.name }}</v-card-title>
+    <v-card-title class="font d-block" style="text-overflow:ellipsis;  overflow: hidden; white-space: nowrap;">{{ product_info.name }}</v-card-title>
 
     <v-card-subtitle class="pb-0 pt-3 font-weight-bold price">
       {{ toMoney }}
@@ -36,7 +36,7 @@
         Mua
       </v-btn>
 
-      <v-btn color="black" text style="text-transform: none; margin-left: 20px">
+      <v-btn color="black" text style="text-transform: none; margin-left: 20px" to="/products/sku/GIFT05">
         xem chi tiết
       </v-btn>
     </v-card-actions>

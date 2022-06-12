@@ -22,7 +22,7 @@ export default {
   },
   created(){
     console.log(this.getTotalCount);
-    this.pagination.pages = parseInt((this.getTotalCount / 2)) + 1;
+    this.pagination.pages = parseInt((this.getTotalCount / 20)) + 1;
     console.log(this.getPagesCount);
   },
   computed: {
