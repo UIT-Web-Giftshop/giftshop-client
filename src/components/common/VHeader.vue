@@ -28,7 +28,7 @@
       </div>
       <div class="header-right">
         <v-row justify="space-around">
-          <v-btn icon href="/trang-chu/danh-muc-yeu-thich">
+          <v-btn icon to="/trang-chu/danh-muc-yeu-thich">
             <v-icon color="black"> mdi-heart-outline </v-icon>
           </v-btn>
           <v-menu
@@ -64,7 +64,7 @@
             </v-card>
           </v-tooltip> -->
 
-          <v-btn icon href="/trang-chu/danh-muc-mua-sam">
+          <v-btn icon to="/trang-chu/danh-muc-mua-sam">
             <v-icon color="black">mdi-cart-outline</v-icon>
           </v-btn>
         </v-row>

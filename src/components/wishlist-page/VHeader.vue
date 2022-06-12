@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 id="header">Wish List</h1>
+    <h1 id="header">Danh mục yêu thích</h1>
   </div>
 </template>
 

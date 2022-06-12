@@ -1,5 +1,5 @@
 <template>
-  <v-card style="margin-top: 50px; margin-left: 2px" width="300px">
+  <v-card style="margin-top: 50px; margin-left: 2px; min-width: 242px;" width="300px" height="480px">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-img
@@ -18,7 +18,7 @@
       </template>
     </v-hover>
 
-    <v-card-title class="font">{{ product_info.name }}</v-card-title>
+    <v-card-title class="font d-block" style="text-overflow:ellipsis;  overflow: hidden; white-space: nowrap;">{{ product_info.name }}</v-card-title>
 
     <v-card-subtitle class="pb-0 pt-3 font-weight-bold price">
       {{ toMoney }}
@@ -36,7 +36,7 @@
         Mua
       </v-btn>
 
-      <v-btn color="black" text style="text-transform: none; margin-left: 20px">
+      <v-btn color="black" text style="text-transform: none; margin-left: 20px" to="/products/sku/GIFT05">
         xem chi tiết
       </v-btn>
     </v-card-actions>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-// import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 // import VProductMiniCard from "./VProductMiniCard.vue";
 export default {
   name: 'VProductCard',
@@ -64,21 +64,21 @@ export default {
     // if (sessionStorage.getItem('cart') !== null)
     //   this.createProductCart(JSON.parse(sessionStorage.getItem('cart')));
     // this.getProductsFromCartServer();
-    this.getProducts();
+    // this.getProducts();
   },
-  // watch: {
-  //   loader() {
-  //     const l = this.loader;
-  //     this[l] = !this[l];
-  //     setTimeout(() => (this[l] = false), 3000);
-  //     this.loader = null;
-  //   },
-  // },
+  watch: {
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
+      setTimeout(() => (this[l] = false), 3000);
+      this.loader = null;
+    },
+  },
   methods: {
-    // buyProduct: function (product) {
-    //   // console.log(product);
-    //   this.addProduct(product);
-    // },
+    buyProduct: function (product) {
+      // console.log('ok', ' ', product);
+      this.addProduct(product);
+    },
     async getProducts() {
       try {
         const response = await this.$http.get('Carts');
@@ -87,16 +87,16 @@ export default {
         console.log(err);
       }
     },
-    // ...mapActions({
-    //   addProduct: 'cart/addProduct',
-    //   createProductCart: 'cart/createProductCart',
-    //   getProductsFromCartServer: 'cart/getProductsFromCartServer'
-    // }),
+    ...mapActions({
+      addProduct: 'cart/addProduct',
+      createProductCart: 'cart/createProductCart',
+      getProductsFromCartServer: 'cart/getProductsFromCartServer'
+    }),
   },
   computed: {
-    // ...mapGetters({
-    //   getProductCart: 'cart/getProductCart',
-    // }),
+    ...mapGetters({
+      getProductCart: 'cart/getProductCart',
+    }),
     toMoney: function () {
       return new Intl.NumberFormat('vi-VN', {
         style: 'currency',

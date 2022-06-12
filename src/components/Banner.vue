@@ -13,7 +13,6 @@
         :src="item.src"
       ></v-carousel-item>
     </v-carousel>
-
     <div class="d-flex justify-center my-6">
       <div class="pa-6">
         <v-img

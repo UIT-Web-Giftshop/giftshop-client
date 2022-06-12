@@ -6,10 +6,15 @@ const list_products = {
     state() {
         return {
             products: [],
-            connect_string_server: '/api/Products?PageIndex=1&PageSize=20&SortBy=price&IsDesc=true',
+            // connect_string_server: '/api/Products?PageIndex=1&PageSize=20&SortBy=price&IsDesc=true',
             totalCount: 0,
             itemsCount: 0,
-            pagesCount: 20,
+            pagesCount: 2,
+            pageIndex: 1,
+            itemFilter: '',
+            itemSort: 'price',
+            isDesc: 'true',
+            search: ''
         }
     },
     getters: {
@@ -32,14 +37,32 @@ const list_products = {
         },
         setItemsCount (state, value) {
             state.itemsCount = value;
+        },
+        setPageIndex (state, value) {
+            state.pageIndex = value;
+        },
+        setItemFilter (state, value) {
+            state.itemFilter = value;
+        },
+        setItemSort(state, value) {
+            state.itemSort = value;
+        },
+        setIsDesc (state, value) {
+            state.isDesc = value;
+        },
+        setSearch (state, value) {
+            console.log('Đã vào');
+            state.search = value;
         }
     },
     actions: {
         async getProductsFromServer(context) {
             try {
                 context.commit('setItemsCount', 0);
-                let connection = context.state.connect_string_server;
+                let connection = '/api/Products?trait=' + context.state.itemFilter + '&search=' + context.state.search +'&PageIndex=' + context.state.pageIndex + '&PageSize=20&SortBy=' + context.state.itemSort + '&IsDesc=' + context.state.isDesc;
+                console.log(connection);
                 let response = await axios.get(defaultConnectString + connection);
+                console.log(response);
                 response = response.data.data;
                 // console.log(response);
                 context.commit('setProductList', response.items);
