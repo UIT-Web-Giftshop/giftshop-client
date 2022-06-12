@@ -10,14 +10,20 @@ const cart = {
     return {
       products_cart: [
       ],
+      response: null,
+      message: "",
+      skuResponse: ""
     }
   },
   getters: {
     getProductCart: (state) => state.products_cart,
     countProductCart: (state) => state.products_cart.length,
+    getResponse: (state) => state.response,
+    getMessage: (state) => state.message,
+    getSkuResponse: (state) => state.skuResponse,
     computeTotalBill(state) {
       let price = 0;
-      console.log("---");
+      // console.log("---");
       // console.log(state);
       state.products_cart.forEach(element => {
         price += element.quantity * element.price;
@@ -30,36 +36,47 @@ const cart = {
       state.products_cart = list_products;
       console.log(state.products_cart);
     },
-    async addProduct(state, product) {
+    setResponse(state, response) {
+      state.response = response;
+    },
+    setMessage(state, message) {
+      state.message = message;
+    },
+    setSkuResponse(state, sku) {
+      state.sku = sku;
+    },
+    addProduct(state, product) {
       for (let i = 0; i < state.products_cart.length; i++) {
         if (state.products_cart[i].id == product.id) {
           product.number = state.products_cart[i].number + 1;
           state.products_cart.splice(i, 1, product);
+          state.response = true;
           return;
         }
       }
       product.number = 1;
       state.products_cart.push(product);
+      state.response = true;
     },
     async changeNumber(state, info) {
       for (let i = 0; i < state.products_cart.length; i++)
         if (state.products_cart[i].sku == info.sku) {
-          // console.log(state.products_cart[i], ' ', info);
           let value = state.products_cart[i].quantity - info.quantity;
           if (value > 0) {
             const response = await $http.put('Carts/remove', {
               sku: info.sku,
               quantity: value
             });
-            console.log(response);
             if (response.success == true) {
               state.products_cart[i].quantity = info.quantity;
+              state.response = true;
+              state.message = "Cập nhật thành công";
               if (info.quantity == 0)
                 state.products_cart.splice(i, 1);
-              // $notify.success('dad');
             }
             else {
-              window.location.reload();
+              state.response = false;
+              state.message = "Đã xảy ra sự cố";
             }
           }
           else
@@ -73,10 +90,15 @@ const cart = {
                 state.products_cart[i].quantity = info.quantity;
                 if (info.quantity == 0)
                   state.products_cart.splice(i, 1);
-                // $notify.success('dad');
+                state.response = true;
+                state.message = "Cập nhật thành công";
+
               }
               else {
-                window.location.reload();
+                console.log("thất bại");
+                state.response = false;
+                state.message = "Sản phẩm trong kho không đủ";
+                state.skuResponse = info.sku;
               }
             }
         }
@@ -93,7 +115,11 @@ const cart = {
       });
       console.log(response);
       if (response.success == true) {
+        context.state.response = true;
         context.dispatch('getProductsFromCartServer');
+      }
+      else {
+        context.state.response = false;
       }
     },
     async getProductsFromCartServer(context) {

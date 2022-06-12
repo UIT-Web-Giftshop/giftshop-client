@@ -23,7 +23,7 @@
 
       <v-list-item-avatar tile size="32" color="grey">
         <v-img
-          src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+          :src="product_info.imageUrl"
         ></v-img>
       </v-list-item-avatar>
     </v-list-item>

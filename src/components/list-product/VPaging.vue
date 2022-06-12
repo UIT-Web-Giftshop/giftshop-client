@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'VPaging',
   data: () => {
@@ -21,7 +21,8 @@ export default {
     };
   },
   created(){
-    this.pagination.pages = parseInt((this.getTotalCount / this.getPagesCount)) + 1;
+    console.log(this.getTotalCount);
+    this.pagination.pages = parseInt((this.getTotalCount / 2)) + 1;
     console.log(this.getPagesCount);
   },
   computed: {
@@ -39,14 +40,18 @@ export default {
     },
     async next(page) {
       console.log(page);
-      let connectString = '/api/Products?PageIndex=' + page + '&PageSize=20&SortBy=price&IsDesc=true';
+      // let connectString = '/api/Products?PageIndex=' + page + '&PageSize=20&SortBy=price&IsDesc=true';
       // let connectString = '/api/Products?PageIndex=2&PageSize=20&SortBy=price&IsDesc=true';
-      this.setConnectString(connectString);
+      // this.setConnectString(connectString);
+      this.setPageIndex(page);
       this.getProductsFromServer();
     },
     ...mapActions({
       setConnectString: 'list_products/setConnectString',
       getProductsFromServer: 'list_products/getProductsFromServer'
+    }),
+    ...mapMutations({
+      setPageIndex: 'list_products/setPageIndex'
     })
    
   },

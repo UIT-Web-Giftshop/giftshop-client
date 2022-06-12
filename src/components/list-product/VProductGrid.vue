@@ -45,6 +45,7 @@ export default {
   methods: {
     ...mapActions({
       getProductsFromServer: 'list_products/getProductsFromServer',
+      
     }),
   },
   computed: {

@@ -25,7 +25,7 @@
           align-items: center;
         "
       >
-        <div class="text-subtitle-1 font-weight-black">
+        <div class="text-subtitle-1 font-weight-black" style="width: 130px">
           {{ toMoney(product_info.price, 1) }}
         </div>
         <div style="margin-top: 20px">
@@ -42,24 +42,32 @@
           ></v-select>
         </div>
         <div>
-          <v-btn text style="text-transform: none" @click="removeProduct(product_info)">
+          <v-btn
+            text
+            style="text-transform: none"
+            @click="removeProduct(product_info)"
+          >
             <v-icon left> mdi-close</v-icon>
             Remove
           </v-btn>
         </div>
-        <div class="text-subtitle-1 font-weight-black">
+        <div class="text-subtitle-1 font-weight-black" style="width: 130px">
           {{ toMoney(product_info.price, product_info.quantity) }}
         </div>
+        <div v-if="notify"></div>
       </div>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+// import notify from '@/plugins/notify';
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import $notify from "../../plugins/notify";
 export default {
   data() {
     return {
+      oldSelect: this.product_info.quantity,
       select: this.product_info.quantity,
     };
   },
@@ -72,12 +80,34 @@ export default {
       }
       return arr;
     },
+    notify: function () {
+      if (this.getResponse == true) {
+        console.log(this.getResponse);
+        $notify.success(this.getMessage);
+        this.setOldSelect(this.select);
+      } else if (this.getResponse == false) {
+        $notify.warning(this.getMessage);
+        this.setSelect(this.oldSelect);
+      }
+      this.setResponse(null);
+      return this.getResponse;
+    },
+    ...mapGetters({
+      getResponse: "cart/getResponse",
+      getMessage: "cart/getMessage",
+    }),
   },
   props: {
     product_info: Object,
     // select: Number
   },
   methods: {
+    setSelect(select) {
+      this.select = select;
+    },
+    setOldSelect(select) {
+      this.oldSelect = select;
+    },
     toMoney(price, number) {
       return new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -101,6 +131,9 @@ export default {
       changeNumberOfProduct: "cart/changeNumberOfProduct",
       getProductsFromCartServer: "cart/getProductsFromCartServer",
     }),
+    ...mapMutations({
+      setResponse: "cart/setResponse"
+    })
   },
 };
 </script>

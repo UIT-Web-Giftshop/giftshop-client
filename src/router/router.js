@@ -19,7 +19,7 @@ export default [
   },
   {
     path: '/trang-chu/danh-muc-san-pham',
-    meta: { layout: "no-navigation", requireAuth: true},
+    meta: {  requireAuth: true},
     name: 'list-product',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/ListProduct')

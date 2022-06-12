@@ -35,13 +35,15 @@
             Remove
           </v-btn>
         </div>
+        <div v-if="notify"></div>
       </div>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+import $notify from '../../plugins/notify';
 export default {
   data() {
     return {
@@ -49,6 +51,22 @@ export default {
     }
   },
   computed: {
+    notify: function () {
+      if (this.getResponse == true) {
+        console.log(this.getResponse);
+        $notify.success(this.getMessage);
+        // this.setOldSelect(this.select);
+      } else if (this.getResponse == false) {
+        $notify.warning(this.getMessage);
+        // this.setSelect(this.oldSelect);
+      }
+      this.setResponse(null);
+      return this.getResponse;
+    },
+    ...mapGetters({
+      getResponse: "cart/getResponse",
+      getMessage: "cart/getMessage",
+    }),
   },
   props: {
     product_info: Object,
@@ -57,6 +75,9 @@ export default {
     ...mapActions({
       addProduct: 'cart/addProduct',
       removeProduct: 'wishlist/removeProduct'
+    }),
+     ...mapMutations({
+      setResponse: "cart/setResponse"
     })
   },
  

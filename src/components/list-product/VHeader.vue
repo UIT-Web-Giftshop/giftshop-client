@@ -51,9 +51,7 @@
 
       <v-list dense over>
         <v-row v-for="(product, index) in getProductCart" :key="index">
-          <VProductMiniCard
-            :product_info="product"
-          ></VProductMiniCard>
+          <VProductMiniCard :product_info="product"></VProductMiniCard>
         </v-row>
       </v-list>
 
@@ -103,15 +101,15 @@
               v-bind="attrs"
               v-on="on"
             >
-              Sort/Filter
+              Sắp xếp/Lọc
             </v-btn>
           </template>
-          <v-sheet class="text-center" height="500px" width="500px">
+          <v-sheet class="text-center" height="300px" width="400px">
             <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
               close
             </v-btn>
             <div class="my-3" style="padding: 10px">
-              <template>
+              <!-- <template>
                 <div style="text-align: left">
                   <h4>Refine</h4>
                   <v-select
@@ -121,23 +119,25 @@
                     solo
                   ></v-select>
                 </div>
-              </template>
-              <template>
+              </template> -->
+              <!-- <template>
                 <div style="text-align: left">
-                  <h4>Design</h4>
+                  <h4>Thể loại</h4>
                   <v-select
-                    :items="items"
+                    v-model="filter"
+                    :items="items_filter"
                     label="Solo field"
                     dense
                     solo
                   ></v-select>
                 </div>
-              </template>
+              </template> -->
               <template>
                 <div style="text-align: left">
-                  <h4>Sort by</h4>
+                  <h4>Sắp xếp theo</h4>
                   <v-select
-                    :items="items"
+                    v-model="sort"
+                    :items="items_sort"
                     label="Solo field"
                     dense
                     solo
@@ -152,6 +152,7 @@
                     style="text-transform: none; font-size: 18px"
                     width="200px"
                     dark
+                    @click="sortFiler"
                   >
                     Apply
                   </v-btn>
@@ -166,7 +167,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import VProductMiniCard from "./VProductMiniCard.vue";
 // import VProgress from './VProgress.vue';
 export default {
@@ -175,18 +176,25 @@ export default {
     VProductMiniCard,
     // VProgress
   },
-  created () {
+  created() {
     this.getProductsFromCartServer();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    this.setItemFilter(urlParams.get('trait'));
+    // this.setSearch(urlParams.get('search'));
   },
   data() {
     return {
       sheet: false,
-      items: ["Foo", "Bar", "Fizz", "Buzz"],
+      items_filter: ["Tất cả", "Sinh nhật", "Gia đình", "Lưu niệm"],
+      items_sort: ["Giá tăng dần", "Giá giảm dần", "Tên sản phẩm"],
       drawer: null,
       items_s: [
         { title: "Home", icon: "mdi-view-dashboard" },
         { title: "About", icon: "mdi-forum" },
       ],
+      sort: "Giá giảm dần",
+      filter: "Tất cả",
     };
   },
   computed: {
@@ -197,8 +205,51 @@ export default {
   },
   methods: {
     ...mapActions({
-      getProductsFromCartServer: 'cart/getProductsFromCartServer'
+      getProductsFromCartServer: "cart/getProductsFromCartServer",
+      getProductsFromServer: "list_products/getProductsFromServer",
     }),
+    ...mapMutations({
+      setItemFilter: "list_products/setItemFilter",
+      setItemSort: "list_products/setItemSort",
+      setIsDesc: "list_products/setIsDesc",
+      setSearch: "list_products/setSearch",
+    }),
+    sortFiler() {
+      this.sheet = !this.sheet;
+      switch (this.sort) {
+        case "Giá tăng dần":
+          this.setItemSort("price");
+          this.setIsDesc("false");
+          break;
+        case "Giá giảm dần":
+          this.setItemSort("price");
+          this.setIsDesc("true");
+          break;
+        case "Tên sản phẩm":
+          this.setItemSort("name");
+          this.setIsDesc("false");
+          break;
+        default:
+          break;
+      }
+      // switch (this.filter) {
+      //   case "Tất cả":
+      //     this.setItemFilter("");
+      //     break;
+      //   case "Sinh nhật":
+      //     this.setItemFilter("/trait/birthday");
+      //     break;
+      //   case "Gia đình":
+      //     this.setItemFilter("/trait/family");
+      //     break;
+      //   case "Lưu niệm":
+      //     this.setItemFilter("/trait/memory");
+      //     break;
+      //   default:
+      //     break;
+      // }
+      this.getProductsFromServer();
+    },
   },
 };
 </script>
