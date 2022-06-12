@@ -4,7 +4,7 @@
       <v-tab
         v-for="category in categories"
         :key="category.id"
-        :to="`/${category.link}?trait=${category.title}`"
+        @click="redirectPage(category)"
         class="text-body-1 font-weight-medium"
       >
         {{ category.title }}
@@ -25,11 +25,27 @@ export default {
         {
           categoryId: 1,
           title: 'Gia đình',
-          link: 'trang-chu/danh-muc-san-pham',
+
+          trait: '?trait=Gia đình',
         },
-        { categoryId: 2, title: 'Bạn bè' },
-        { categoryId: 3, title: 'Lưu niệm' },
-        { categoryId: 4, title: 'Tình yêu' },
+        {
+          categoryId: 2,
+          title: 'Bạn bè',
+
+          trait: '?trait=Bạn bè',
+        },
+        {
+          categoryId: 3,
+          title: 'Lưu niệm',
+
+          trait: '?trait=Lưu niệm',
+        },
+        {
+          categoryId: 4,
+          title: 'Tình yêu',
+
+          trait: '?trait=Tình yêu',
+        },
       ],
     };
   },
@@ -38,6 +54,16 @@ export default {
   // },
 
   methods: {
+    redirectPage(category) {
+      if (category.trait)
+        this.$router.push({
+          path: `/trang-chu/danh-muc-san-pham${category.trait}`,
+          replace: true,
+        });
+      else {
+        this.$router.push('/trang-chu');
+      }
+    },
     // async getCategories() {
     //   const response = await axios.get('http://localhost:5000/categories');
     //   console.log(response.data);
