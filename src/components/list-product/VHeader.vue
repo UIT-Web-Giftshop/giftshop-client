@@ -31,7 +31,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>JShopping Cart</v-list-item-title>
+          <v-list-item-title>Giỏ hàng</v-list-item-title>
         </v-list-item-content>
         <v-list-item-content>
           <v-btn
@@ -42,7 +42,7 @@
             dark
             @click="drawer = !drawer"
           >
-            Close
+            Đóng
           </v-btn>
         </v-list-item-content>
       </v-list-item>
@@ -67,7 +67,7 @@
           dark
           to="/trang-chu/danh-muc-mua-sam"
         >
-          Edit shopping bag
+          Thay đổi giỏ hàng
         </v-btn>
         <v-btn
           rounded
@@ -75,8 +75,9 @@
           style="text-transform: none; font-size: 15px"
           width="150px"
           dark
+          @click="$router.push(`/dat-hang`)"
         >
-          Check out
+          Đặt hàng
         </v-btn>
       </v-list>
     </v-navigation-drawer>
@@ -146,11 +147,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
-import VProductMiniCard from "./VProductMiniCard.vue";
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+import VProductMiniCard from './VProductMiniCard.vue';
 // import VProgress from './VProgress.vue';
 export default {
-  name: "VHeader",
+  name: 'VHeader',
   components: {
     VProductMiniCard,
     // VProgress
@@ -159,32 +160,32 @@ export default {
     this.getProductsFromCartServer();
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    console.log('"', urlParams.get("trait"), '"');
-    if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
-      this.setItemFilter(urlParams.get("trait"));
-      this.header = urlParams.get("trait");
+    console.log('"', urlParams.get('trait'), '"');
+    if (urlParams.get('trait') != null && urlParams.get('trait') !== '') {
+      this.setItemFilter(urlParams.get('trait'));
+      this.header = urlParams.get('trait');
     } else {
-      this.header = "Sản phẩm";
-      this.setItemFilter("");
+      this.header = 'Sản phẩm';
+      this.setItemFilter('');
     }
-    if (urlParams.get("search") != null && urlParams.get("search") !== "")
-      this.setSearch(urlParams.get("search"));
-    else this.setSearch("");
+    if (urlParams.get('search') != null && urlParams.get('search') !== '')
+      this.setSearch(urlParams.get('search'));
+    else this.setSearch('');
   },
   data() {
     return {
       sheet: false,
-      items_filter: ["Tất cả", "Sinh nhật", "Gia đình", "Lưu niệm"],
-      items_sort: ["Giá tăng dần", "Giá giảm dần", "Tên sản phẩm"],
+      items_filter: ['Tất cả', 'Sinh nhật', 'Gia đình', 'Lưu niệm'],
+      items_sort: ['Giá tăng dần', 'Giá giảm dần', 'Tên sản phẩm'],
       drawer: null,
       items_s: [
-        { title: "Home", icon: "mdi-view-dashboard" },
-        { title: "About", icon: "mdi-forum" },
+        { title: 'Home', icon: 'mdi-view-dashboard' },
+        { title: 'About', icon: 'mdi-forum' },
       ],
-      sort: "Giá giảm dần",
-      filter: "Tất cả",
-      header: "",
-      urlParams: "",
+      sort: 'Giá giảm dần',
+      filter: 'Tất cả',
+      header: '',
+      urlParams: '',
     };
   },
   watch: {
@@ -192,50 +193,50 @@ export default {
       console.log('xx', value);
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      if (urlParams.get("trait") != null && urlParams.get("trait") !== "") {
-        this.setItemFilter(urlParams.get("trait"));
-        this.header = urlParams.get("trait");
+      if (urlParams.get('trait') != null && urlParams.get('trait') !== '') {
+        this.setItemFilter(urlParams.get('trait'));
+        this.header = urlParams.get('trait');
       } else {
-        this.header = "Sản phẩm";
-        this.setItemFilter("");
+        this.header = 'Sản phẩm';
+        this.setItemFilter('');
       }
-      if (urlParams.get("search") != null && urlParams.get("search") !== "")
-        this.setSearch(urlParams.get("search"));
-      else this.setSearch("");
+      if (urlParams.get('search') != null && urlParams.get('search') !== '')
+        this.setSearch(urlParams.get('search'));
+      else this.setSearch('');
       this.getProductsFromServer();
     },
   },
   computed: {
     ...mapGetters({
-      getProductCart: "cart/getProductCart",
-      countProductCart: "cart/countProductCart",
+      getProductCart: 'cart/getProductCart',
+      countProductCart: 'cart/countProductCart',
     }),
   },
   methods: {
     ...mapActions({
-      getProductsFromCartServer: "cart/getProductsFromCartServer",
-      getProductsFromServer: "list_products/getProductsFromServer",
+      getProductsFromCartServer: 'cart/getProductsFromCartServer',
+      getProductsFromServer: 'list_products/getProductsFromServer',
     }),
     ...mapMutations({
-      setItemFilter: "list_products/setItemFilter",
-      setItemSort: "list_products/setItemSort",
-      setIsDesc: "list_products/setIsDesc",
-      setSearch: "list_products/setSearch",
+      setItemFilter: 'list_products/setItemFilter',
+      setItemSort: 'list_products/setItemSort',
+      setIsDesc: 'list_products/setIsDesc',
+      setSearch: 'list_products/setSearch',
     }),
     sortFiler() {
       this.sheet = !this.sheet;
       switch (this.sort) {
-        case "Giá tăng dần":
-          this.setItemSort("price");
-          this.setIsDesc("false");
+        case 'Giá tăng dần':
+          this.setItemSort('price');
+          this.setIsDesc('false');
           break;
-        case "Giá giảm dần":
-          this.setItemSort("price");
-          this.setIsDesc("true");
+        case 'Giá giảm dần':
+          this.setItemSort('price');
+          this.setIsDesc('true');
           break;
-        case "Tên sản phẩm":
-          this.setItemSort("name");
-          this.setIsDesc("false");
+        case 'Tên sản phẩm':
+          this.setItemSort('name');
+          this.setIsDesc('false');
           break;
         default:
           break;
@@ -263,7 +264,7 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
 </style>
 
 <style lang = "scss" scoped>

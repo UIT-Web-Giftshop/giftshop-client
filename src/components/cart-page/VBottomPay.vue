@@ -1,5 +1,8 @@
 <template>
-  <div style="padding-bottom: 200px" v-if="(countProductCart <= 0) ? false : true">
+  <div
+    style="padding-bottom: 200px"
+    v-if="countProductCart <= 0 ? false : true"
+  >
     <v-card
       elevation="10"
       loading
@@ -15,10 +18,10 @@
     >
       <v-list-item three-line>
         <v-list-item-content>
-          <div class="text-overline mb-4">Bill</div>
+          <div class="text-overline mb-4">Hoá đơn</div>
           <v-list-item-subtitle>
             <v-row>
-              <v-col> Subtotal </v-col>
+              <v-col> Tổng tiền </v-col>
               <v-col> {{ computeTotalBill }} </v-col>
             </v-row>
           </v-list-item-subtitle>
@@ -27,7 +30,7 @@
             style="margin-top: 20px"
           >
             <v-row>
-              <v-col> TOTAL </v-col>
+              <v-col> Thanh toán </v-col>
               <v-col> {{ computeTotalBill }} </v-col>
             </v-row>
           </v-list-item-title>
@@ -44,11 +47,12 @@
               style="text-transform: none"
               to="danh-muc-san-pham"
             >
-              Continue shopping
+              Tiếp tục mua sắm
             </v-btn>
           </v-col>
           <v-col>
             <v-btn
+              @click="$router.push(`/dat-hang`)"
               rounded
               color="teal_lighten_2"
               dark
@@ -56,7 +60,7 @@
               style="text-transform: none"
               width="100%"
             >
-              Checkout
+              Đặt hàng
             </v-btn>
           </v-col>
           <v-col v-if="notify"> </v-col>
@@ -67,8 +71,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import $notify from "../../plugins/notify";
+import { mapGetters, mapMutations } from 'vuex';
+import $notify from '../../plugins/notify';
 export default {
   computed: {
     notify: function () {
@@ -82,15 +86,15 @@ export default {
       return this.getResponse;
     },
     ...mapGetters({
-      computeTotalBill: "cart/computeTotalBill",
-      getResponse: "cart/getResponse",
-      getMessage: "cart/getMessage",
-      countProductCart: "cart/countProductCart"
+      computeTotalBill: 'cart/computeTotalBill',
+      getResponse: 'cart/getResponse',
+      getMessage: 'cart/getMessage',
+      countProductCart: 'cart/countProductCart',
     }),
   },
   methods: {
     ...mapMutations({
-      setResponse: "cart/setResponse",
+      setResponse: 'cart/setResponse',
     }),
   },
 };

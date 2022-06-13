@@ -9,11 +9,19 @@
           {{ product_info.name }}
         </div>
         <template>
-          <div style="display: flex; justify-content: space-between">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 4px;
+            "
+          >
             <v-list-item-subtitle>
               Giá: {{ toMoney(product_info.price, 1) }}</v-list-item-subtitle
             >
-            <v-list-item-subtitle> SL: {{ product_info.quantity }} </v-list-item-subtitle>
+            <v-list-item-subtitle>
+              SL: {{ product_info.quantity }}
+            </v-list-item-subtitle>
             <v-list-item-subtitle>
               Tổng: {{ toMoney(product_info.price, product_info.quantity) }}
             </v-list-item-subtitle>
@@ -22,9 +30,7 @@
       </v-list-item-content>
 
       <v-list-item-avatar tile size="32" color="grey">
-        <v-img
-          :src="product_info.imageUrl"
-        ></v-img>
+        <v-img :src="product_info.imageUrl"></v-img>
       </v-list-item-avatar>
     </v-list-item>
   </v-card>
@@ -34,7 +40,7 @@
 export default {
   name: 'VProductMiniCard',
   props: {
-    product_info: Object
+    product_info: Object,
   },
   methods: {
     toMoney(price, number) {

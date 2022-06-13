@@ -55,12 +55,12 @@ export default [
     component: () => import ('../views/TestView.vue')
   },
   {
-    path: '/ordered',
+    path: '/don-hang',
     name: 'Ordered',
     component: () => import ('../views/OrderedView.vue')
   },
   {
-    path: '/checkout',
+    path: '/dat-hang',
     name: 'Checkout',
     component: () => import ('../views/CheckoutView.vue')
   },
