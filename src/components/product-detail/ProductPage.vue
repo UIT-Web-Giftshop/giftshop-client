@@ -1,6 +1,6 @@
 <template>
   <v-layout v-if="product" column>
-    <v-layout row wrap ma-6>
+    <v-layout row wrap ma-12>
       <v-flex xs12 md5 class="pa-2">
         <v-layout column>
           <v-img height="350" max-width="450" :src="product.imageUrl"></v-img>
@@ -96,20 +96,20 @@
       </v-flex>
     </v-layout>
 
-    <v-layout v-if="product" row wrap ma-6 justify-space-between>
-      <v-flex xs12 md5>
+    <v-layout v-if="product" row wrap ma-6 ml-12 justify-space-between>
+      <v-flex xs12 md7>
         <v-layout column>
-          <div class="text-h4 font-weight-bold py-4">Description</div>
+          <div class="text-h4 font-weight-bold py-4">Mô tả sản phẩm</div>
           <div
-            class="text-h6 font-weight-bold"
+            class="text-h7"
             v-html="product.description"
           ></div>
         </v-layout>
       </v-flex>
 
-      <v-flex xs12 md5>
+      <v-flex xs12 md4>
         <v-layout column v-if="product.detail">
-          <div class="text-h4 font-weight-bold py-4">Details</div>
+          <div class="text-h4 font-weight-bold py-4">Thuộc tính</div>
           <div
             class="text-h6 font-weight-light py-1"
             v-for="(item, i) in createStructureForDetail(product.detail)"
