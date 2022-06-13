@@ -17,6 +17,8 @@ const mutations = {
   },
   [type.LOGOUT]: state => {
     state.isAuthendicated = false;
+    state.token = null;
+    state.profile = null
   },
   [type.REGISTER_SUCCESS]: state => {
     state.isAuthendicated = false;
