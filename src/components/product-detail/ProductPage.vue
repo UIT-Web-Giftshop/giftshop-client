@@ -1,6 +1,6 @@
 <template>
   <v-layout v-if="product" column>
-    <v-layout row wrap ma-6>
+    <v-layout row wrap ma-12>
       <v-flex xs12 md5 class="pa-2">
         <v-layout column>
           <v-img height="350" max-width="450" :src="product.imageUrl"></v-img>
@@ -83,9 +83,9 @@
                   ><v-icon left>{{
                     user
                       ? user.isFavorite
-                        ? "mdi-cards-heart"
-                        : "mdi-cards-heart-outline"
-                      : "mdi-cards-heart-outline"
+                        ? 'mdi-cards-heart'
+                        : 'mdi-cards-heart-outline'
+                      : 'mdi-cards-heart-outline'
                   }}</v-icon
                   >Yêu thích</v-btn
                 >
@@ -96,20 +96,20 @@
       </v-flex>
     </v-layout>
 
-    <v-layout v-if="product" row wrap ma-6 justify-space-between>
-      <v-flex xs12 md5>
+    <v-layout v-if="product" row wrap ma-6 ml-12 justify-space-between>
+      <v-flex xs12 md7>
         <v-layout column>
-          <div class="text-h4 font-weight-bold py-4">Description</div>
+          <div class="text-h4 font-weight-bold py-4">Mô tả sản phẩm</div>
           <div
-            class="text-h6 font-weight-bold"
+            class="text-h7"
             v-html="product.description"
           ></div>
         </v-layout>
       </v-flex>
 
-      <v-flex xs12 md5>
+      <v-flex xs12 md4>
         <v-layout column v-if="product.detail">
-          <div class="text-h4 font-weight-bold py-4">Details</div>
+          <div class="text-h4 font-weight-bold py-4">Thuộc tính</div>
           <div
             class="text-h6 font-weight-light py-1"
             v-for="(item, i) in createStructureForDetail(product.detail)"
@@ -161,17 +161,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 // const domain = 'https://16.163.241.13/api';
 //function
 const sliceFunction = function (data, numberOfWord) {
   if (!data) return data;
-  var arraySplited = data.split(" ");
+  var arraySplited = data.split(' ');
   var result;
   if (arraySplited.length > numberOfWord) {
     var arraySliced = arraySplited.slice(0, numberOfWord);
-    result = arraySliced.join(" ");
-    result += "...";
+    result = arraySliced.join(' ');
+    result += '...';
   } else {
     result = data;
   }
@@ -191,7 +191,7 @@ const createStructureForDetail = function (detail) {
   for (var key of objectKey) {
     detail[key] &&
       result.push({
-        keyName: uppercaseFirstLetter(key.split("_").join(" ")),
+        keyName: uppercaseFirstLetter(key.split('_').join(' ')),
         value: uppercaseFirstLetter(detail[key]),
       });
   }
@@ -202,7 +202,7 @@ const uppercaseFirstLetter = function (word) {
 };
 //
 export default {
-  name: "ProductPage",
+  name: 'ProductPage',
   components: {},
   data: () => ({
     carouselModel: 0,
@@ -210,49 +210,34 @@ export default {
     user: {},
     product: {},
     selected: 1,
-    // isDisabledBag: false,
-    // isDisabledFav: false,
+    isDisabledBag: false,
+    isDisabledFav: false,
   }),
   computed: {
     libRenderHTML: function (string) {
       var str = `<div><p>${string}</p></div>`;
-      console.log("render html - ", str);
+      console.log('render html - ', str);
       return str;
-    },
-    isDisabledBag: function () {
-      let stateProducts = this.getProductCart();
-      var isCollected = stateProducts.some(
-        (item) => item.sku === this.product.sku
-      );
-      return isCollected;
-    },
-
-    isDisabledFav: function () {
-      let stateProducts = this.getProductsWishlist();
-      var isCollected = stateProducts.some(
-        (item) => item.sku === this.product.sku
-      );
-      return isCollected;
     },
   },
   methods: {
     toMoney(price, number) {
-      return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
+      return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
       }).format(price * number);
     },
     renderDescription(text) {
       return `<span> ${text} </span>`;
     },
     ...mapActions({
-      getProductsFromCartServer: "cart/getProductsFromCartServer",
+      getProductsFromCartServer: 'cart/getProductsFromCartServer',
       getProductsFromWishlistFromServer:
-        "wishlist/getProductsFromWishlistFromServer",
+        'wishlist/getProductsFromWishlistFromServer',
     }),
     ...mapGetters({
-      getProductCart: "cart/getProductCart",
-      getProductsWishlist: "wishlist/getProductsWishlist",
+      getProductCart: 'cart/getProductCart',
+      getProductsWishlist: 'wishlist/getProductsWishlist',
     }),
     async addToCart() {
       const stateProducts = this.getProductCart();
@@ -261,23 +246,22 @@ export default {
       );
 
       if (!isCollected) {
-        const response = await this.$http.put("Carts/add", {
+        const response = await this.$http.put('Carts/add', {
           sku: this.product.sku,
           quantity: 1,
         });
 
         if (response.success === true) {
-          this.$notify.success("Thêm thành công");
-          this.getProductsFromCartServer();
+          this.$notify.success('Thêm thành công');
         } else {
           if (response.status === 401) {
-            this.$notify.warning("Bạn cần đăng nhập");
+            this.$notify.warning('Bạn cần đăng nhập');
           } else if (response.status === 400) {
-            this.$notify.warning("Đã hết hàng");
+            this.$notify.warning('Đã hết hàng');
           }
         }
       } else {
-        // this.isDisabledBag = true
+        this.isDisabledBag = true;
       }
     },
     async addWishList() {
@@ -285,11 +269,12 @@ export default {
         sku: this.product.sku,
       });
       if (result.success === true) {
-        this.$notify.success("Thêm thành công");
-        this.getProductsFromWishlistFromServer();
+        this.$notify.success('Thêm thành công');
+
+        this.isDisabledFav = true;
       } else {
         if (result.status === 401) {
-          this.$notify.warning("Bạn cần đăng nhập");
+          this.$notify.warning('Bạn cần đăng nhập');
         }
       }
     },
@@ -319,7 +304,6 @@ export default {
     };
     this.getProduct();
     this.getProductsFromWishlistFromServer();
-    this.getProductsFromCartServer();
   },
   props: {},
 };

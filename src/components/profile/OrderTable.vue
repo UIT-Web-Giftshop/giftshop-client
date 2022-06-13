@@ -24,6 +24,9 @@
       <template v-slot:item.totalPaid="{ item }">
         <span>{{ item.totalPaid.toLocaleString() }} đ</span>
       </template>
+      <template v-slot:item.createdAt="{ item }">
+        <span>{{ formatDate(item.createdAt) }} </span>
+      </template>
     </v-data-table>
     <OrderDetail
       v-if="isShow"
@@ -48,7 +51,7 @@ export default {
           align: 'start',
           value: 'id',
         },
-        { text: 'Ngày tạo đơn', value: 'checkoutAt' },
+        { text: 'Ngày tạo đơn', value: 'createdAt' },
         { text: 'Trạng thái', value: 'status' },
         { text: 'Thanh toán', value: 'totalPaid' },
       ],
@@ -100,6 +103,14 @@ export default {
       if (isCanceled) await this.getOrders();
 
       this.isShow = false;
+    },
+
+    formatDate(date) {
+      if (!date) return null;
+      date = date.slice(0, date.indexOf('T'));
+
+      const [year, month, day] = date.split('-');
+      return `${day}-${month}-${year}`;
     },
   },
 };

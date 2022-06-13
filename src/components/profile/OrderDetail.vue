@@ -13,7 +13,9 @@
       <div class="d-flex justify-space-between">
         <div class="px-4">
           <div><strong>Mã đơn hàng: </strong> {{ order.id }}</div>
-          <div><strong>Ngày tạo đơn: </strong> {{ order.createdAt }}</div>
+          <div>
+            <strong>Ngày tạo đơn: </strong> {{ formatDate(order.createdAt) }}
+          </div>
           <div><strong>Trạng thái: </strong> {{ order.status }}</div>
           <div>
             <strong>Tổng tiền: </strong>
@@ -73,7 +75,7 @@ export default {
           sortable: false,
           value: 'imageUrl',
         },
-        { text: 'Mã SKU', value: 'sku' },
+        { text: 'Mã SKU', value: 'productSku' },
         { text: 'Tên sản phẩm', value: 'name' },
         { text: 'Đơn giá', value: 'price' },
         { text: 'Số lượng', value: 'quantity' },
@@ -114,6 +116,13 @@ export default {
 
     close() {
       this.$emit('closeOrderDetail', this.isCanceled);
+    },
+    formatDate(date) {
+      if (!date) return null;
+      date = date.slice(0, date.indexOf('T'));
+
+      const [year, month, day] = date.split('-');
+      return `${day}-${month}-${year}`;
     },
   },
 };
