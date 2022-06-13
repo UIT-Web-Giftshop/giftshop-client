@@ -51,12 +51,14 @@ const cart = {
           product.quantity = state.products_cart[i].quantity + 1;
           state.products_cart.splice(i, 1, product);
           state.response = true;
+          state.message = "Cập nhật thành công";
           return;
         }
       }
       product.quantity = 1;
       state.products_cart.push(product);
       state.response = true;
+      state.message = "Cập nhật thành công";
     },
     async changeNumber(state, info) {
       for (let i = 0; i < state.products_cart.length; i++)
