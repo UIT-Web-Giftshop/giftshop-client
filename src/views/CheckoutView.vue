@@ -295,6 +295,7 @@ export default {
                 console.log(result);
                 if (result.status === 200) {
                   $notify.success('Đặt hàng thành công')
+                  this.$route.push('/');
                 } else {
                   $notify.warning('Lỗi')
                 }
