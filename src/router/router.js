@@ -19,7 +19,7 @@ export default [
   },
   {
     path: '/trang-chu/danh-muc-san-pham',
-    meta: { layout: "no-navigation", requireAuth: true},
+
     name: 'list-product',
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/ListProduct')
@@ -27,15 +27,22 @@ export default [
   {
     path: '/trang-chu/danh-muc-mua-sam',
     name: 'cart-page',
-    meta: { layout: "no-navigation", requireAuth: true},
+    meta: { requireAuth: true},
     component: () =>
         import ( /* webpackChunkName: "about" */ '../views/CartPage')
   },
   {
     path: '/trang-chu/danh-muc-yeu-thich',
     name: 'wishlist-page',
+    meta: { requireAuth: true},
     component: () =>
       import( /* webpackChunkName: "about" */ '../views/WishListPage')
+  },
+  {
+    path: '/trang-chu/tim-kiem',
+    name: 'search-page',
+    component: () =>
+      import( /* webpackChunkName: "about" */ '../views/SearchPage')
   },
   {
     path: '/products/sku/:sku',
@@ -48,12 +55,12 @@ export default [
     component: () => import ('../views/TestView.vue')
   },
   {
-    path: '/ordered',
+    path: '/don-hang',
     name: 'Ordered',
     component: () => import ('../views/OrderedView.vue')
   },
   {
-    path: '/checkout',
+    path: '/dat-hang',
     name: 'Checkout',
     component: () => import ('../views/CheckoutView.vue')
   },

@@ -6,25 +6,31 @@
           Just Arrived
         </div>
         <div class="title">
-          {{ product.title }}
+          {{ product_info.name }}
         </div>
         <template>
-          <div style="display: flex; justify-content: space-between">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 4px;
+            "
+          >
             <v-list-item-subtitle>
-              Giá: {{ toMoney(product.price, 1) }}</v-list-item-subtitle
+              Giá: {{ toMoney(product_info.price, 1) }}</v-list-item-subtitle
             >
-            <v-list-item-subtitle> SL: {{ number }} </v-list-item-subtitle>
             <v-list-item-subtitle>
-              Tổng: {{ toMoney(product.price, product.number) }}
+              SL: {{ product_info.quantity }}
+            </v-list-item-subtitle>
+            <v-list-item-subtitle>
+              Tổng: {{ toMoney(product_info.price, product_info.quantity) }}
             </v-list-item-subtitle>
           </div>
         </template>
       </v-list-item-content>
 
       <v-list-item-avatar tile size="32" color="grey">
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
-        ></v-img>
+        <v-img :src="product_info.imageUrl"></v-img>
       </v-list-item-avatar>
     </v-list-item>
   </v-card>
@@ -34,9 +40,7 @@
 export default {
   name: 'VProductMiniCard',
   props: {
-    typeProduct: String,
-    number: Number,
-    product: {},
+    product_info: Object,
   },
   methods: {
     toMoney(price, number) {

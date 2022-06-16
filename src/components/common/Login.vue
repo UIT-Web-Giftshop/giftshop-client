@@ -239,7 +239,7 @@ export default {
         if (response.success) {
           this.$notify.success('Đăng nhập thành công');
           this.close();
-        } else this.errorMessages = 'Email hoặc mật khẩu bạn nhập không đúng';
+        } else this.$notify.error('Email hoặc mật khẩu bạn nhập không đúng');
       }
       this.isLoading = false;
     },

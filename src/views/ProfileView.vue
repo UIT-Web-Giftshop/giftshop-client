@@ -443,10 +443,6 @@ export default {
   async created() {
     this.url = this.$route.params.url;
     this.user = { ...this.profile };
-    this.user.dateOfBirth = this.user.dateOfBirth.slice(
-      0,
-      this.user.dateOfBirth.indexOf('T')
-    );
     await this.getProfile();
     await this.getProvince();
     await this.parseAddress(this.user.address);

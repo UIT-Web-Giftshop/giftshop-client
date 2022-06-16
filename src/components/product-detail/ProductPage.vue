@@ -1,56 +1,9 @@
 <template>
   <v-layout v-if="product" column>
-    <v-layout row wrap ma-6>
+    <v-layout row wrap ma-12>
       <v-flex xs12 md5 class="pa-2">
         <v-layout column>
-          <v-carousel v-model="carouselModel">
-            <v-carousel-item
-              v-for="(src, i) in product.imageUrl"
-              :key="i"
-              :src="src"
-              reverse-transition="fade-transition"
-              transition="fade-transition"
-            ></v-carousel-item> </v-carousel
-          ><v-sheet class="mt-4" elevation="8" width="100%">
-            <v-slide-group
-              v-model="carouselModel"
-              class=""
-              mandatory
-              show-arrows
-            >
-              <v-slide-item
-                v-for="(src, i) in product.imageUrl"
-                :key="i"
-                v-slot="{ active, toggle }"
-              >
-                <v-card
-                  :color="active ? 'green' : 'grey lighten-1'"
-                  class="ma-4"
-                  height="100"
-                  width="100"
-                  @click="toggle"
-                >
-                  <v-row class="fill-height" align="center" justify="center">
-                    <v-scale-transition>
-                      <!-- <v-icon
-                                            v-if="active"
-                                            color="white"
-                                            size="48"
-                                            v-text="'mdi-close-circle-outline'"
-                                        ></v-icon> -->
-                      <v-img
-                        lazy-src="https://picsum.photos/id/11/10/6"
-                        class="ma-4"
-                        height="100"
-                        width="100"
-                        :src="src"
-                      ></v-img>
-                    </v-scale-transition>
-                  </v-row>
-                </v-card>
-              </v-slide-item>
-            </v-slide-group>
-          </v-sheet>
+          <v-img height="350" max-width="450" :src="product.imageUrl"></v-img>
         </v-layout>
       </v-flex>
 
@@ -60,79 +13,73 @@
             {{ product.name }}
           </div>
           <div class="text-h4 font-weight-bold py-4">
-            {{ product.price }} VNĐ
+            {{ toMoney(product.price, 1) }}
           </div>
           <div
             :class="[
               'text-h6',
               'font-weight-bold',
-              `${product.isActive ? 'green' : 'red'}--text`,
+              `${product.stock > 0 ? 'green' : 'red'}--text`,
             ]"
           >
-            {{ product.isActive ? 'In stock' : 'Out of stock' }}
+            {{
+              product.stock > 0
+                ? `Còn ${product.stock} sản phẩm`
+                : `Hết Sản phẩm`
+            }}
           </div>
-          <div
-            row
-            v-if="isReadMore"
-            @click="isReadMore = !isReadMore"
-            class="text-h6 font-weight-light"
-          >
-            {{ readMoreHandler(product.description, 20)
-            }}<a
-              v-if="
-                product.description != readMoreHandler(product.description, 20)
-              "
-              class="text-h6 green--text mx-2"
-              >Read more</a
-            >
-          </div>
-          <div
-            v-if="!isReadMore"
-            @click="isReadMore = !isReadMore"
-            class="text-h6 font-weight-light"
-          >
-            {{ product.description
-            }}<a class="text-h6 green--text mx-2">Close</a>
-          </div>
+          <!-- <div
+                        row
+                        v-if="isReadMore"
+                        @click="isReadMore = !isReadMore"
+                        class="text-h6 font-weight-light"
+                    >
+                        {{ readMoreHandler(product.description, 20)
+                        }}<a
+                            v-if="
+                                product.description !=
+                                readMoreHandler(product.description, 20)
+                            "
+                            class="text-h6 green--text mx-2"
+                            >Read more</a
+                        >
+                    </div> -->
+          <!-- <div
+                        v-if="!isReadMore"
+                        @click="isReadMore = !isReadMore"
+                        class="text-h6 font-weight-light"
+                        v-html="product.description"
+                    >
+                        <div v-html="product.description">abc</div>
+                        <a class="text-h6 green--text mx-2">Close</a>
+                    </div> -->
           <v-layout row wrap my-4>
-            <v-flex xs3 md2 align-self-center>
-              <v-col class="d-flex">
-                <v-select
-                  :items="createSelectArray(product.stock)"
-                  v-model="selected"
-                  label="Outlined style"
-                  outlined
-                  rounded
-                  solo
-                  :menu-props="{}"
-                  hide-details
-                  height="60"
-                ></v-select>
-              </v-col>
-            </v-flex>
             <v-flex xs4 md4 align-self-center>
               <v-col class="d-flex">
                 <v-btn
-                  class="white--text font-weight-bold text-uppercase green"
+                  @click="addToCart()"
+                  class="white--text font-weight-bold green"
                   width="100%"
                   depressed
                   large
                   rounded
                   height="60"
-                  >Add to bag</v-btn
+                  :disabled="isDisabledBag"
+                  >Thêm vào giỏ hàng</v-btn
                 >
               </v-col>
             </v-flex>
-            <v-flex xs7 md5 align-self-center>
+            <v-flex xs7 md4 align-self-center>
               <v-col class="d-flex">
                 <v-btn
-                  class="green--text font-weight-bold text-uppercase"
+                  class="white--text font-weight-bold green"
                   width="100%"
                   depressed
                   large
                   rounded
                   height="60"
                   @click="favoriteHandler"
+                  :disabled="isDisabledFav"
                   ><v-icon left>{{
                     user
                       ? user.isFavorite
@@ -140,7 +87,7 @@
                         : 'mdi-cards-heart-outline'
                       : 'mdi-cards-heart-outline'
                   }}</v-icon
-                  >Add to favorites</v-btn
+                  >Yêu thích</v-btn
                 >
               </v-col>
             </v-flex>
@@ -149,21 +96,22 @@
       </v-flex>
     </v-layout>
 
-    <v-layout v-if="product" row wrap ma-6 justify-space-between>
-      <v-flex xs12 md5>
+    <v-layout v-if="product" row wrap ma-6 ml-12 justify-space-between>
+      <v-flex xs12 md7>
         <v-layout column>
-          <div class="text-h4 font-weight-bold py-4">Description</div>
-          <div class="text-h6 font-weight-light">
-            {{ product.description }}
-          </div>
+          <div class="text-h4 font-weight-bold py-4">Mô tả sản phẩm</div>
+          <div
+            class="text-h7"
+            v-html="product.description"
+          ></div>
         </v-layout>
       </v-flex>
 
-      <v-flex xs12 md5>
+      <v-flex xs12 md4>
         <v-layout column v-if="product.detail">
-          <div class="text-h4 font-weight-bold py-4">Details</div>
+          <div class="text-h4 font-weight-bold py-4">Thuộc tính</div>
           <div
-            class="text-h6 font-weight-light py-2"
+            class="text-h6 font-weight-light py-1"
             v-for="(item, i) in createStructureForDetail(product.detail)"
             :key="i"
           >
@@ -213,6 +161,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 // const domain = 'https://16.163.241.13/api';
 //function
 const sliceFunction = function (data, numberOfWord) {
@@ -240,10 +189,11 @@ const createStructureForDetail = function (detail) {
   var objectKey = Object.keys(detail);
 
   for (var key of objectKey) {
-    result.push({
-      keyName: uppercaseFirstLetter(key.split('_').join(' ')),
-      value: uppercaseFirstLetter(detail[key]),
-    });
+    detail[key] &&
+      result.push({
+        keyName: uppercaseFirstLetter(key.split('_').join(' ')),
+        value: uppercaseFirstLetter(detail[key]),
+      });
   }
   return result;
 };
@@ -260,18 +210,81 @@ export default {
     user: {},
     product: {},
     selected: 1,
+    isDisabledBag: false,
+    isDisabledFav: false,
   }),
+  computed: {
+    libRenderHTML: function (string) {
+      var str = `<div><p>${string}</p></div>`;
+      console.log('render html - ', str);
+      return str;
+    },
+  },
   methods: {
+    toMoney(price, number) {
+      return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+      }).format(price * number);
+    },
+    renderDescription(text) {
+      return `<span> ${text} </span>`;
+    },
+    ...mapActions({
+      getProductsFromCartServer: 'cart/getProductsFromCartServer',
+      getProductsFromWishlistFromServer:
+        'wishlist/getProductsFromWishlistFromServer',
+    }),
+    ...mapGetters({
+      getProductCart: 'cart/getProductCart',
+      getProductsWishlist: 'wishlist/getProductsWishlist',
+    }),
+    async addToCart() {
+      const stateProducts = this.getProductCart();
+      var isCollected = stateProducts.some(
+        (item) => item.sku === this.product.sku
+      );
+
+      if (!isCollected) {
+        const response = await this.$http.put('Carts/add', {
+          sku: this.product.sku,
+          quantity: 1,
+        });
+
+        if (response.success === true) {
+          this.$notify.success('Thêm thành công');
+        } else {
+          if (response.status === 401) {
+            this.$notify.warning('Bạn cần đăng nhập');
+          } else if (response.status === 400) {
+            this.$notify.warning('Đã hết hàng');
+          }
+        }
+      } else {
+        this.isDisabledBag = true;
+      }
+    },
+    async addWishList() {
+      const result = await this.$http.post(`Wishlists`, {
+        sku: this.product.sku,
+      });
+      if (result.success === true) {
+        this.$notify.success('Thêm thành công');
+
+        this.isDisabledFav = true;
+      } else {
+        if (result.status === 401) {
+          this.$notify.warning('Bạn cần đăng nhập');
+        }
+      }
+    },
     readMoreHandler(data, numberOfWord) {
       return sliceFunction(data, numberOfWord);
     },
     favoriteHandler() {
-      if (this.user == null) {
-        console.log('user is null');
-      } else {
-        this.user.isFavorite = !this.user.isFavorite;
-      }
+      this.addWishList();
     },
+    addToCartClickHandler() {},
     createSelectArray,
     createStructureForDetail,
     async getProduct() {
@@ -280,13 +293,6 @@ export default {
           `/products/sku/${this.$route.params.sku}`
         );
         this.product = responseProduct.data;
-        this.product.imageUrl = [
-          'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        ];
       } catch (e) {
         console.log(e);
       }
@@ -297,6 +303,7 @@ export default {
       isFavorite: false,
     };
     this.getProduct();
+    this.getProductsFromWishlistFromServer();
   },
   props: {},
 };
