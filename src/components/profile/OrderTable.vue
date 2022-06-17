@@ -49,10 +49,10 @@ export default {
         {
           text: 'Mã đơn hàng',
           align: 'start',
-          value: 'id',
+          value: 'orderId',
         },
         { text: 'Ngày tạo đơn', value: 'createdAt' },
-        { text: 'Trạng thái', value: 'status' },
+        { text: 'Trạng thái', value: 'orderStatus' },
         { text: 'Thanh toán', value: 'totalPaid' },
       ],
 
@@ -68,10 +68,10 @@ export default {
   methods: {
     async getOrders() {
       try {
-        const response = await this.$http.get('orders');
-        if (response.success) {
-          const { data } = response;
-          this.orders = data.items;
+        const response = await this.$http.get('orders/user');
+        if (response.status === 200) {
+          const { content } = response;
+          this.orders = content;
         }
       } catch (error) {
         console.log(error);
@@ -80,13 +80,13 @@ export default {
 
     getColor(status) {
       switch (status) {
-        case 'Pending':
+        case 'PENDING':
           return 'teal';
-        case 'Success':
+        case 'SUCCESS':
           return 'green';
-        case 'Canceled':
+        case 'CANCELED':
           return 'red';
-        case 'Delivered':
+        case 'SHIPPING':
           return 'blue';
 
         default:
