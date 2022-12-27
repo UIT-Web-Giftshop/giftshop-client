@@ -1,19 +1,17 @@
+const path = require("path");
 
 module.exports = {
-  transpileDependencies: [
-    'vuetify'
-  ],
+  transpileDependencies: ["vuetify"],
 
   devServer: {
-    port: 5001,
+    port: 80,
     proxy: {
-      '^/api': {
-        target: 'http://localhost:5000',
+      "^/api": {
+        target: "http://localhost:5000",
         changeOrigin: true,
-        logLevel: 'debug',
-        pathRewrite: { '^/api': '/' },
-      },
-    },
-  },
-
-}
+        logLevel: "debug",
+        pathRewrite: { "^/api": "/" }
+      }
+    }
+  }
+};
