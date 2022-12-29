@@ -23,3 +23,5 @@ pnpm-debug.log*
 *.sw?
 yarn.lock
 yarn.lock
+
+**/env-config.js

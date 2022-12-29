@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REMOTE_BASE_URL } from "../../config";
+import { REMOTE_BASE_URL } from "../config";
 
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json"
